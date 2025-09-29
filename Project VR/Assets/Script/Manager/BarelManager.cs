@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Script.Enum;
 using UnityEngine;
 
@@ -11,21 +12,29 @@ namespace Script.Manager
             barel.Clear();
             const int numberOfHoles = 6;
 
-            for (int i = 0; i < numberOfHoles; i++)
+            do
             {
-                barel.Add((BarrelHoleState)Random.Range((int)BarrelHoleState.Empty,(int)BarrelHoleState.Full + 1));
+                barel.Clear();
+                for (int i = 0; i < numberOfHoles; i++)
+                {
+                    barel.Add((BarrelHoleState)Random.Range((int)BarrelHoleState.Empty, (int)BarrelHoleState.Full + 1));
+                }
             }
-            
-            //TODO dont forget to check if all full or all empty
-            
-            //Done Setup
+            while (!HasBothStates(barel));
+        }
+
+        private bool HasBothStates(List<BarrelHoleState> barel)
+        {
+            bool hasEmpty = barel.Contains(BarrelHoleState.Empty);
+            bool hasFull = barel.Contains(BarrelHoleState.Full);
+            return hasEmpty && hasFull;
         }
         
         public int IncrementBarrelByTick(List<BarrelHoleState> barel, int actualIndex)
         {
             int newIndex = actualIndex + 1;
             
-            if (newIndex > barel.Count - 1) // then should iterate
+            if (newIndex > barel.Count - 1) 
             {
                 return 0;
             }
@@ -33,6 +42,11 @@ namespace Script.Manager
             {
                 return newIndex;
             }
+        }
+
+        public bool IsBarelDone(List<BarrelHoleState> barel)
+        {
+            return !barel.Contains(BarrelHoleState.Empty);
         }
     }
 }
