@@ -35,6 +35,8 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
+            if (!GameManageur.Instance.IsGameRunning()) return;
+            
             if (timer < timeBetweenTick)
             {
                 timer += Time.fixedDeltaTime;

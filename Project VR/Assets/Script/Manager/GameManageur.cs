@@ -2,22 +2,16 @@ using System;
 using System.Collections;
 using Script.Enum;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Script.Manager
 {
     public class GameManageur : MonoBehaviour
     {
+        #region Singleton
+
         private static GameManageur _instance;
-        
-        [Header("Game State")]
-        [SerializeField] private GameState currentState = GameState.Menu;
-        
-        [Header("Scene Names")]
-        [SerializeField] private string menuSceneName = "Menu";
-        [SerializeField] private string gameSceneName = "Game";
-        
-        public static event Action<GameState> OnGameStateChanged;
         
         public static GameManageur Instance
         {
@@ -36,8 +30,29 @@ namespace Script.Manager
                 return _instance;
             }
         }
+
+        #endregion
+
+        #region Fields
+        [Header("Game State")]
+        [SerializeField] private GameState currentState = GameState.Menu;
+        
+        [Header("Scene Names")]
+        [SerializeField] private string menuSceneName = "Menu";
+        [SerializeField] private string gameSceneName = "Game";
+        
+        public static event Action<GameState> OnGameStateChanged;
+        
+        public static Action OnGameStart;
+        public static Action OnGameEnd;
+
+        private bool isGameRunning = false;
         
         public GameState CurrentState => currentState;
+
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -59,11 +74,12 @@ namespace Script.Manager
 
         private void Update()
         {
-            if (currentState == GameState.Menu && Input.anyKeyDown)
-            {
-                StartGame();
-            }
+            StartInGame();
         }
+
+        #endregion
+
+        #region Initialize
 
         private void InitializeGameState()
         {
@@ -74,6 +90,8 @@ namespace Script.Manager
             else if (currentSceneName == gameSceneName)
                 ChangeGameState(GameState.InGame);
         }
+
+        #endregion
 
         public void ChangeGameState(GameState newState)
         {
@@ -108,6 +126,15 @@ namespace Script.Manager
             LoadMenuScene();
         }
 
+        private void StartInGame()
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame && !isGameRunning && currentState == GameState.InGame)
+            {
+                isGameRunning = true;
+                OnGameStart.Invoke();
+            }
+        }
+        
         #endregion
 
         #region Loading Scène
@@ -133,6 +160,16 @@ namespace Script.Manager
             }
             
             ChangeGameState(newState);
+        }
+
+        #endregion
+
+        #region Get Setter
+
+
+        public bool IsGameRunning()
+        {
+            return isGameRunning;
         }
 
         #endregion
