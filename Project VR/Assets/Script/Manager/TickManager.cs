@@ -1,16 +1,51 @@
+using System;
 using UnityEngine;
 
-public class TickManager : MonoBehaviour
+namespace Script.Manager
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class TickManager : MonoBehaviour
     {
-        
-    }
+        #region Fields
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [Header("Action")] 
+        public static Action OnTick;
+
+        [SerializeField] private float timeBetweenTick;
+
+        private float timer;
+
+        #endregion
+
+        #region Unity Methods
+
+        private void FixedUpdate()
+        {
+            UpdateTickByTime();
+        }
+
+        #endregion
+
+        #region Initialise
+
+        //tempo
+
+        #endregion
+
+        #region TickManager
+
+        private void UpdateTickByTime()
+        {
+            if (timer < timeBetweenTick)
+            {
+                timer += Time.fixedDeltaTime;
+            }
+            else
+            {
+                timer = 0;
+                OnTick.Invoke();
+            }
+        }
+
+        #endregion
     }
 }
