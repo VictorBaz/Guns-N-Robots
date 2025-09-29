@@ -15,7 +15,7 @@ namespace Script.Controller
 
         private BarrelHoleState currentBarrelHole;
 
-        private int indexInBarel = 0;
+        private int indexInBarel = -1;
 
         private BarelManager barelManager = new BarelManager();
 
