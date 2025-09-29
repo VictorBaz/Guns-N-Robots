@@ -24,10 +24,41 @@ namespace Script.Controller
 
         #endregion
 
+        #region Unity Methods
 
         private void Start()
         {
             barelManager.SetupBarrel(barel);
+        }
+
+        private void Update()
+        {
+            //CLICK
+        }
+
+        #endregion
+        // NEED TO SET CONDITION EXMP VICTORY LOOSE CONTINUE
+        //for me 3 possibilites : 
+        // Full you die
+        // Empty => you make it complete
+        //Already complete dont know yet ;(
+        private void PlayerFire() 
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                switch (currentBarrelHole)
+                {
+                    case BarrelHoleState.Empty :
+                        currentBarrelHole = BarrelHoleState.Complete; 
+                        break;
+                    case BarrelHoleState.Full :
+                        Debug.Log("YOU DIE SADDLY");
+                        break;
+                    case BarrelHoleState.Complete : 
+                        Debug.Log("Already Complete");
+                        break;
+                }
+            }
         }
 
         #region Observer
