@@ -54,7 +54,7 @@ namespace Script.Debug_Game
                 new Vector3(barelImage.transform.localEulerAngles.x
                     ,barelImage.transform.localEulerAngles.y,
                     wishedRotation),
-                TickManager.TimeBetweenTick).SetEase(Ease.Linear);
+                TickManager.TimeBetweenTick/10f).SetEase(Ease.Linear);
             InitBarrelVisuals();
         }
 

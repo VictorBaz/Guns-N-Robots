@@ -73,7 +73,6 @@ namespace Script.Controller
         {
             indexInBarel = barelManager.IncrementBarrelByTick(barel, indexInBarel);
             currentBarrelHole = barel[indexInBarel];
-            Debug.Log(indexInBarel);
         }
 
         public List<BarrelHoleState> GetBarrel()
