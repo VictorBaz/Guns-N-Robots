@@ -131,7 +131,7 @@ namespace Script.Manager
             if (Keyboard.current.spaceKey.wasPressedThisFrame && !isGameRunning && currentState == GameState.InGame)
             {
                 isGameRunning = true;
-                OnGameStart.Invoke();
+                OnGameStart?.Invoke();
             }
         }
         

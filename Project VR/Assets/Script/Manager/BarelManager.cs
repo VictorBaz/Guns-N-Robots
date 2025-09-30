@@ -44,9 +44,6 @@ namespace Script.Manager
             }
         }
 
-        public bool IsBarelDone(List<BarrelHoleState> barel)
-        {
-            return !barel.Contains(BarrelHoleState.Empty);
-        }
+        
     }
 }

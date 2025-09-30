@@ -33,29 +33,23 @@ namespace Script.Controller
 
         private void Update()
         {
-            //CLICK
+            PlayerFire();
         }
 
         #endregion
-        // NEED TO SET CONDITION EXMP VICTORY LOOSE CONTINUE
-        //for me 3 possibilites : 
-        // Full you die
-        // Empty => you make it complete
-        //Already complete dont know yet ;(
+        
         private void PlayerFire() 
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && GameManageur.Instance.IsGameRunning())
             {
+                Debug.Log("Fire");
                 switch (currentBarrelHole)
                 {
-                    case BarrelHoleState.Empty :
-                        currentBarrelHole = BarrelHoleState.Complete; 
+                    case BarrelHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
+                        Debug.Log("YOU DID WELL");
                         break;
                     case BarrelHoleState.Full :
-                        Debug.Log("YOU DIE SADDLY");
-                        break;
-                    case BarrelHoleState.Complete : 
-                        Debug.Log("Already Complete");
+                        Debug.Log("YOU DIE SADDLY"); // HANDLE DIE
                         break;
                 }
             }
@@ -80,6 +74,11 @@ namespace Script.Controller
             indexInBarel = barelManager.IncrementBarrelByTick(barel, indexInBarel);
             currentBarrelHole = barel[indexInBarel];
             Debug.Log(indexInBarel);
+        }
+
+        public List<BarrelHoleState> GetBarrel()
+        {
+            return barel;
         }
     }
 }

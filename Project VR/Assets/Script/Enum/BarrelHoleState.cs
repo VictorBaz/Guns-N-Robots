@@ -4,6 +4,5 @@ namespace Script.Enum
     {
         Empty,
         Full,
-        Complete
     }
 }
