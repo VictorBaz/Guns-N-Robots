@@ -11,6 +11,8 @@ namespace Script.Manager
         public static Action OnTick;
 
         [SerializeField] private float timeBetweenTick;
+        
+        public static float TimeBetweenTick;
 
         private float timer;
 
@@ -20,6 +22,7 @@ namespace Script.Manager
 
         private void FixedUpdate()
         {
+            TimeBetweenTick = timeBetweenTick; //ok tier selon Jacques dans le futur faire un singleton TODO
             UpdateTickByTime();
         }
 
@@ -49,5 +52,7 @@ namespace Script.Manager
         }
 
         #endregion
+
+        
     }
 }

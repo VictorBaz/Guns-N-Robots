@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Script.Controller;
 using Script.Enum;
 using Script.Manager;
@@ -46,10 +47,18 @@ namespace Script.Debug_Game
         
         private void IncrementBarrelRotation()
         {
+            wishedRotation += 60;
+            barelImage.transform.DOKill();
             
-            barelImage.transform.Rotate(0,0,60);
+            barelImage.transform.DOLocalRotate(
+                new Vector3(barelImage.transform.localEulerAngles.x
+                    ,barelImage.transform.localEulerAngles.y,
+                    wishedRotation),
+                TickManager.TimeBetweenTick).SetEase(Ease.Linear);
             InitBarrelVisuals();
         }
+
+        private float wishedRotation = 0;
 
         private void InitBarrelVisuals()
         {

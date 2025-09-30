@@ -14,7 +14,7 @@ namespace Script.Controller
 
         [field: SerializeField, ReadOnly] private List<BarrelHoleState> barel = new List<BarrelHoleState>();
 
-        private BarrelHoleState currentBarrelHole;
+        [SerializeField] private BarrelHoleState currentBarrelHole;
 
         private int indexInBarel = -1;
 
