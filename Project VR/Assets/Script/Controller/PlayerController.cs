@@ -16,7 +16,7 @@ namespace Script.Controller
 
         [SerializeField] private BarrelHoleState currentBarrelHole;
 
-        private int indexInBarel = -1;
+        private int indexInBarel = 0;
 
         private BarelManager barelManager = new BarelManager();
         
@@ -42,7 +42,6 @@ namespace Script.Controller
         {
             if (Input.GetMouseButtonDown(0) && GameManageur.Instance.IsGameRunning())
             {
-                Debug.Log("Fire");
                 switch (currentBarrelHole)
                 {
                     case BarrelHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
