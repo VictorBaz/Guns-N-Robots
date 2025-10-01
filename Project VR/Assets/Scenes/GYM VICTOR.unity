@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ee89826d2e5634ba0324ba0741af76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Manager.TickManager
-  timeBetweenTick: 2
+  timeBetweenTick: 1
 --- !u!4 &1837307145
 Transform:
   m_ObjectHideFlags: 0

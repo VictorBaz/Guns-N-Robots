@@ -50,6 +50,8 @@ namespace Script.Manager
         
         public GameState CurrentState => currentState;
 
+        
+
         #endregion
 
         #region Unity Methods

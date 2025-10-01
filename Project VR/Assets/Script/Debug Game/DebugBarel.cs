@@ -62,11 +62,11 @@ namespace Script.Debug_Game
 
         private void InitBarrelVisuals()
         {
-            List<BarrelHoleState> barel = player.GetBarrel();
+            List<CylinderHoleState> barel = player.GetBarrel();
 
             for (int i = 0; i < barel.Count; i++)
             {
-                allImages[i].color = barel[i] == BarrelHoleState.Empty ? Color.chartreuse : Color.darkRed;
+                allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.chartreuse : Color.darkRed;
             }
         }
     }

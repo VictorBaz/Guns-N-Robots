@@ -12,13 +12,13 @@ namespace Script.Controller
     {
         #region Fields
 
-        [field: SerializeField, ReadOnly] private List<BarrelHoleState> barel = new List<BarrelHoleState>();
+        [field: SerializeField, ReadOnly] private List<CylinderHoleState> barel = new List<CylinderHoleState>();
 
-        [SerializeField] private BarrelHoleState currentBarrelHole;
+        [SerializeField] private CylinderHoleState currentCylinderHole;
 
         private int indexInBarel = 0;
 
-        private BarelManager barelManager = new BarelManager();
+        private CylinderManager cylinderManager = new CylinderManager();
         
         
 
@@ -28,7 +28,7 @@ namespace Script.Controller
 
         private void Start()
         {
-            barelManager.SetupBarrel(barel);
+            cylinderManager.SetupBarrel(barel);
         }
 
         private void Update()
@@ -42,12 +42,12 @@ namespace Script.Controller
         {
             if (Input.GetMouseButtonDown(0) && GameManageur.Instance.IsGameRunning())
             {
-                switch (currentBarrelHole)
+                switch (currentCylinderHole)
                 {
-                    case BarrelHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
+                    case CylinderHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
                         Debug.Log("YOU DID WELL");
                         break;
-                    case BarrelHoleState.Full :
+                    case CylinderHoleState.Full :
                         Debug.Log("YOU DIE SADDLY"); // HANDLE DIE
                         break;
                 }
@@ -70,11 +70,11 @@ namespace Script.Controller
 
         private void GetCurrentBarrelHoleByTick()
         {
-            indexInBarel = barelManager.IncrementBarrelByTick(barel, indexInBarel);
-            currentBarrelHole = barel[indexInBarel];
+            indexInBarel = cylinderManager.IncrementBarrelByTick(barel, indexInBarel);
+            currentCylinderHole = barel[indexInBarel];
         }
 
-        public List<BarrelHoleState> GetBarrel()
+        public List<CylinderHoleState> GetBarrel()
         {
             return barel;
         }

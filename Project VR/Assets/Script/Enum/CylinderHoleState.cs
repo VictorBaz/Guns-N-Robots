@@ -1,6 +1,6 @@
 namespace Script.Enum
 {
-    public enum BarrelHoleState
+    public enum CylinderHoleState
     {
         Empty,
         Full,
