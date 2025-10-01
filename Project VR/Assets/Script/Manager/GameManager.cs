@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Script.Controller;
 using Script.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -45,7 +46,7 @@ namespace Script.Manager
         
         public GameState CurrentState => currentState;
 
-        
+        public PlayerController playerRef;
 
         #endregion
 

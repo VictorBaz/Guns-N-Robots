@@ -11,13 +11,15 @@ namespace Script.Debug_Game
 {
     public class DebugCylinder : MonoBehaviour
     {
-        #region MyRegion
+        #region Fields
 
         [SerializeField] private List<Image> allImages;
 
         [SerializeField] private PlayerController player;
 
         [SerializeField] private GameObject barelImage;
+
+        private CylinderManager cylinderManager = new CylinderManager();
 
         #endregion
         
@@ -75,6 +77,8 @@ namespace Script.Debug_Game
 
         private void ResetVisualsCylinderAfterRound()
         {
+            //NEED TO REFRESH For New pattern fucking need Barel for fuck sake
+            cylinderManager.SetupBarrel(GameManager.Instance.playerRef.GetBarrel());
             wishedRotation = 0;
             barelImage.transform.DOKill();
             barelImage.transform.DOLocalRotate(

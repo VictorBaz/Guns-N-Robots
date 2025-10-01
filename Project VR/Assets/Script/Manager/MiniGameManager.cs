@@ -44,6 +44,8 @@ namespace Script.Manager
         
         private bool isGameRunning = false;
 
+        
+
         #endregion
 
         #region Unity Methods
@@ -86,6 +88,8 @@ namespace Script.Manager
 
         #region MiniGame
 
+        
+        
         private void StartInGame()
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame && 

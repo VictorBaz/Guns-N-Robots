@@ -12,7 +12,7 @@ namespace Script.Controller
     {
         #region Fields
 
-        [field: SerializeField, ReadOnly] private List<CylinderHoleState> barel = new List<CylinderHoleState>();
+        [field: SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
 
         [SerializeField] private CylinderHoleState currentCylinderHole;
 
@@ -29,7 +29,12 @@ namespace Script.Controller
 
         private void Awake()
         {
-            cylinderManager.SetupBarrel(barel);
+            cylinderManager.SetupBarrel(cylinder);
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.playerRef = this;
         }
 
         private void Update()
@@ -46,11 +51,13 @@ namespace Script.Controller
         private void OnEnable()
         {
             TickManager.OnTick += GetCurrentBarrelHoleByTick;
+            MiniGameManager.OnRoundEnd += ResetPlayerAfterRound;
         }
 
         private void OnDisable()
         {
             TickManager.OnTick -= GetCurrentBarrelHoleByTick;
+            MiniGameManager.OnRoundEnd -= ResetPlayerAfterRound;
         }
 
         #endregion
@@ -75,8 +82,8 @@ namespace Script.Controller
         
         private void GetCurrentBarrelHoleByTick()
         {
-            indexInBarel = cylinderManager.IncrementBarrelByTick(barel, indexInBarel);
-            currentCylinderHole = barel[indexInBarel];
+            indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
+            currentCylinderHole = cylinder[indexInBarel];
         }
 
         #endregion
@@ -85,9 +92,14 @@ namespace Script.Controller
 
         public List<CylinderHoleState> GetBarrel()
         {
-            return barel;
+            return cylinder;
         }
 
+        private void ResetPlayerAfterRound()
+        {
+            indexInBarel = 0;
+        }
+        
         #endregion
         
         

@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa0f29f9f0145908e60626fe6598739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Controller.PlayerController
-  barel: 
+  cylinder: 
   currentCylinderHole: 0
 --- !u!4 &1155133052
 Transform:
@@ -872,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147fd143128d4e29adc4a06fe8ef0d15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Manager.MiniGameManager
+  valueGoodShotLeft: 5
 --- !u!4 &1267431495
 Transform:
   m_ObjectHideFlags: 0
@@ -1084,6 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Manager.TickManager
   timeBetweenTick: 1
+  defaultValueTimer: 1
 --- !u!4 &1837307145
 Transform:
   m_ObjectHideFlags: 0
