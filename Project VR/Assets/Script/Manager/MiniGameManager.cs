@@ -123,6 +123,7 @@ namespace Script.Manager
             else //won the round then
             {
                 valueGoodShotLeft = 5; //Reset value Do not forget
+                isGameRunning = false;
                 OnRoundEnd.Invoke();
             }
         }
