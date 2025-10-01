@@ -40,7 +40,7 @@ namespace Script.Controller
         
         private void PlayerFire() 
         {
-            if (Input.GetMouseButtonDown(0) && GameManageur.Instance.IsGameRunning())
+            if (Input.GetMouseButtonDown(0) && MiniGameManager.Instance.IsGameRunning())
             {
                 switch (currentCylinderHole)
                 {

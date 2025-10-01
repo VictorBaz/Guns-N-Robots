@@ -7,24 +7,24 @@ using UnityEngine.SceneManagement;
 
 namespace Script.Manager
 {
-    public class GameManageur : MonoBehaviour
+    public class GameManager : MonoBehaviour
     {
         #region Singleton
 
-        private static GameManageur _instance;
+        private static GameManager _instance;
         
-        public static GameManageur Instance
+        public static GameManager Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    _instance = FindFirstObjectByType<GameManageur>();
+                    _instance = FindFirstObjectByType<GameManager>();
                     
                     if (_instance == null)
                     {
                         GameObject gameManagerGO = new GameObject("GameManager");
-                        _instance = gameManagerGO.AddComponent<GameManageur>();
+                        _instance = gameManagerGO.AddComponent<GameManager>();
                     }
                 }
                 return _instance;
@@ -42,11 +42,6 @@ namespace Script.Manager
         [SerializeField] private string gameSceneName = "Game";
         
         public static event Action<GameState> OnGameStateChanged;
-        
-        public static Action OnGameStart;
-        public static Action OnGameEnd;
-
-        private bool isGameRunning = false;
         
         public GameState CurrentState => currentState;
 
@@ -74,10 +69,7 @@ namespace Script.Manager
             InitializeGameState();
         }
 
-        private void Update()
-        {
-            StartInGame();
-        }
+        
 
         #endregion
 
@@ -128,14 +120,7 @@ namespace Script.Manager
             LoadMenuScene();
         }
 
-        private void StartInGame()
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame && !isGameRunning && currentState == GameState.InGame)
-            {
-                isGameRunning = true;
-                OnGameStart?.Invoke();
-            }
-        }
+        
         
         #endregion
 
@@ -165,15 +150,6 @@ namespace Script.Manager
         }
 
         #endregion
-
-        #region Get Setter
-
-
-        public bool IsGameRunning()
-        {
-            return isGameRunning;
-        }
-
-        #endregion
+        
     }
 }

@@ -5,6 +5,8 @@ namespace Script.Manager
 {
     public class TickManager : MonoBehaviour
     {
+        
+        
         #region Fields
 
         [Header("Action")] 
@@ -38,7 +40,7 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (!GameManageur.Instance.IsGameRunning()) return;
+            if (!MiniGameManager.Instance.IsGameRunning()) return;
             
             if (timer < timeBetweenTick)
             {
