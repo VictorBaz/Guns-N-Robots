@@ -1,7 +1,9 @@
 using System;
+using Script.Controller;
 using Script.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 namespace Script.Manager
 {
@@ -34,7 +36,7 @@ namespace Script.Manager
         #region Fields
         
         private int round;
-        private int valueGoodShotLeft;
+        [SerializeField] private int valueGoodShotLeft;
         
         public static Action OnRoundEnd;
         public static Action OnGameStart;
@@ -58,26 +60,69 @@ namespace Script.Manager
                 Destroy(gameObject);
             }
         }
-
-        #endregion
-        
-        private void StartInGame()
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame && !isGameRunning && GameManager.Instance.CurrentState == GameState.InGame)
-            {
-                isGameRunning = true;
-                OnGameStart?.Invoke();
-            }
-        }
         
         private void Update()
         {
             StartInGame();
         }
+
+        #endregion
+
+        #region Observer
+
+        private void OnEnable()
+        {
+            PlayerController.OnPlayerGoodShot += OnPlayerDoneShot;
+            PlayerController.OnPlayerBadShot += OnPlayerFailShot;
+        }
         
+        private void OnDisable()
+        {
+            PlayerController.OnPlayerGoodShot -= OnPlayerDoneShot;
+            PlayerController.OnPlayerBadShot -= OnPlayerFailShot;
+        }
+
+        #endregion
+
+        #region MiniGame
+
+        private void StartInGame()
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame && 
+                !isGameRunning && GameManager.Instance.CurrentState == GameState.InGame) // in VR this will be the barill animation
+            {
+                isGameRunning = true;
+                valueGoodShotLeft = 5; // TODO fix magic number depends of future
+                OnGameStart?.Invoke();
+            }
+        }
         public bool IsGameRunning()
         {
             return isGameRunning;
         }
+
+        #endregion
+
+        #region Deal With Player Shot
+
+        private void OnPlayerFailShot()
+        {
+            
+        }
+
+        private void OnPlayerDoneShot()
+        {
+            if (valueGoodShotLeft > 0) //so still need to play 
+            {
+                valueGoodShotLeft--;
+            }
+            else //won the round then
+            {
+                valueGoodShotLeft = 5; //Reset value Do not forget
+                OnRoundEnd.Invoke();
+            }
+        }
+
+        #endregion
     }
 }

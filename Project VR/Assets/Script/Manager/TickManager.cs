@@ -5,8 +5,6 @@ namespace Script.Manager
 {
     public class TickManager : MonoBehaviour
     {
-        
-        
         #region Fields
 
         [Header("Action")] 
@@ -17,6 +15,7 @@ namespace Script.Manager
         public static float TimeBetweenTick;
 
         private float timer;
+        [SerializeField] private float defaultValueTimer = 1f; 
 
         #endregion
 
@@ -53,8 +52,27 @@ namespace Script.Manager
             }
         }
 
+        private void TickBehaviorAfterRoundEnd()
+        {
+            timer = 0;
+            timeBetweenTick = defaultValueTimer;
+        }
+
         #endregion
 
+        #region Observer
+
+        private void OnEnable()
+        {
+            MiniGameManager.OnRoundEnd += TickBehaviorAfterRoundEnd;
+        }
+
+        private void OnDisable()
+        {
+            MiniGameManager.OnRoundEnd -= TickBehaviorAfterRoundEnd;
+        }
+
+        #endregion
         
     }
 }

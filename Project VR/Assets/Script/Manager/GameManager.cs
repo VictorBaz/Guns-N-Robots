@@ -86,6 +86,8 @@ namespace Script.Manager
         }
 
         #endregion
+        
+        #region Principal Méthodes
 
         public void ChangeGameState(GameState newState)
         {
@@ -97,9 +99,7 @@ namespace Script.Manager
             
             OnGameStateChanged?.Invoke(newState);
         }
-
-        #region Principal Méthodes
-
+        
         public void StartGame()
         {
             LoadGameScene();

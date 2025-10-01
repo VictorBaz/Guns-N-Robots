@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Script.Debug_Game
 {
-    public class DebugBarel : MonoBehaviour
+    public class DebugCylinder : MonoBehaviour
     {
         #region MyRegion
 
@@ -26,16 +26,17 @@ namespace Script.Debug_Game
         private void OnEnable()
         {
             TickManager.OnTick += IncrementBarrelRotation;
+            MiniGameManager.OnRoundEnd += ResetVisualsCylinderAfterRound;
         }
         
         private void OnDisable()
         {
             TickManager.OnTick -= IncrementBarrelRotation;
+            MiniGameManager.OnRoundEnd -= ResetVisualsCylinderAfterRound;
         }
 
         #endregion
-
-
+        
         #region Unity Methods
 
         private void Start()
@@ -44,7 +45,9 @@ namespace Script.Debug_Game
         }
 
         #endregion
-        
+
+        #region Debug Cylinder
+
         private void IncrementBarrelRotation()
         {
             wishedRotation += 60;
@@ -69,5 +72,20 @@ namespace Script.Debug_Game
                 allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.chartreuse : Color.darkRed;
             }
         }
+
+        private void ResetVisualsCylinderAfterRound()
+        {
+            wishedRotation = 0;
+            barelImage.transform.DOKill();
+            barelImage.transform.DOLocalRotate(
+                new Vector3(barelImage.transform.localEulerAngles.x
+                    ,barelImage.transform.localEulerAngles.y,
+                    wishedRotation),
+                TickManager.TimeBetweenTick).SetEase(Ease.Linear);
+            InitBarrelVisuals();
+        }
+
+        #endregion
+        
     }
 }

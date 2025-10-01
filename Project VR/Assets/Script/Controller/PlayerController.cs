@@ -19,14 +19,15 @@ namespace Script.Controller
         private int indexInBarel = 0;
 
         private CylinderManager cylinderManager = new CylinderManager();
-        
-        
+
+        public static Action OnPlayerGoodShot;
+        public static Action OnPlayerBadShot;
 
         #endregion
 
         #region Unity Methods
 
-        private void Start()
+        private void Awake()
         {
             cylinderManager.SetupBarrel(barel);
         }
@@ -38,21 +39,7 @@ namespace Script.Controller
 
         #endregion
         
-        private void PlayerFire() 
-        {
-            if (Input.GetMouseButtonDown(0) && MiniGameManager.Instance.IsGameRunning())
-            {
-                switch (currentCylinderHole)
-                {
-                    case CylinderHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
-                        Debug.Log("YOU DID WELL");
-                        break;
-                    case CylinderHoleState.Full :
-                        Debug.Log("YOU DIE SADDLY"); // HANDLE DIE
-                        break;
-                }
-            }
-        }
+        
 
         #region Observer
 
@@ -68,15 +55,41 @@ namespace Script.Controller
 
         #endregion
 
+        #region Player Methods
+
+        private void PlayerFire() 
+        {
+            if (Input.GetMouseButtonDown(0) && MiniGameManager.Instance.IsGameRunning())
+            {
+                switch (currentCylinderHole)
+                {
+                    case CylinderHoleState.Empty : 
+                        OnPlayerGoodShot?.Invoke();
+                        break;
+                    case CylinderHoleState.Full :
+                        OnPlayerBadShot?.Invoke();
+                        break;
+                }
+            }
+        }
+        
         private void GetCurrentBarrelHoleByTick()
         {
             indexInBarel = cylinderManager.IncrementBarrelByTick(barel, indexInBarel);
             currentCylinderHole = barel[indexInBarel];
         }
 
+        #endregion
+
+        #region Getter Setter
+
         public List<CylinderHoleState> GetBarrel()
         {
             return barel;
         }
+
+        #endregion
+        
+        
     }
 }

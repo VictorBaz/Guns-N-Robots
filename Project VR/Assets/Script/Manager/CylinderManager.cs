@@ -7,6 +7,9 @@ namespace Script.Manager
 {
     public class CylinderManager
     {
+
+        #region Setup
+
         public void SetupBarrel(List<CylinderHoleState> barel)
         {
             barel.Clear();
@@ -23,13 +26,21 @@ namespace Script.Manager
             while (!HasBothStates(barel));
         }
 
+        #endregion
+
+        #region Check
+
         private bool HasBothStates(List<CylinderHoleState> barel)
         {
             bool hasEmpty = barel.Contains(CylinderHoleState.Empty);
             bool hasFull = barel.Contains(CylinderHoleState.Full);
             return hasEmpty && hasFull;
         }
-        
+
+        #endregion
+
+        #region Cylinder Methods Linked to Tick
+
         public int IncrementBarrelByTick(List<CylinderHoleState> barel, int actualIndex)
         {
             int newIndex = actualIndex + 1;
@@ -44,6 +55,7 @@ namespace Script.Manager
             }
         }
 
+        #endregion
         
     }
 }

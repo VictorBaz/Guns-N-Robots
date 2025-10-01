@@ -4,12 +4,17 @@ namespace Script.Manager
 {
     public class SoundManager : MonoBehaviour
     {
-         private static SoundManager instance;
-        
+        #region Fields
+
         public AudioSource audioSource;
 
         [Range(0,1)] public float masterVolume = 1f;
 
+        #endregion
+
+        #region Singleton
+
+        private static SoundManager instance;
         
         public static SoundManager Instance
         {
@@ -27,8 +32,15 @@ namespace Script.Manager
                 }
                 return instance;
             }
-        }
+
         
+        
+        
+        }
+        #endregion
+
+        #region Unity Methods
+
         private void Awake()
         {
             if (instance == null)
@@ -45,9 +57,13 @@ namespace Script.Manager
         
         private void Start()
         {
-            audioSource.volume = 1f; }
-        
-        
+            audioSource.volume = 1f; 
+        }
+
+        #endregion
+
+        #region Sound Methods
+
         public void PlayMusicOneShot(AudioClip _audioClip)
         {
             if (_audioClip == null)
@@ -85,5 +101,9 @@ namespace Script.Manager
             
             return emptyObject;
         }
+
+        #endregion
+        
+        
     }
 }
