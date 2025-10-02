@@ -13,24 +13,8 @@ namespace Script.Manager
         #region Singleton
 
         private static GameManager _instance;
-        
-        public static GameManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindFirstObjectByType<GameManager>();
-                    
-                    if (_instance == null)
-                    {
-                        GameObject gameManagerGO = new GameObject("GameManager");
-                        _instance = gameManagerGO.AddComponent<GameManager>();
-                    }
-                }
-                return _instance;
-            }
-        }
+
+        public static GameManager Instance => _instance;
 
         #endregion
 
@@ -54,15 +38,13 @@ namespace Script.Manager
 
         private void Awake()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else if (_instance != this)
+            if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()

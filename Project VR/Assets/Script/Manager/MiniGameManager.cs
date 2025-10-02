@@ -12,24 +12,8 @@ namespace Script.Manager
         #region Singleton
 
         private static MiniGameManager _instance;
-        
-        public static MiniGameManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindFirstObjectByType<MiniGameManager>();
-                    
-                    if (_instance == null)
-                    {
-                        GameObject miniGameManager = new GameObject("MiniGameManager");
-                        _instance = miniGameManager.AddComponent<MiniGameManager>();
-                    }
-                }
-                return _instance;
-            }
-        }
+
+        public static MiniGameManager Instance => _instance;
 
         #endregion
         
@@ -41,10 +25,6 @@ namespace Script.Manager
         public static Action OnRoundEnd;
         public static Action OnGameStart;
         public static Action OnGameEnd;
-        
-        private bool isGameRunning = false;
-
-        
 
         #endregion
 
@@ -52,15 +32,14 @@ namespace Script.Manager
 
         private void Awake()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else if (_instance != this)
+            if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
+    
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         
         private void Update()
@@ -93,16 +72,16 @@ namespace Script.Manager
         private void StartInGame()
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame && 
-                !isGameRunning && GameManager.Instance.CurrentState == GameState.InGame) // in VR this will be the barill animation
+                GameManager.Instance.CurrentState == GameState.InGame) 
             {
-                isGameRunning = true;
-                valueGoodShotLeft = 5; // TODO fix magic number depends of future
+                GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
+                valueGoodShotLeft = 5;
                 OnGameStart?.Invoke();
             }
         }
         public bool IsGameRunning()
         {
-            return isGameRunning;
+            return GameManager.Instance.CurrentState == GameState.MiniGameRunning;
         }
 
         #endregion
@@ -116,15 +95,13 @@ namespace Script.Manager
 
         private void OnPlayerDoneShot()
         {
-            if (valueGoodShotLeft > 0) //so still need to play 
+            valueGoodShotLeft--; 
+    
+            if (valueGoodShotLeft <= 0) 
             {
-                valueGoodShotLeft--;
-            }
-            else //won the round then
-            {
-                valueGoodShotLeft = 5; //Reset value Do not forget
-                isGameRunning = false;
-                OnRoundEnd.Invoke();
+                valueGoodShotLeft = 5;
+                GameManager.Instance.ChangeGameState(GameState.InGame);
+                OnRoundEnd?.Invoke();
             }
         }
 

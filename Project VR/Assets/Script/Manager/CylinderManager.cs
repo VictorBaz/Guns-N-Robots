@@ -43,16 +43,7 @@ namespace Script.Manager
 
         public int IncrementBarrelByTick(List<CylinderHoleState> barel, int actualIndex)
         {
-            int newIndex = actualIndex + 1;
-            
-            if (newIndex > barel.Count - 1) 
-            {
-                return 0;
-            }
-            else
-            {
-                return newIndex;
-            }
+            return (actualIndex + 1) % barel.Count;
         }
 
         #endregion

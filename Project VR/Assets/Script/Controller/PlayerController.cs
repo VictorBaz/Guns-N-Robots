@@ -22,7 +22,9 @@ namespace Script.Controller
 
         public static Action OnPlayerGoodShot;
         public static Action OnPlayerBadShot;
+        public static Action OnPlayerMissedShot;
 
+        private bool hasShot = false;
         #endregion
 
         #region Unity Methods
@@ -43,8 +45,6 @@ namespace Script.Controller
         }
 
         #endregion
-        
-        
 
         #region Observer
 
@@ -66,8 +66,11 @@ namespace Script.Controller
 
         private void PlayerFire() 
         {
-            if (Input.GetMouseButtonDown(0) && MiniGameManager.Instance.IsGameRunning())
+            if (Input.GetMouseButtonDown(0) && 
+                GameManager.Instance.CurrentState == GameState.MiniGameRunning &&
+                !hasShot)
             {
+                hasShot = true;
                 switch (currentCylinderHole)
                 {
                     case CylinderHoleState.Empty : 
@@ -82,8 +85,14 @@ namespace Script.Controller
         
         private void GetCurrentBarrelHoleByTick()
         {
+            if (!hasShot && currentCylinderHole == CylinderHoleState.Empty)
+            {
+                OnPlayerMissedShot?.Invoke(); 
+            }
+            
             indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
             currentCylinderHole = cylinder[indexInBarel];
+            hasShot = false;
         }
 
         #endregion
@@ -98,6 +107,7 @@ namespace Script.Controller
         private void ResetPlayerAfterRound()
         {
             indexInBarel = 0;
+            hasShot = false;
         }
         
         #endregion
