@@ -6,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 public class Grabing : MonoBehaviour
 {
     [SerializeField] private Transform objPosInHand;
+    [SerializeField] private LineRenderer lineRenderer;
     private bool canTakeGun = false;
     private bool canShoot = true;
     public bool isGunInHand = false;
@@ -13,10 +14,20 @@ public class Grabing : MonoBehaviour
     XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
     [SerializeField]
     XRInputValueReader<float> m_GripInput = new XRInputValueReader<float>("Grip");
+    private RaycastHit hit;
 
     private Collider currentGun;
+    LayerMask layerMask;
+    
+    void Awake()
+    {
+        layerMask = LayerMask.GetMask( "Head", "Wall");
+    }
+
     private void Update()
     {
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward)*50, Color.red);
+        
         if (m_TriggerInput != null)
         {
             var triggerVal = m_TriggerInput.ReadValue();
@@ -24,6 +35,7 @@ public class Grabing : MonoBehaviour
             if (triggerVal > 0 && canShoot && isGunInHand)
             {
                 canShoot = false;
+                Shoot();
                 Debug.Log("piou");
             }
             
@@ -47,6 +59,18 @@ public class Grabing : MonoBehaviour
                 canTakeGun = true;
                 ThrowGun(currentGun);
             }
+        }
+    }
+
+    private void Shoot()
+    {
+       
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        {
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, hit.point);
+            Debug.Log("hihi");
         }
     }
 
