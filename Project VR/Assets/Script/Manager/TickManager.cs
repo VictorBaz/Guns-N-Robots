@@ -1,12 +1,12 @@
 using System;
+using Script.Controller;
+using Script.Enum;
 using UnityEngine;
 
 namespace Script.Manager
 {
     public class TickManager : MonoBehaviour
     {
-        
-        
         #region Fields
 
         [Header("Action")] 
@@ -17,14 +17,18 @@ namespace Script.Manager
         public static float TimeBetweenTick;
 
         private float timer;
+        
+        [SerializeField] private float speedIncreaseAmount = 0.1f; 
+        [SerializeField] private float minTimeBetweenTick = 0.2f;
+        [SerializeField] private float defaultValueTimer = 1f; 
 
         #endregion
 
         #region Unity Methods
 
-        private void FixedUpdate()
+        private void Update()
         {
-            TimeBetweenTick = timeBetweenTick; //ok tier selon Jacques dans le futur faire un singleton TODO
+            TimeBetweenTick = timeBetweenTick; 
             UpdateTickByTime();
         }
 
@@ -40,21 +44,51 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (!MiniGameManager.Instance.IsGameRunning()) return;
-            
-            if (timer < timeBetweenTick)
+            if (GameManager.Instance.CurrentState != GameState.MiniGameRunning) return;
+    
+            timer += Time.deltaTime; 
+    
+            if (timer >= timeBetweenTick) 
             {
-                timer += Time.fixedDeltaTime;
+                timer -= timeBetweenTick; 
+                OnTick?.Invoke();
             }
-            else
+        }
+        
+        private void IncreaseSpeed()
+        {
+            timeBetweenTick -= speedIncreaseAmount;
+        
+            if (timeBetweenTick < minTimeBetweenTick)
             {
-                timer = 0;
-                OnTick.Invoke();
+                timeBetweenTick = minTimeBetweenTick;
             }
+        
+        }
+        
+        private void TickBehaviorAfterRoundEnd()
+        {
+            timer = 0;
+            timeBetweenTick = defaultValueTimer;
         }
 
         #endregion
 
+        #region Observer
+
+        private void OnEnable()
+        {
+            MiniGameManager.OnRoundEnd += TickBehaviorAfterRoundEnd;
+            PlayerController.OnPlayerMissedShot += IncreaseSpeed;
+        }
+
+        private void OnDisable()
+        {
+            MiniGameManager.OnRoundEnd -= TickBehaviorAfterRoundEnd;
+            PlayerController.OnPlayerMissedShot -= IncreaseSpeed;
+        }
+
+        #endregion
         
     }
 }

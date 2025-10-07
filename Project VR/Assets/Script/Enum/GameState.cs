@@ -3,7 +3,8 @@ namespace Script.Enum
     public enum GameState
     {
         Menu,
-        InGame,
+        InGame,          
+        MiniGameRunning, 
         GameFinished,
     }
 }

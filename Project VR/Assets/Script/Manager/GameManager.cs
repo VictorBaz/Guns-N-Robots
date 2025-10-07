@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Script.Controller;
 using Script.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,24 +13,8 @@ namespace Script.Manager
         #region Singleton
 
         private static GameManager _instance;
-        
-        public static GameManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = FindFirstObjectByType<GameManager>();
-                    
-                    if (_instance == null)
-                    {
-                        GameObject gameManagerGO = new GameObject("GameManager");
-                        _instance = gameManagerGO.AddComponent<GameManager>();
-                    }
-                }
-                return _instance;
-            }
-        }
+
+        public static GameManager Instance => _instance;
 
         #endregion
 
@@ -45,7 +30,7 @@ namespace Script.Manager
         
         public GameState CurrentState => currentState;
 
-        
+        public PlayerController playerRef;
 
         #endregion
 
@@ -53,15 +38,13 @@ namespace Script.Manager
 
         private void Awake()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else if (_instance != this)
+            if (_instance != null && _instance != this)
             {
                 Destroy(gameObject);
+                return;
             }
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
@@ -86,6 +69,8 @@ namespace Script.Manager
         }
 
         #endregion
+        
+        #region Principal Méthodes
 
         public void ChangeGameState(GameState newState)
         {
@@ -97,9 +82,7 @@ namespace Script.Manager
             
             OnGameStateChanged?.Invoke(newState);
         }
-
-        #region Principal Méthodes
-
+        
         public void StartGame()
         {
             LoadGameScene();

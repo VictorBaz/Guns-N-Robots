@@ -12,23 +12,31 @@ namespace Script.Controller
     {
         #region Fields
 
-        [field: SerializeField, ReadOnly] private List<CylinderHoleState> barel = new List<CylinderHoleState>();
+        [field: SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
 
         [SerializeField] private CylinderHoleState currentCylinderHole;
 
         private int indexInBarel = 0;
 
         private CylinderManager cylinderManager = new CylinderManager();
-        
-        
 
+        public static Action OnPlayerGoodShot;
+        public static Action OnPlayerBadShot;
+        public static Action OnPlayerMissedShot;
+
+        private bool hasShot = false;
         #endregion
 
         #region Unity Methods
 
+        private void Awake()
+        {
+            cylinderManager.SetupBarrel(cylinder);
+        }
+
         private void Start()
         {
-            cylinderManager.SetupBarrel(barel);
+            GameManager.Instance.playerRef = this;
         }
 
         private void Update()
@@ -37,46 +45,73 @@ namespace Script.Controller
         }
 
         #endregion
-        
-        private void PlayerFire() 
-        {
-            if (Input.GetMouseButtonDown(0) && MiniGameManager.Instance.IsGameRunning())
-            {
-                switch (currentCylinderHole)
-                {
-                    case CylinderHoleState.Empty : // DECREMENTATION FOR BALL TO SHOT
-                        Debug.Log("YOU DID WELL");
-                        break;
-                    case CylinderHoleState.Full :
-                        Debug.Log("YOU DIE SADDLY"); // HANDLE DIE
-                        break;
-                }
-            }
-        }
 
         #region Observer
 
         private void OnEnable()
         {
             TickManager.OnTick += GetCurrentBarrelHoleByTick;
+            MiniGameManager.OnRoundEnd += ResetPlayerAfterRound;
         }
 
         private void OnDisable()
         {
             TickManager.OnTick -= GetCurrentBarrelHoleByTick;
+            MiniGameManager.OnRoundEnd -= ResetPlayerAfterRound;
         }
 
         #endregion
 
+        #region Player Methods
+
+        private void PlayerFire() 
+        {
+            if (Input.GetMouseButtonDown(0) && 
+                GameManager.Instance.CurrentState == GameState.MiniGameRunning &&
+                !hasShot)
+            {
+                hasShot = true;
+                switch (currentCylinderHole)
+                {
+                    case CylinderHoleState.Empty : 
+                        OnPlayerGoodShot?.Invoke();
+                        break;
+                    case CylinderHoleState.Full :
+                        OnPlayerBadShot?.Invoke();
+                        break;
+                }
+            }
+        }
+        
         private void GetCurrentBarrelHoleByTick()
         {
-            indexInBarel = cylinderManager.IncrementBarrelByTick(barel, indexInBarel);
-            currentCylinderHole = barel[indexInBarel];
+            if (!hasShot && currentCylinderHole == CylinderHoleState.Empty)
+            {
+                OnPlayerMissedShot?.Invoke(); 
+            }
+            
+            indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
+            currentCylinderHole = cylinder[indexInBarel];
+            hasShot = false;
         }
+
+        #endregion
+
+        #region Getter Setter
 
         public List<CylinderHoleState> GetBarrel()
         {
-            return barel;
+            return cylinder;
         }
+
+        private void ResetPlayerAfterRound()
+        {
+            indexInBarel = 0;
+            hasShot = false;
+        }
+        
+        #endregion
+        
+        
     }
 }
