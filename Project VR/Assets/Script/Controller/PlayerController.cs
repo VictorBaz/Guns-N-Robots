@@ -93,6 +93,10 @@ namespace Script.Controller
             indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
             currentCylinderHole = cylinder[indexInBarel];
             hasShot = false;
+
+            SoundManager.Instance?.PlayMusicOneShot(currentCylinderHole == CylinderHoleState.Empty
+                ? SoundManager.Instance.emptyLoad
+                : SoundManager.Instance.fullLoad);
         }
 
         #endregion

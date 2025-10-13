@@ -1,3 +1,5 @@
+using System;
+using Script.Controller;
 using UnityEngine;
 
 namespace Script.Manager
@@ -9,6 +11,9 @@ namespace Script.Manager
         public AudioSource audioSource;
 
         [Range(0,1)] public float masterVolume = 1f;
+
+        public AudioClip emptyLoad;
+        public AudioClip fullLoad;
 
         #endregion
 
