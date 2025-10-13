@@ -10,7 +10,7 @@ namespace Script.Manager
 
         #region Setup
 
-        public void SetupBarrel(List<CylinderHoleState> barel)
+        public void SetupBarrelRandom(List<CylinderHoleState> barel)
         {
             barel.Clear();
             const int numberOfHoles = 6;
@@ -25,6 +25,15 @@ namespace Script.Manager
             }
             while (!HasBothStates(barel));
         }
+        
+        public void SetupBarrel(List<CylinderHoleState> barel)
+        {
+            barel.Clear();
+            const int numberOfHoles = 6;
+            for (int i = 0; i < numberOfHoles; i++) barel.Add(CylinderHoleState.Full);    
+        }
+
+        public void Reload(List<CylinderHoleState> barel) => SetupBarrel(barel);
 
         #endregion
 
@@ -36,7 +45,8 @@ namespace Script.Manager
             bool hasFull = barel.Contains(CylinderHoleState.Full);
             return hasEmpty && hasFull;
         }
-
+        
+        
         #endregion
 
         #region Cylinder Methods Linked to Tick

@@ -53,14 +53,12 @@ namespace Script.Manager
 
         private void OnEnable()
         {
-            PlayerController.OnPlayerGoodShot += OnPlayerDoneShot;
-            PlayerController.OnPlayerBadShot += OnPlayerFailShot;
+            
         }
         
         private void OnDisable()
         {
-            PlayerController.OnPlayerGoodShot -= OnPlayerDoneShot;
-            PlayerController.OnPlayerBadShot -= OnPlayerFailShot;
+          
         }
 
         #endregion
@@ -88,22 +86,7 @@ namespace Script.Manager
 
         #region Deal With Player Shot
 
-        private void OnPlayerFailShot()
-        {
-            
-        }
-
-        private void OnPlayerDoneShot()
-        {
-            valueGoodShotLeft--; 
     
-            if (valueGoodShotLeft <= 0) 
-            {
-                valueGoodShotLeft = 5;
-                GameManager.Instance.ChangeGameState(GameState.InGame);
-                OnRoundEnd?.Invoke();
-            }
-        }
 
         #endregion
     }

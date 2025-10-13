@@ -1,4 +1,6 @@
 using System;
+using Script.Controller;
+using Script.Enum;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
@@ -7,6 +9,7 @@ public class Grabing : MonoBehaviour
 {
     [SerializeField] private Transform objPosInHand;
     [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private PlayerController playerController;
     private bool canTakeGun = false;
     private bool canShoot = true;
     public bool isGunInHand = false;
@@ -28,7 +31,7 @@ public class Grabing : MonoBehaviour
     {
         //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward)*50, Color.red);
         
-        if (m_TriggerInput != null)
+        /*if (m_TriggerInput != null)
         {
             var triggerVal = m_TriggerInput.ReadValue();
 
@@ -43,7 +46,7 @@ public class Grabing : MonoBehaviour
             {
                 canShoot = true;
             }
-        }
+        }*/
         
         if (m_GripInput != null)
         {
@@ -64,13 +67,16 @@ public class Grabing : MonoBehaviour
 
     private void Shoot()
     {
-       
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+        Debug.Log(playerController.currentCylinderHole);
+        if (playerController?.currentCylinderHole == CylinderHoleState.Empty)
         {
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, hit.point);
-            Debug.Log("hihi");
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+            {
+                lineRenderer.enabled = true;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, hit.point);
+                Debug.Log("hihi");
+            }
         }
     }
 

@@ -29,12 +29,14 @@ namespace Script.Debug_Game
         {
             TickManager.OnTick += IncrementBarrelRotation;
             MiniGameManager.OnRoundEnd += ResetVisualsCylinderAfterRound;
+            PlayerController.OnplayerShoot += RefreshVisualsAfterShot;
         }
         
         private void OnDisable()
         {
             TickManager.OnTick -= IncrementBarrelRotation;
             MiniGameManager.OnRoundEnd -= ResetVisualsCylinderAfterRound;
+            PlayerController.OnplayerShoot -= RefreshVisualsAfterShot;
         }
 
         #endregion
@@ -71,9 +73,11 @@ namespace Script.Debug_Game
 
             for (int i = 0; i < barel.Count; i++)
             {
-                allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.chartreuse : Color.darkRed;
+                allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.darkRed : Color.chartreuse;
             }
         }
+
+        private void RefreshVisualsAfterShot() => InitBarrelVisuals();
 
         private void ResetVisualsCylinderAfterRound()
         {
