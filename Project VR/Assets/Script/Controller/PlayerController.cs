@@ -130,10 +130,10 @@ namespace Script.Controller
         
         private void GetCurrentBarrelHoleByTick()
         {
-            if (!hasShot && currentCylinderHole == CylinderHoleState.Full)
+            /*if (!hasShot && currentCylinderHole == CylinderHoleState.Full)
             {
                 OnPlayerMissedShot?.Invoke(); 
-            }
+            }*/
             
             indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
             currentCylinderHole = cylinder[indexInBarel];
