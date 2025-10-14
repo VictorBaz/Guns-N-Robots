@@ -30,6 +30,7 @@ namespace Script.Debug_Game
             TickManager.OnTick += IncrementBarrelRotation;
             MiniGameManager.OnRoundEnd += ResetVisualsCylinderAfterRound;
             PlayerController.OnplayerShoot += RefreshVisualsAfterShot;
+            PlayerController.OnPlayerReload += RefreshVisualsAfterShot;
         }
         
         private void OnDisable()
@@ -37,6 +38,7 @@ namespace Script.Debug_Game
             TickManager.OnTick -= IncrementBarrelRotation;
             MiniGameManager.OnRoundEnd -= ResetVisualsCylinderAfterRound;
             PlayerController.OnplayerShoot -= RefreshVisualsAfterShot;
+            PlayerController.OnPlayerReload -= RefreshVisualsAfterShot;
         }
 
         #endregion

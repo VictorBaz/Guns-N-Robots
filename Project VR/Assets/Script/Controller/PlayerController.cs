@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Script.Enum;
+using Script.Interface;
 using Script.Manager;
 using Unity.Collections;
 using Unity.VisualScripting;
@@ -24,6 +26,7 @@ namespace Script.Controller
 
         public static Action OnplayerShoot;
         public static Action OnPlayerMissedShot;
+        public static Action OnPlayerReload;
         
         [SerializeField]
         XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
@@ -119,7 +122,8 @@ namespace Script.Controller
                             lineRenderer.enabled = true;
                             lineRenderer.SetPosition(0, bulletOrigin.position);
                             lineRenderer.SetPosition(1, hit.point);
-                            Debug.Log("hihi");
+                            
+                            hit.transform.GetComponent<IDamagable>()?.TakeDamage();
                         }
                         cylinder[indexInBarel] = CylinderHoleState.Empty;
                         OnplayerShoot.Invoke();
@@ -163,9 +167,9 @@ namespace Script.Controller
 
         #region Reload Methods
 
-        private Transform startReloadPosition;
+        private Vector3 startReloadPosition;
         private float startTimeReload;
-        private Transform endReloadPosition;
+        private Vector3 endReloadPosition;
         private float endTimeReload;
 
         [SerializeField] private float minSpeedToReload;
@@ -174,21 +178,23 @@ namespace Script.Controller
         {
             if (ctx.started)
             {
-                startReloadPosition = bulletOrigin.transform;
+                startReloadPosition = bulletOrigin.transform.position;
                 startTimeReload = Time.time;
             }
             if (ctx.canceled)
             {
-                endReloadPosition = bulletOrigin.transform;
+                endReloadPosition = bulletOrigin.transform.position;
                 endTimeReload = Time.time;
-                float distance = Vector3.Distance(startReloadPosition.position, endReloadPosition.position);
+                float distance = Vector3.Distance(startReloadPosition, endReloadPosition);
                 float time = endTimeReload - startTimeReload;
 
                 float speedOfGun = distance / time; // V= D/T
+                Debug.Log($"speed of gun : {speedOfGun}, distance : {distance}, time : {time}");
 
                 if (speedOfGun > minSpeedToReload) //then reload
                 {
                     cylinderManager.Reload(cylinder);
+                    OnPlayerReload?.Invoke();
                 }
             }
             

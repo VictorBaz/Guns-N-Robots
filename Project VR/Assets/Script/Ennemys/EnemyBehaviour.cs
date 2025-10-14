@@ -1,9 +1,10 @@
+using Script.Interface;
 using Script.Manager;
 using UnityEngine;
 
 namespace Script.Ennemys
 {
-    public class EnnemyBehaviour : MonoBehaviour
+    public class EnnemyBehaviour : MonoBehaviour, IDamagable
     {
 
         #region Fields
@@ -89,7 +90,7 @@ namespace Script.Ennemys
             else if (ticksSinceSpawn == ticksBeforeAttack)
             {
                 Debug.Log("attention j'attaque");
-                //attack
+                
             }
             else
             {
@@ -111,6 +112,10 @@ namespace Script.Ennemys
             indexInEnnemyManager = index;
             playerPos = playerPosition;
         }
-    
+
+        public void TakeDamage()
+        {
+            isDead = true;
+        }
     }
 }
