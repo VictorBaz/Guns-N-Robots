@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Script.Ennemys
 {
-    public class EnnemyManager : MonoBehaviour
+    public class EnemyManager : MonoBehaviour
     {
         #region Fields
 
@@ -39,11 +39,12 @@ namespace Script.Ennemys
 
         private void Start()
         {
-            Debug.Log(DoorList.Length);
             for (int i = 0; i < DoorList.Length; i++)
             {
                 availableDoor.Add(i);
             }
+
+            playerTransform = GameManager.Instance.playerRef.transform;
         }
 
         public void ReleaseEnemyPlacement(int index)
@@ -66,14 +67,15 @@ namespace Script.Ennemys
     
         private void PickRandomDoor()
         {
+            if (availableDoor.Count == 0) return;
+            
             int index = Random.Range(0, availableDoor.Count);
         
             Door door = DoorList[availableDoor[index]];
-
-            availableDoor.RemoveAt(index);
-        
+            
             EnnemyBehaviour nmi = SpawnEnemy(door.doorReference.transform);
-            nmi.SetParametersOnSpawn(this, availableDoor[index]);
+            nmi.SetParametersOnSpawn(this, availableDoor[index],playerTransform);
+            availableDoor.RemoveAt(index);
         }
 
         private EnnemyBehaviour SpawnEnemy(Transform doorTransform)
