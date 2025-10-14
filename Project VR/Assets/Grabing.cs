@@ -7,6 +7,8 @@ using UnityEngine.XR.Interaction.Toolkit.Inputs.Readers;
 
 public class Grabing : MonoBehaviour
 {
+    #region Fields
+
     [SerializeField] private Transform objPosInHand;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private PlayerController playerController;
@@ -21,7 +23,11 @@ public class Grabing : MonoBehaviour
 
     private Collider currentGun;
     LayerMask layerMask;
-    
+
+    #endregion
+
+    #region Unity Methods
+
     void Awake()
     {
         layerMask = LayerMask.GetMask( "Head", "Wall");
@@ -29,24 +35,6 @@ public class Grabing : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward)*50, Color.red);
-        
-        /*if (m_TriggerInput != null)
-        {
-            var triggerVal = m_TriggerInput.ReadValue();
-
-            if (triggerVal > 0 && canShoot && isGunInHand)
-            {
-                canShoot = false;
-                Shoot();
-                Debug.Log("piou");
-            }
-            
-            if (triggerVal < 0.0001f && isGunInHand)
-            {
-                canShoot = true;
-            }
-        }*/
         
         if (m_GripInput != null)
         {
@@ -65,20 +53,9 @@ public class Grabing : MonoBehaviour
         }
     }
 
-    private void Shoot()
-    {
-        Debug.Log(playerController.currentCylinderHole);
-        if (playerController?.currentCylinderHole == CylinderHoleState.Empty)
-        {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
-            {
-                lineRenderer.enabled = true;
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, hit.point);
-                Debug.Log("hihi");
-            }
-        }
-    }
+    #endregion
+
+    #region Physic Methods
 
     private void OnTriggerEnter(Collider other)
     {
@@ -97,6 +74,10 @@ public class Grabing : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Grabbing Methods
+
     private void TakeGun(Collider other)
     {
         isGunInHand = true;
@@ -112,4 +93,8 @@ public class Grabing : MonoBehaviour
         GameObject obj = other.transform.parent.gameObject;
         obj.transform.parent = null;
     }
+
+    #endregion
+
+    
 }
