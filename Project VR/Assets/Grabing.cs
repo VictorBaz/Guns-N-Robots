@@ -9,6 +9,7 @@ public class Grabing : MonoBehaviour
 {
     #region Fields
 
+    [SerializeField] private MeshRenderer handVisu;
     [SerializeField] private Transform objPosInHand;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private PlayerController playerController;
@@ -81,6 +82,7 @@ public class Grabing : MonoBehaviour
     private void TakeGun(Collider other)
     {
         isGunInHand = true;
+        handVisu.enabled = false;
         GameObject obj = other.transform.parent.gameObject;
         obj.transform.rotation = objPosInHand.transform.rotation;
         obj.transform.position = objPosInHand.transform.position;
@@ -90,6 +92,7 @@ public class Grabing : MonoBehaviour
     private void ThrowGun(Collider other)
     {
         isGunInHand = false;
+        handVisu.enabled = true;
         GameObject obj = other.transform.parent.gameObject;
         obj.transform.parent = null;
     }

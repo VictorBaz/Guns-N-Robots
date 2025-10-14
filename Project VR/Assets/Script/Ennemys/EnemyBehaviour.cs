@@ -89,7 +89,6 @@ namespace Script.Ennemys
             }
             else if (ticksSinceSpawn == ticksBeforeAttack)
             {
-                Debug.Log("attention j'attaque");
                 
             }
             else
@@ -115,6 +114,7 @@ namespace Script.Ennemys
 
         public void TakeDamage()
         {
+            Debug.Log("AIIIIIIIIIIII");
             isDead = true;
         }
     }
