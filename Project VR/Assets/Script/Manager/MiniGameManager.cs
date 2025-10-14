@@ -83,11 +83,6 @@ namespace Script.Manager
         }
 
         #endregion
-
-        #region Deal With Player Shot
-
-    
-
-        #endregion
+        
     }
 }

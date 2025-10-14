@@ -125,15 +125,6 @@ namespace Script.Controller
                         OnplayerShoot.Invoke();
                         break;
                 }
-                /*switch (currentCylinderHole)
-                {
-                    case CylinderHoleState.Full : 
-                        OnPlayerGoodShot?.Invoke();
-                        break;
-                    case CylinderHoleState.Empty :
-                        OnPlayerBadShot?.Invoke();
-                        break;
-                }*/
             }
         }
         
@@ -172,16 +163,36 @@ namespace Script.Controller
 
         #region Reload Methods
 
+        private Transform startReloadPosition;
+        private float startTimeReload;
+        private Transform endReloadPosition;
+        private float endTimeReload;
+
+        [SerializeField] private float minSpeedToReload;
+
         private void ReloadHandleStart(InputAction.CallbackContext ctx)
         {
-            if (ctx.started) //start
+            if (ctx.started)
             {
-                Debug.Log("TTTATATATATAT");
+                startReloadPosition = bulletOrigin.transform;
+                startTimeReload = Time.time;
             }
-            if (ctx.canceled) //start
+            if (ctx.canceled)
             {
-                Debug.Log("IUIUIUIUUIUU");
+                endReloadPosition = bulletOrigin.transform;
+                endTimeReload = Time.time;
+                float distance = Vector3.Distance(startReloadPosition.position, endReloadPosition.position);
+                float time = endTimeReload - startTimeReload;
+
+                float speedOfGun = distance / time; // V= D/T
+
+                if (speedOfGun > minSpeedToReload) //then reload
+                {
+                    cylinderManager.Reload(cylinder);
+                }
             }
+            
+            
         }
        
 
