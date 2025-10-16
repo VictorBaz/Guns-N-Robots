@@ -20,7 +20,7 @@ namespace Script.Manager
         #region Fields
         
         private int round;
-        [SerializeField] private int valueGoodShotLeft;
+        
         
         public static Action OnRoundEnd;
         public static Action OnGameStart;
@@ -73,7 +73,6 @@ namespace Script.Manager
                 GameManager.Instance.CurrentState == GameState.InGame) 
             {
                 GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
-                valueGoodShotLeft = 5;
                 OnGameStart?.Invoke();
             }
         }

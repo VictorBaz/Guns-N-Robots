@@ -14,7 +14,6 @@ public class Grabing : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private PlayerController playerController;
     private bool canTakeGun = false;
-    private bool canShoot = true;
     public bool isGunInHand = false;
     [SerializeField]
     XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
