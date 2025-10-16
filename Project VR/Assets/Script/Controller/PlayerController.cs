@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Script.Enum;
@@ -15,6 +16,8 @@ namespace Script.Controller
     public class PlayerController : MonoBehaviour
     {
         #region Fields
+
+        [SerializeField] private VisualsController visuals;
 
         [field: SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
 
@@ -41,6 +44,8 @@ namespace Script.Controller
         LayerMask layerMask;
         private bool canShoot;
         [SerializeField] private Transform bulletOrigin;
+
+        private bool reloading = false;
         
         #endregion
 
@@ -103,30 +108,37 @@ namespace Script.Controller
 
         private void PlayerFire() 
         {
+            if (reloading) return;
+            
             //TODO LINK THAT WITH GRABBING 
             var triggerVal = m_TriggerInput.ReadValue();
             if (triggerVal > 0 && 
                 GameManager.Instance.CurrentState == GameState.MiniGameRunning &&
-                !hasShot)
+                !hasShot && canShoot)
             {
                 hasShot = true;
-
                 switch (currentCylinderHole)
                 {
                     case CylinderHoleState.Empty:
                         //future needed
                         break;
                     case CylinderHoleState.Full:
+                        canShoot = false;
+                        visuals.Shoot();
+                        visuals.Muzzle();
+                        visuals.BulletShell(); 
                         if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
                         {
                             lineRenderer.enabled = true;
                             lineRenderer.SetPosition(0, bulletOrigin.position);
                             lineRenderer.SetPosition(1, hit.point);
                             
+                            visuals.Sparks(hit.point,hit.normal);
+                            
                             hit.transform.GetComponent<IDamagable>()?.TakeDamage();
                         }
                         cylinder[indexInBarel] = CylinderHoleState.Empty;
-                        OnplayerShoot.Invoke();
+                        OnplayerShoot?.Invoke();
                         break;
                 }
             }
@@ -176,6 +188,8 @@ namespace Script.Controller
 
         private void ReloadHandleStart(InputAction.CallbackContext ctx)
         {
+            if (reloading) return;
+            
             if (ctx.started)
             {
                 startReloadPosition = bulletOrigin.transform.position;
@@ -193,14 +207,21 @@ namespace Script.Controller
 
                 if (speedOfGun > minSpeedToReload) //then reload
                 {
+                    float timeReload = visuals.Reload();
+                    currentCoroutineReloading = StartCoroutine(ToggleReloadState(timeReload));
                     cylinderManager.Reload(cylinder);
                     OnPlayerReload?.Invoke();
                 }
             }
-            
-            
         }
-       
+
+        private Coroutine currentCoroutineReloading;
+        IEnumerator ToggleReloadState(float time)
+        {
+            reloading = true;
+            yield return new WaitForSeconds(time);
+            reloading = false;
+        }
 
         #endregion
         

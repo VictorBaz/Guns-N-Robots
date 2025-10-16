@@ -83,7 +83,7 @@ public class Grabing : MonoBehaviour
     {
         isGunInHand = true;
         handVisu.enabled = false;
-        GameObject obj = other.transform.parent.gameObject;
+        GameObject obj = other.transform.parent.parent.gameObject;
         obj.transform.rotation = objPosInHand.transform.rotation;
         obj.transform.position = objPosInHand.transform.position;
         obj.transform.parent = objPosInHand; 

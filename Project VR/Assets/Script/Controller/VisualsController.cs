@@ -21,6 +21,8 @@ namespace Script.Controller
 
         [SerializeField] private ParticleSystem bulletShell;
 
+        [SerializeField] private List<AnimationClip> allAnimation;
+
         #endregion
 
         #region ParticleSystem Methods
@@ -30,31 +32,34 @@ namespace Script.Controller
             foreach (var particle in muzzle) TriggerParticleSystem(particle);
         }
 
-        public void Sparks(Vector3 targetPosition)
+        public void Sparks(Vector3 targetPosition, Vector3 normalHit)
         {
+            sparks.transform.rotation = Quaternion.LookRotation(normalHit);
             sparks.transform.position = targetPosition;
-            sparks.Emit(1);
+            sparks.Play();
         }
 
         public void BulletShell() => TriggerParticleSystem(bulletShell);
 
         private void TriggerParticleSystem(ParticleSystem particleSystem)
         {
-            particleSystem.Emit(1);
+            particleSystem.Play();
+            
         }
 
         #endregion
 
         #region Animator Methods
 
-        private void AnimTrigger(int id)
+        private float AnimTrigger(int id,int index)
         {
             animatorGun.SetTrigger(id);
+            return allAnimation[index].length;
         }
 
-        public void Reload() => AnimTrigger(ReloadAnim);
+        public float Reload() => AnimTrigger(ReloadAnim,1);
 
-        public void Shoot() => AnimTrigger(ShootAnim);
+        public void Shoot() => AnimTrigger(ShootAnim,2);
 
 
         #endregion

@@ -1015,11 +1015,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0005999725
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.037299998
+      value: -0.0348
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1052,6 +1052,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
       propertyPath: m_Name
       value: "chienDePitol\xE9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: f9f71c6ad75d83a4ab159bccc884a701, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.011
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
