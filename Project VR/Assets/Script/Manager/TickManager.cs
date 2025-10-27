@@ -11,6 +11,7 @@ namespace Script.Manager
 
         [Header("Action")] 
         public static Action OnTick;
+        public static Action OnTickChange;
 
         [SerializeField] private float timeBetweenTick;
         
@@ -63,6 +64,7 @@ namespace Script.Manager
             {
                 timeBetweenTick = minTimeBetweenTick;
             }
+            OnTickChange?.Invoke();
         
         }
         
