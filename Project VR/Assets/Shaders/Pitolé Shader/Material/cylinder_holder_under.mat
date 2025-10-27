@@ -7,11 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "Shader Graphs_Pitol\xE9Shader"
+  m_Name: cylinder_holder_under
   m_Shader: {fileID: -6465566751694194690, guid: 7a59848b5a048874585159f9fcf32033, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _BLENDMODE_OVERLAY
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -24,8 +25,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 304c0433a7afdf747ae649a8cb2022c3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainText:
-        m_Texture: {fileID: 2800000, guid: 7537b7296b802e742b82d53c3f825c7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 564ab7eb13dfcbb459d567508fd6cc62, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise:
@@ -46,10 +51,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BLENDMODE: 0
+    - _Intensity: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _opacity_noise: 5.71
-    m_Colors: []
+    - _Tiling: 1
+    - _opacity_noise: 0.43
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Noise_Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8970700052008645750
