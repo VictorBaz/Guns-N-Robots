@@ -12,6 +12,7 @@ namespace Script.Manager
         [Header("Action")] 
         public static Action OnTick;
         public static Action OnTickChange;
+        public static Action OnTickSetup;
 
         [SerializeField] private float timeBetweenTick;
         
