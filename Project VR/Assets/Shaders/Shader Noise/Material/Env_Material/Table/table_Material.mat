@@ -52,10 +52,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _BLENDMODE: 0
-    - _Intensity: 0.5
+    - _Intensity: 0.672
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Tiling: 1
+    - _Tiling: 1.24
     - _opacity_noise: 5.71
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
