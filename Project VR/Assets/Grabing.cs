@@ -10,7 +10,9 @@ public class Grabing : MonoBehaviour
     #region Fields
 
     [SerializeField] private MeshRenderer handVisu;
+    [SerializeField] private Rigidbody rbParent;
     [SerializeField] private Transform objPosInHand;
+    [SerializeField] private GameObject gunObj;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private PlayerController playerController;
     private bool canTakeGun = false;
@@ -80,20 +82,21 @@ public class Grabing : MonoBehaviour
 
     private void TakeGun(Collider other)
     {
+        rbParent.isKinematic = true;
         isGunInHand = true;
         handVisu.enabled = false;
-        GameObject obj = other.transform.parent.parent.gameObject;
-        obj.transform.rotation = objPosInHand.transform.rotation;
-        obj.transform.position = objPosInHand.transform.position;
-        obj.transform.parent = objPosInHand; 
+        gunObj.transform.rotation = objPosInHand.transform.rotation;
+        gunObj.transform.position = objPosInHand.transform.position;
+        gunObj.transform.parent = objPosInHand; 
     }
 
     private void ThrowGun(Collider other)
     {
+        rbParent.isKinematic = false;
+        //need to get velocity
         isGunInHand = false;
         handVisu.enabled = true;
-        GameObject obj = other.transform.parent.gameObject;
-        obj.transform.parent = null;
+        gunObj.transform.parent = null;
     }
 
     #endregion
