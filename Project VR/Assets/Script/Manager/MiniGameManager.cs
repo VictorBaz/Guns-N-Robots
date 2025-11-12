@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Script.Controller;
 using Script.Enum;
 using UnityEngine;
@@ -20,12 +21,13 @@ namespace Script.Manager
         #region Fields
         
         private int round;
-        
-        
-        public static Action OnRoundEnd;
-        public static Action OnGameStart;
-        public static Action OnGameEnd;
 
+        private int toSpawnEnemy;
+        private int objectifEnemy;
+            
+        [SerializeField] private int defaultEnemyNumberToKill;
+        
+        
         #endregion
 
         #region Unity Methods
@@ -42,10 +44,6 @@ namespace Script.Manager
             DontDestroyOnLoad(gameObject);
         }
         
-        private void Update()
-        {
-            StartInGame();
-        }
 
         #endregion
 
@@ -53,27 +51,30 @@ namespace Script.Manager
 
         private void OnEnable()
         {
-            
+            EventManager.OnGameStart += InitFirstRound;
+            EventManager.OnEnemyKilled += UpdateEnemyCount;
+            EventManager.OnRoundEnd += TransitionRound;
+            EventManager.OnEnemySpawn += SpawnEnemy;
         }
         
         private void OnDisable()
         {
-          
+            EventManager.OnGameStart -= InitFirstRound;
+            EventManager.OnEnemyKilled -= UpdateEnemyCount;
+            EventManager.OnRoundEnd -= TransitionRound;
+            EventManager.OnEnemySpawn -= SpawnEnemy;
         }
 
         #endregion
 
         #region MiniGame
-
         
-        
-        private void StartInGame()
+        public void StartInGame()
         {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame && 
-                GameManager.Instance.CurrentState == GameState.InGame) 
+            if (GameManager.Instance.CurrentState == GameState.InGame) 
             {
                 GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
-                OnGameStart?.Invoke();
+                EventManager.StartGame();
             }
         }
         public bool IsGameRunning()
@@ -81,7 +82,51 @@ namespace Script.Manager
             return GameManager.Instance.CurrentState == GameState.MiniGameRunning;
         }
 
+        public bool CanSpawn() => toSpawnEnemy > 0;
+        
         #endregion
+
+        #region Round System
+
+        private void SpawnEnemy()
+        {
+            toSpawnEnemy--;
+        }
+        
+        private void UpdateEnemyCount()
+        {
+            objectifEnemy--;
+
+            if (objectifEnemy == 0 && toSpawnEnemy == 0)
+            {
+                EventManager.EndRound();
+            }
+        }
+
+        private void InitFirstRound()
+        {
+            round = 0;
+            objectifEnemy = defaultEnemyNumberToKill;
+            toSpawnEnemy = defaultEnemyNumberToKill;
+        }
+
+        private void TransitionRound()
+        {
+            StartCoroutine(TransitionRoundCoroutine());
+        }
+        
+        private IEnumerator TransitionRoundCoroutine()
+        {
+            round++;
+            yield return new WaitForSeconds(5);
+            
+            toSpawnEnemy = defaultEnemyNumberToKill;
+            objectifEnemy = defaultEnemyNumberToKill;
+            EventManager.RoundStart();
+        } 
+
+        #endregion
+        
         
     }
 }

@@ -79,6 +79,7 @@ namespace Script.Ennemys
         private void OnEnemyDeath()
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
+            EventManager.EnemyKilled();
         }
 
         private void EnnemyAction()
@@ -114,7 +115,6 @@ namespace Script.Ennemys
 
         public void TakeDamage()
         {
-            Debug.Log("AIIIIIIIIIIII");
             isDead = true;
         }
     }

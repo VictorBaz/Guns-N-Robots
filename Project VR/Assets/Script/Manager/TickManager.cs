@@ -81,14 +81,14 @@ namespace Script.Manager
 
         private void OnEnable()
         {
-            MiniGameManager.OnRoundEnd += TickBehaviorAfterRoundEnd;
-            PlayerController.OnPlayerMissedShot += IncreaseSpeed;
+            EventManager.OnRoundEnd += IncreaseSpeed;
+            
         }
 
         private void OnDisable()
         {
-            MiniGameManager.OnRoundEnd -= TickBehaviorAfterRoundEnd;
-            PlayerController.OnPlayerMissedShot -= IncreaseSpeed;
+            EventManager.OnRoundEnd -= IncreaseSpeed;
+            
         }
 
         #endregion

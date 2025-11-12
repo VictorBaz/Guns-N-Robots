@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Script.Enum;
 using Script.Manager;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -56,8 +57,11 @@ namespace Script.Ennemys
         {
             if (lastEnemySpawn >= TickBetweenTwoEnnemy)
             {
-                PickRandomDoor();
-                lastEnemySpawn = 0;
+                if (GameManager.Instance.CurrentState == GameState.MiniGameRunning && MiniGameManager.Instance.CanSpawn())
+                {
+                    PickRandomDoor();
+                    lastEnemySpawn = 0;   
+                }
             }
             else
             {
@@ -80,7 +84,9 @@ namespace Script.Ennemys
 
         private EnnemyBehaviour SpawnEnemy(Transform doorTransform)
         {
-            GameObject nmi = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity); // spawn
+            GameObject nmi = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
+            EventManager.EnemySpawn();
+            // spawn
             return nmi.GetComponent<EnnemyBehaviour>();
         }
     

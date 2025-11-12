@@ -5,6 +5,7 @@ namespace Script.Enum
         Menu,
         InGame,          
         MiniGameRunning, 
+        MiniGamePaused,
         GameFinished,
     }
 }

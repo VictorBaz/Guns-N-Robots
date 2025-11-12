@@ -48,6 +48,7 @@ namespace Script.Controller
         private float startTimeReload;
         private float endTimeReload;
         private Coroutine currentCoroutineReloading;
+        private bool dead;
 
         #endregion
 
@@ -83,7 +84,6 @@ namespace Script.Controller
         {
             inputActions.Enable();
             TickManager.OnTick += GetCurrentBarrelHoleByTick;
-            MiniGameManager.OnRoundEnd += ResetPlayerAfterRound;
             inputActions.XRIRightInteraction.ReloadButton.started += ReloadHandleStart;
             inputActions.XRIRightInteraction.ReloadButton.canceled += ReloadHandleStart;
         }
@@ -93,7 +93,6 @@ namespace Script.Controller
             inputActions.Disable();
             inputActions.Dispose();
             TickManager.OnTick -= GetCurrentBarrelHoleByTick;
-            MiniGameManager.OnRoundEnd -= ResetPlayerAfterRound;
             inputActions.XRIRightInteraction.ReloadButton.started -= ReloadHandleStart;
             inputActions.XRIRightInteraction.ReloadButton.canceled -= ReloadHandleStart;
         }

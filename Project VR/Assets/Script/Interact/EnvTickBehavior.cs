@@ -36,13 +36,13 @@ namespace Script.Interact
         private void OnEnable()
         {
             TickManager.OnTickChange += SetAnimator;
-            MiniGameManager.OnGameStart += SetAnimator;
+            EventManager.OnGameStart += SetAnimator;
         }
 
         private void OnDisable()
         {
             TickManager.OnTickChange -= SetAnimator;
-            MiniGameManager.OnGameStart -= SetAnimator;
+            EventManager.OnGameStart -= SetAnimator;
         }
 
         #endregion

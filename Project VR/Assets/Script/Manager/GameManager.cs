@@ -133,6 +133,32 @@ namespace Script.Manager
         }
 
         #endregion
+
+        #region Observer
+
+        private void OnEnable()
+        {
+            EventManager.OnRoundEnd += PauseInGame;
+            EventManager.OnRoundStart += RoundStart;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.OnRoundEnd -= PauseInGame;
+            EventManager.OnRoundStart -= RoundStart;
+        }
+
+        private void RoundStart()
+        {
+            currentState = GameState.MiniGameRunning;
+        }
+        
+        private void PauseInGame()
+        {
+            currentState = GameState.MiniGamePaused;
+        }
+
+        #endregion
         
     }
 }
