@@ -42,8 +42,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Intensity: 17.12
-    - _OffTime: 1
+    - _Intensity: 4.39
+    - _OffTime: 0
     - _OnTime: 0.6
     - _QueueControl: 0
     - _QueueOffset: 0
