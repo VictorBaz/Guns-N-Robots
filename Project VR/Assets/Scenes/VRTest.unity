@@ -1494,6 +1494,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: gameMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: c076fb37ce767e34c96f1aadb8b8f5e7, type: 3}
     - target: {fileID: 9002346417276297212, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -1843,6 +1847,7 @@ MonoBehaviour:
   speedIncreaseAmount: 0.1
   minTimeBetweenTick: 0.3
   defaultValueTimer: 1
+  syncWithMusic: 1
 --- !u!4 &1722980603
 Transform:
   m_ObjectHideFlags: 0

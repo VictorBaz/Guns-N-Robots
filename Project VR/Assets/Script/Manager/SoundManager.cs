@@ -9,11 +9,16 @@ namespace Script.Manager
         #region Fields
 
         public AudioSource audioSource;
+        [SerializeField] private AudioSource musicAudioSource;
 
         [Range(0,1)] public float masterVolume = 1f;
 
         public AudioClip emptyLoad;
         public AudioClip fullLoad;
+        
+        [Header("Music BPM Settings")]
+        [SerializeField] private AudioClip gameMusic;
+        [SerializeField] private float musicBPM = 90f;
 
         #endregion
 
@@ -37,10 +42,6 @@ namespace Script.Manager
                 }
                 return instance;
             }
-
-        
-        
-        
         }
         #endregion
 
@@ -58,11 +59,78 @@ namespace Script.Manager
                 Destroy(gameObject);
             }
             
+            SetupMusicAudioSource();
         }
         
         private void Start()
         {
-            audioSource.volume = 1f; 
+            audioSource.volume = masterVolume; 
+        }
+
+        #endregion
+
+        #region Music Setup
+
+        private void SetupMusicAudioSource()
+        {
+            if (musicAudioSource == null)
+            {
+                GameObject musicObject = new GameObject("MusicAudioSource");
+                musicObject.transform.SetParent(transform);
+                musicAudioSource = musicObject.AddComponent<AudioSource>();
+            }
+
+            musicAudioSource.loop = true;
+            musicAudioSource.playOnAwake = false;
+            musicAudioSource.volume = masterVolume;
+        }
+
+        public void StartGameMusic()
+        {
+            if (gameMusic != null && musicAudioSource != null)
+            {
+                musicAudioSource.clip = gameMusic;
+                musicAudioSource.Play();
+            }
+        }
+
+        public void StopGameMusic()
+        {
+            if (musicAudioSource != null && musicAudioSource.isPlaying)
+            {
+                musicAudioSource.Stop();
+            }
+        }
+
+        public void PauseGameMusic()
+        {
+            if (musicAudioSource != null && musicAudioSource.isPlaying)
+            {
+                musicAudioSource.Pause();
+            }
+        }
+
+        public void ResumeGameMusic()
+        {
+            if (musicAudioSource != null && !musicAudioSource.isPlaying)
+            {
+                musicAudioSource.UnPause();
+            }
+        }
+
+        public float GetBeatInterval()
+        {
+            return 60f / musicBPM;
+        }
+
+        public void UpdateMusicSpeed(float currentTimeBetweenTick, float defaultTimeBetweenTick)
+        {
+            if (musicAudioSource != null && musicAudioSource.isPlaying)
+            {
+                float speedRatio = defaultTimeBetweenTick / currentTimeBetweenTick;
+                musicAudioSource.pitch = speedRatio;
+                
+            }
         }
 
         #endregion
@@ -84,6 +152,10 @@ namespace Script.Manager
         {
             masterVolume = volume;
             audioSource.volume = masterVolume;
+            if (musicAudioSource != null)
+            {
+                musicAudioSource.volume = masterVolume;
+            }
         }
 
         public GameObject InitialisationAudioObjectDestroyAtEnd(AudioClip audioClipTarget, bool looping, 
@@ -109,6 +181,24 @@ namespace Script.Manager
 
         #endregion
         
-        
+        #region Observer
+
+        private void OnEnable()
+        {
+            EventManager.OnGameStart += StartGameMusic;
+            EventManager.OnGameEnd += StopGameMusic;
+            //EventManager.OnRoundEnd += PauseGameMusic;
+            //EventManager.OnRoundStart += ResumeGameMusic;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.OnGameStart -= StartGameMusic;
+            EventManager.OnGameEnd -= StopGameMusic;
+            //EventManager.OnRoundEnd -= PauseGameMusic;
+            //EventManager.OnRoundStart -= ResumeGameMusic;
+        }
+
+        #endregion
     }
 }
