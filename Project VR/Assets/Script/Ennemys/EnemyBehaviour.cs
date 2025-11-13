@@ -8,6 +8,9 @@ namespace Script.Ennemys
     {
 
         #region Fields
+
+        [Header("Transform and Position")] [SerializeField]
+        private Transform enemyTransform;
         [Header("Ticks linked")] 
         [SerializeField] private int ticksBeforeAttack;
         [SerializeField] private int ticksForAttack;
@@ -32,6 +35,8 @@ namespace Script.Ennemys
         private static readonly int WalkHash = Animator.StringToHash("Walk");
         private static readonly int AttackHash = Animator.StringToHash("Attack");
         private static readonly int DieHash = Animator.StringToHash("Die");
+
+        [SerializeField] private MaterialUpdater materialUpdater;
 
         #endregion
 
@@ -61,7 +66,7 @@ namespace Script.Ennemys
         {
             if (nextPosition != null && !isDead && !isAttacking)
             {
-                transform.position = Vector3.Lerp(transform.position, (Vector3)nextPosition, TickManager.TimeBetweenTick * lerpAmount);   
+                enemyTransform.position = Vector3.Lerp(enemyTransform.position, (Vector3)nextPosition, TickManager.TimeBetweenTick * lerpAmount);   
             }
         }
         
@@ -72,8 +77,10 @@ namespace Script.Ennemys
 
         private void InitPosition()
         {
-            moveDistance = playerPos.position - transform.position;
-            nextPosition = transform.position;
+            moveDistance = playerPos.position - enemyTransform.position;
+            moveDistance.y = 0;
+            nextPosition = enemyTransform.position;
+            enemyTransform.LookAt(enemyTransform.position - (playerPos.position - enemyTransform.position));
         }
 
         #endregion
@@ -90,7 +97,6 @@ namespace Script.Ennemys
         {
             if (isDead)
             {
-                Destroy(gameObject);
                 return;
             }
             
@@ -172,6 +178,7 @@ namespace Script.Ennemys
             this.enemyManager = enemyManager;
             indexInEnnemyManager = index;
             playerPos = playerPosition;
+            
         }
 
         public void TakeDamage()
@@ -181,6 +188,8 @@ namespace Script.Ennemys
                 isDead = true;
                 isAttacking = false;
                 PlayDieAnimation();
+                OnEnemyDeath();
+                materialUpdater.UpdateMaterials();
             }
         }
 

@@ -87,7 +87,7 @@ namespace Script.Ennemys
             GameObject nmi = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
             EventManager.EnemySpawn();
             // spawn
-            return nmi.GetComponent<EnnemyBehaviour>();
+            return nmi.GetComponentInChildren<EnnemyBehaviour>();
         }
     
     }
