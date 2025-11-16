@@ -8,23 +8,35 @@ namespace Script.Ennemys
     {
 
         #region Fields
-        [Header("Ticks linked")] [Space]
+
+        [Header("Transform and Position")] [SerializeField]
+        private Transform enemyTransform;
+        [Header("Ticks linked")] 
         [SerializeField] private int ticksBeforeAttack;
         [SerializeField] private int ticksForAttack;
         private int ticksSinceSpawn = 0;
-        [Space]
-        [Header("Player Ref")] [Space]
+
+        [Header("Player Ref")]
         [SerializeField] private Transform playerPos;
         private Vector3 moveDistance;
         private bool isDead;
+        private bool isAttacking;
         private Vector3? nextPosition = null;
-        [Space]
-        [Header("Threshold Shift")] [Space] [Range(0,1)]
+
+        [Header("Threshold Shift")] 
         [SerializeField] private float lerpAmount;
 
-        private int indexInEnnemyManager;
+        [Header("Animation")] 
+        [SerializeField] private Animator animator;
 
+        private int indexInEnnemyManager;
         private EnemyManager enemyManager;
+
+        private static readonly int WalkHash = Animator.StringToHash("Walk");
+        private static readonly int AttackHash = Animator.StringToHash("Attack");
+        private static readonly int DieHash = Animator.StringToHash("Die");
+
+        [SerializeField] private MaterialUpdater materialUpdater;
 
         #endregion
 
@@ -47,20 +59,17 @@ namespace Script.Ennemys
         private void Start()
         {
             InitPosition();
+            PlayWalkAnimation();
         }
 
         private void FixedUpdate()
         {
-            if (nextPosition != null)
+            if (nextPosition != null && !isDead && !isAttacking)
             {
-                transform.position = Vector3.Lerp(transform.position, (Vector3)nextPosition, TickManager.TimeBetweenTick*lerpAmount);   
+                enemyTransform.position = Vector3.Lerp(enemyTransform.position, (Vector3)nextPosition, TickManager.TimeBetweenTick * lerpAmount);   
             }
         }
-
-        private void OnDestroy()
-        {
-            OnEnemyDeath();
-        }
+        
 
         #endregion
 
@@ -68,8 +77,10 @@ namespace Script.Ennemys
 
         private void InitPosition()
         {
-            moveDistance = playerPos.position - transform.position;
-            nextPosition = transform.position;
+            moveDistance = playerPos.position - enemyTransform.position;
+            moveDistance.y = 0;
+            nextPosition = enemyTransform.position;
+            enemyTransform.LookAt(enemyTransform.position - (playerPos.position - enemyTransform.position));
         }
 
         #endregion
@@ -86,13 +97,14 @@ namespace Script.Ennemys
         {
             if (isDead)
             {
-                Destroy(gameObject);
+                return;
             }
-            else if (ticksSinceSpawn == ticksBeforeAttack)
+            
+            if (ticksSinceSpawn >= ticksBeforeAttack && !isAttacking)
             {
-                
+                StartAttack();
             }
-            else
+            else if (!isAttacking)
             {
                 Move();
             }
@@ -100,22 +112,87 @@ namespace Script.Ennemys
 
         private void Move()
         {
-            nextPosition += moveDistance / (ticksBeforeAttack+ticksForAttack);
+            nextPosition += moveDistance / (ticksBeforeAttack + ticksForAttack);
             ticksSinceSpawn++;
         }
 
+        private void StartAttack()
+        {
+            isAttacking = true;
+            PlayAttackAnimation();
+        }
+
         #endregion
+
+        #region Animation Methods
+
+        private void PlayWalkAnimation()
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger(WalkHash);
+            }
+        }
+
+        private void PlayAttackAnimation()
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger(AttackHash);
+            }
+        }
+
+        private void PlayDieAnimation()
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger(DieHash);
+            }
+        }
+
+        #endregion
+
+        #region Animation Events (Called from Animation Clips)
+
+        public void KillPlayer()
+        {
+            if (!isDead && isAttacking)
+            {
+                // TODO: Implémenter la mort du joueur
+                // EventManager.PlayerKilled();
+                Debug.Log("Player killed by enemy!");
+            }
+        }
+
+        public void OnDeathAnimationComplete()
+        {
+            Destroy(gameObject);
+        }
+
+        #endregion
+
+        #region Public Methods
 
         public void SetParametersOnSpawn(EnemyManager enemyManager, int index, Transform playerPosition)
         {
             this.enemyManager = enemyManager;
             indexInEnnemyManager = index;
             playerPos = playerPosition;
+            
         }
 
         public void TakeDamage()
         {
-            isDead = true;
+            if (!isDead)
+            {
+                isDead = true;
+                isAttacking = false;
+                PlayDieAnimation();
+                OnEnemyDeath();
+                materialUpdater.UpdateMaterials();
+            }
         }
+
+        #endregion
     }
 }
