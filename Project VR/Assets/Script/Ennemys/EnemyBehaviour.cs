@@ -45,11 +45,13 @@ namespace Script.Ennemys
         private void OnEnable()
         {
             TickManager.OnTick += EnnemyAction;
+            EventManager.OnGameEnd += ClearEnemy;
         }
 
         private void OnDisable()
         {
             TickManager.OnTick -= EnnemyAction;
+            EventManager.OnGameEnd -= ClearEnemy;
         }
 
         #endregion
@@ -86,6 +88,12 @@ namespace Script.Ennemys
         #endregion
 
         #region Ennemy Methods
+
+        private void ClearEnemy()
+        {
+            enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
+            OnDeathAnimationComplete();
+        }
 
         private void OnEnemyDeath()
         {
@@ -152,14 +160,13 @@ namespace Script.Ennemys
 
         #endregion
 
-        #region Animation Events (Called from Animation Clips)
+        #region Animation Events
 
         public void KillPlayer()
         {
             if (!isDead && isAttacking)
             {
-                // TODO: Implémenter la mort du joueur
-                // EventManager.PlayerKilled();
+                EventManager.GameEnd();
                 Debug.Log("Player killed by enemy!");
             }
         }
@@ -194,5 +201,6 @@ namespace Script.Ennemys
         }
 
         #endregion
+
     }
 }

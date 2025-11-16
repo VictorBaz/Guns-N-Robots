@@ -70,8 +70,9 @@ namespace Script.Manager
 
         #endregion
         
-        #region Principal Méthodes
+        #region Main Methodes
 
+        //didnt exploit it sadly
         public void ChangeGameState(GameState newState)
         {
             if (currentState == newState) return;
@@ -82,7 +83,7 @@ namespace Script.Manager
             
             OnGameStateChanged?.Invoke(newState);
         }
-        
+        /*
         public void StartGame()
         {
             LoadGameScene();
@@ -101,7 +102,7 @@ namespace Script.Manager
         public void ReturnToMenu()
         {
             LoadMenuScene();
-        }
+        }*/
 
         
         
@@ -140,12 +141,14 @@ namespace Script.Manager
         {
             EventManager.OnRoundEnd += PauseInGame;
             EventManager.OnRoundStart += RoundStart;
+            EventManager.OnGameEnd += OnEndGame;
         }
 
         private void OnDisable()
         {
             EventManager.OnRoundEnd -= PauseInGame;
             EventManager.OnRoundStart -= RoundStart;
+            EventManager.OnGameEnd -= OnEndGame;
         }
 
         private void RoundStart()
@@ -156,6 +159,11 @@ namespace Script.Manager
         private void PauseInGame()
         {
             currentState = GameState.MiniGamePaused;
+        }
+
+        private void OnEndGame()
+        {
+            ChangeGameState(GameState.GameFinished);
         }
 
         #endregion

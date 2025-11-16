@@ -117,6 +117,7 @@ namespace Script.Manager
             EventManager.OnRoundEnd += IncreaseSpeed;
             EventManager.OnRoundStart += ResetTimerOnRoundStart;
             EventManager.OnGameStart += InitializeTickFromMusic;
+            EventManager.OnGameEnd += EndGame;
         }
 
         private void OnDisable()
@@ -124,6 +125,16 @@ namespace Script.Manager
             EventManager.OnRoundEnd -= IncreaseSpeed;
             EventManager.OnRoundStart -= ResetTimerOnRoundStart;
             EventManager.OnGameStart -= InitializeTickFromMusic;
+            EventManager.OnGameEnd -= EndGame;
+        }
+
+        #endregion
+
+        #region State
+
+        private void EndGame()
+        {
+            ResetTimerOnRoundStart();
         }
 
         #endregion

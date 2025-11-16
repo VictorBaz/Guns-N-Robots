@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1462230559493703684, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
       propertyPath: m_Name
-      value: UI Sample
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 1462230559493703684, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
       propertyPath: m_Layer
@@ -869,7 +869,10 @@ PrefabInstance:
     - {fileID: 2982824415196359207, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
     - {fileID: 5064523017809059483, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1462230559493703684, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1015918549}
   m_SourcePrefab: {fileID: 100100000, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
 --- !u!1 &261709633 stripped
 GameObject:
@@ -1183,6 +1186,11 @@ ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6086450476560072858, guid: 65fcdffdf5fd8a246a25f9896ab3f84d, type: 3}
   m_PrefabInstance: {fileID: 8322730490085045119}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &486113757 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4466949044768537046, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
+  m_PrefabInstance: {fileID: 198684810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &564815733 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3115979684410708340, guid: 65fcdffdf5fd8a246a25f9896ab3f84d, type: 3}
@@ -1415,6 +1423,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1580660597679109943, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
   m_PrefabInstance: {fileID: 8253290981150718056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1015918548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1462230559493703684, guid: 1c4e4036e88d8c3488c891a4cf3a3664, type: 3}
+  m_PrefabInstance: {fileID: 198684810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1015918549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015918548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe7d10b2d0a15649914173bf2c8c48a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.UI.UiMain
+  startGamePanel: {fileID: 486113757}
 --- !u!1 &1018090687
 GameObject:
   m_ObjectHideFlags: 0

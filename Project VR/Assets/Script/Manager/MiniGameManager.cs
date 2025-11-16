@@ -71,7 +71,7 @@ namespace Script.Manager
         
         public void StartInGame()
         {
-            if (GameManager.Instance.CurrentState == GameState.InGame) 
+            if (GameManager.Instance.CurrentState == GameState.InGame || GameManager.Instance.CurrentState == GameState.GameFinished) 
             {
                 GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
                 EventManager.StartGame();

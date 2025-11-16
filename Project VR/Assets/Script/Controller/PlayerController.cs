@@ -13,7 +13,7 @@ namespace Script.Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        #region Serialized Fields
+        #region Fields
 
         [SerializeField] private VisualsController visuals;
         [SerializeField] private LineRenderer lineRenderer;
@@ -23,11 +23,7 @@ namespace Script.Controller
         [SerializeField] private XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
-
-        #endregion
-
-        #region Public Properties
-
+        
         public CylinderHoleState currentCylinderHole { get; private set; }
 
         #endregion
@@ -48,7 +44,7 @@ namespace Script.Controller
         private float startTimeReload;
         private float endTimeReload;
         private Coroutine currentCoroutineReloading;
-        private bool dead;
+        
 
         #endregion
 
