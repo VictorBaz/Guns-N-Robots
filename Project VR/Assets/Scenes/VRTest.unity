@@ -1736,6 +1736,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5008699082592996791, guid: 36f8280bf0b14174396fc25852fed385, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008699082592996791, guid: 36f8280bf0b14174396fc25852fed385, type: 3}
       propertyPath: enemyPrefabs
       value: 
       objectReference: {fileID: 5965015606148215061, guid: 530acb738c6c364478d08a8556946d6b, type: 3}

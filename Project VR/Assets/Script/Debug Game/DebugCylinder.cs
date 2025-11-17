@@ -21,6 +21,10 @@ namespace Script.Debug_Game
 
         private CylinderManager cylinderManager = new CylinderManager();
 
+        private float wishedRotation = 0;
+        
+        private bool locked = false;
+
         #endregion
         
         #region Observer
@@ -29,14 +33,18 @@ namespace Script.Debug_Game
         {
             TickManager.OnTick += IncrementBarrelRotation;
             PlayerController.OnplayerShoot += RefreshVisualsAfterShot;
-            PlayerController.OnPlayerReload += RefreshVisualsAfterShot;
+            PlayerController.OnPlayerReload += ResetVisualsOnReload;
+            PlayerController.OnReloadStart += LockRotation;   
+            PlayerController.OnReloadEnd += UnlockRotation;
         }
         
         private void OnDisable()
         {
             TickManager.OnTick -= IncrementBarrelRotation;
             PlayerController.OnplayerShoot -= RefreshVisualsAfterShot;
-            PlayerController.OnPlayerReload -= RefreshVisualsAfterShot;
+            PlayerController.OnPlayerReload -= ResetVisualsOnReload;
+            PlayerController.OnReloadStart -= LockRotation;   
+            PlayerController.OnReloadEnd -= UnlockRotation;
         }
 
         #endregion
@@ -54,18 +62,19 @@ namespace Script.Debug_Game
 
         private void IncrementBarrelRotation()
         {
+            if (locked) return;
+            
             wishedRotation += 60;
             barelImage.transform.DOKill();
             
             barelImage.transform.DOLocalRotate(
-                new Vector3(barelImage.transform.localEulerAngles.x
-                    ,barelImage.transform.localEulerAngles.y,
+                new Vector3(barelImage.transform.localEulerAngles.x,
+                    barelImage.transform.localEulerAngles.y,
                     wishedRotation),
-                TickManager.TimeBetweenTick/10f).SetEase(Ease.Linear);
+                TickManager.TimeBetweenTick * 0.1f).SetEase(Ease.Linear);
+            
             InitBarrelVisuals();
         }
-
-        private float wishedRotation = 0;
 
         private void InitBarrelVisuals()
         {
@@ -73,25 +82,25 @@ namespace Script.Debug_Game
 
             for (int i = 0; i < barel.Count; i++)
             {
-                allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.darkRed : Color.chartreuse;
+                allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.red : Color.green;
             }
         }
 
         private void RefreshVisualsAfterShot() => InitBarrelVisuals();
 
-        private void ResetVisualsCylinder()
+        private void ResetVisualsOnReload()
         {
-            InitBarrelVisuals();
             wishedRotation = 0;
             barelImage.transform.DOKill();
-            barelImage.transform.DOLocalRotate(
-                new Vector3(barelImage.transform.localEulerAngles.x
-                    ,barelImage.transform.localEulerAngles.y,
-                    wishedRotation),
-                TickManager.TimeBetweenTick).SetEase(Ease.Linear);
+            barelImage.transform.localEulerAngles = new Vector3(barelImage.transform.localEulerAngles.x,
+                barelImage.transform.localEulerAngles.y,
+                wishedRotation);
             InitBarrelVisuals();
         }
 
+        
+        private void LockRotation() => locked = true;
+        private void UnlockRotation() => locked = false;
         #endregion
         
     }

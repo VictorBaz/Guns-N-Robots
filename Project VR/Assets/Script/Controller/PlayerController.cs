@@ -52,7 +52,10 @@ namespace Script.Controller
 
         public static Action OnplayerShoot;
         public static Action OnPlayerMissedShot;
+        public static Action OnReloadStart;
         public static Action OnPlayerReload;
+        public static Action OnReloadEnd;
+
 
         #endregion
 
@@ -150,7 +153,7 @@ namespace Script.Controller
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage();
             }
             Debug.DrawRay(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward),Color.red,5f);
-            //visuals.Shoot();
+            visuals.Shoot();
             visuals.Muzzle();
             visuals.BulletShell();
             
@@ -171,6 +174,8 @@ namespace Script.Controller
 
         private void GetCurrentBarrelHoleByTick()
         {
+            if (reloading) return;
+            
             indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
             currentCylinderHole = cylinder[indexInBarel];
             hasShot = false;
@@ -241,7 +246,8 @@ namespace Script.Controller
             float timeReload = visuals.Reload();
             currentCoroutineReloading = StartCoroutine(ToggleReloadState(timeReload));
             cylinderManager.Reload(cylinder);
-            OnPlayerReload?.Invoke();
+            
+            OnReloadStart?.Invoke();
         }
 
         private IEnumerator ToggleReloadState(float time)
@@ -249,7 +255,10 @@ namespace Script.Controller
             reloading = true;
             yield return new WaitForSeconds(time);
             reloading = false;
-            
+            indexInBarel = 0;
+            currentCylinderHole = cylinder[indexInBarel];
+            OnReloadEnd?.Invoke();
+            OnPlayerReload?.Invoke();
         }
 
         #endregion
