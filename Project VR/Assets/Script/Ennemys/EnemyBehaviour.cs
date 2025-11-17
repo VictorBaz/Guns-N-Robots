@@ -173,7 +173,7 @@ namespace Script.Ennemys
 
         public void OnDeathAnimationComplete()
         {
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
 
         #endregion

@@ -79,10 +79,9 @@ namespace Script.Debug_Game
 
         private void RefreshVisualsAfterShot() => InitBarrelVisuals();
 
-        private void ResetVisualsCylinderAfterRound()
+        private void ResetVisualsCylinder()
         {
-            //NEED TO REFRESH For New pattern fucking need Barel for fuck sake
-            cylinderManager.SetupBarrel(GameManager.Instance.playerRef.GetBarrel());
+            InitBarrelVisuals();
             wishedRotation = 0;
             barelImage.transform.DOKill();
             barelImage.transform.DOLocalRotate(

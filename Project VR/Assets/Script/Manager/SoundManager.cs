@@ -129,7 +129,6 @@ namespace Script.Manager
             {
                 float speedRatio = defaultTimeBetweenTick / currentTimeBetweenTick;
                 musicAudioSource.pitch = speedRatio;
-                
             }
         }
 

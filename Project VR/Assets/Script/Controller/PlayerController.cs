@@ -74,6 +74,7 @@ namespace Script.Controller
         {
             HandleTriggerInput();
             PlayerFire();
+            
         }
 
         private void OnEnable()
@@ -139,18 +140,20 @@ namespace Script.Controller
         {
             canShoot = false;
             
-            visuals.Shoot();
-            visuals.Muzzle();
-            visuals.BulletShell();
 
             if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), 
                 out hit, Mathf.Infinity, layerMask))
             {
+                
                 DisplayBulletTracer();
                 visuals.Sparks(hit.point, hit.normal);
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage();
             }
-
+            Debug.DrawRay(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward),Color.red,5f);
+            //visuals.Shoot();
+            visuals.Muzzle();
+            visuals.BulletShell();
+            
             cylinder[indexInBarel] = CylinderHoleState.Empty;
             OnplayerShoot?.Invoke();
         }
@@ -219,10 +222,7 @@ namespace Script.Controller
         {
             endReloadPosition = bulletOrigin.transform.position;
             endTimeReload = Time.time;
-
             float reloadSpeed = CalculateReloadSpeed();
-            Debug.Log($"speed of gun : {reloadSpeed}, distance : {Vector3.Distance(startReloadPosition, endReloadPosition)}, time : {endTimeReload - startTimeReload}");
-
             if (reloadSpeed > minSpeedToReload)
             {
                 ExecuteReload();
@@ -249,6 +249,7 @@ namespace Script.Controller
             reloading = true;
             yield return new WaitForSeconds(time);
             reloading = false;
+            
         }
 
         #endregion

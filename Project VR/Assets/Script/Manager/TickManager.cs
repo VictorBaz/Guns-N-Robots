@@ -54,7 +54,7 @@ namespace Script.Manager
                 
                 timeBetweenTick = beatInterval;
                 defaultValueTimer = timeBetweenTick;
-                
+                SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
             }
         }
 
@@ -64,15 +64,19 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (GameManager.Instance.CurrentState != GameState.MiniGameRunning) return;
-    
-            timer += Time.deltaTime; 
-    
-            if (timer >= timeBetweenTick) 
+            if (GameManager.Instance.CurrentState == GameState.MiniGamePaused 
+                || GameManager.Instance.CurrentState == GameState.MiniGameRunning)
             {
-                timer -= timeBetweenTick; 
-                OnTick?.Invoke();
+                timer += Time.deltaTime; 
+    
+                if (timer >= timeBetweenTick) 
+                {
+                    timer -= timeBetweenTick; 
+                    OnTick?.Invoke();
+                }
             }
+    
+            
         }
         
         private void IncreaseSpeed()
@@ -92,9 +96,9 @@ namespace Script.Manager
             OnTickChange?.Invoke();
         }
         
-        private void TickBehaviorAfterRoundEnd()
+
+        private void ResetTiEmerAndMusic()
         {
-            timer = 0;
             timeBetweenTick = defaultValueTimer;
             
             if (syncWithMusic && SoundManager.Instance != null)
@@ -115,7 +119,7 @@ namespace Script.Manager
         private void OnEnable()
         {
             EventManager.OnRoundEnd += IncreaseSpeed;
-            EventManager.OnRoundStart += ResetTimerOnRoundStart;
+            //EventManager.OnRoundStart += ResetTimerOnRoundStart;
             EventManager.OnGameStart += InitializeTickFromMusic;
             EventManager.OnGameEnd += EndGame;
         }
@@ -123,7 +127,7 @@ namespace Script.Manager
         private void OnDisable()
         {
             EventManager.OnRoundEnd -= IncreaseSpeed;
-            EventManager.OnRoundStart -= ResetTimerOnRoundStart;
+            //EventManager.OnRoundStart -= ResetTimerOnRoundStart;
             EventManager.OnGameStart -= InitializeTickFromMusic;
             EventManager.OnGameEnd -= EndGame;
         }
