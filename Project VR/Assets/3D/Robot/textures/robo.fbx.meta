@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 21c0cd57f67209d49b9e02d02fe9ef28
+guid: 0e58f595084d2994597226b575865b1c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,8 +31,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack (1)
-      takeName: Attack
+      name: Walk
+      takeName: Walk
       internalID: 2667949614841947897
       firstFrame: 0
       lastFrame: 60
@@ -42,7 +42,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
