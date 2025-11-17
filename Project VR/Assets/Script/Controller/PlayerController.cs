@@ -184,7 +184,7 @@ namespace Script.Controller
 
             float delta = Mathf.Abs(currentTime);
 
-            float perfectTime = timeBetween * 0.25f; 
+            float perfectTime = timeBetween * 0.35f; 
             
             if (delta <= perfectTime)
             {
