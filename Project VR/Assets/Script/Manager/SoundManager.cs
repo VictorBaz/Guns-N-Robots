@@ -20,6 +20,24 @@ namespace Script.Manager
         [SerializeField] private AudioClip gameMusic;
         [SerializeField] private float musicBPM = 90f;
 
+        [Header("SFX")]
+        
+        [SerializeField] private AudioClip badShoot;
+        [SerializeField] private AudioClip goodShoot;
+        [SerializeField] private AudioClip perfectShoot;
+        
+        [SerializeField] private AudioClip reload;
+        
+        [SerializeField] private AudioClip robotWalk1;
+        [SerializeField] private AudioClip robotWalk2;
+        [SerializeField] private AudioClip robotAttackRange;
+        [SerializeField] private AudioClip robotAttackMelee;
+        [SerializeField] private AudioClip robotDeath;
+
+        [SerializeField] private AudioClip doorSound;
+
+        [SerializeField] private AudioClip roundSound;
+
         #endregion
 
         #region Singleton
@@ -136,6 +154,16 @@ namespace Script.Manager
 
         #region Sound Methods
 
+        public void PlaySoundWithAudioSource(AudioSource source, AudioClip clip)
+        {
+            if (clip == null)
+            {
+                Debug.LogError("The audioClip you tried to play is null");
+                return;
+            }
+            source.PlayOneShot(clip);
+        }
+        
         public void PlayMusicOneShot(AudioClip _audioClip)
         {
             if (_audioClip == null)
@@ -197,6 +225,27 @@ namespace Script.Manager
             //EventManager.OnRoundEnd -= PauseGameMusic;
             //EventManager.OnRoundStart -= ResumeGameMusic;
         }
+
+        #endregion
+
+        #region Utility
+        
+        public AudioClip BadShootSound()        => badShoot;
+        public AudioClip GoodShootSound()       => goodShoot;
+        public AudioClip PerfectShootSound()    => perfectShoot;
+
+        public AudioClip ReloadSound()          => reload;
+
+
+        public AudioClip RobotWalkSound1()       => robotWalk1;
+        public AudioClip RobotWalkSound2()       => robotWalk2;
+        public AudioClip RobotAttackRangeSound()=> robotAttackRange;
+        public AudioClip RobotAttackMeleeSound()=> robotAttackMelee;
+        public AudioClip RobotDeathSound()      => robotDeath;
+
+        public AudioClip DoorSound()            => doorSound;
+
+        public AudioClip RoundSound()           => roundSound;
 
         #endregion
     }

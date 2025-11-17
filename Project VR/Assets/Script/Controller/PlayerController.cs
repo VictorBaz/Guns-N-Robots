@@ -51,12 +51,10 @@ namespace Script.Controller
         #region Events
 
         public static Action OnplayerShoot;
-        public static Action OnPlayerMissedShot;
         public static Action OnReloadStart;
         public static Action OnPlayerReload;
         public static Action OnReloadEnd;
-
-
+        
         #endregion
 
         #region Unity Methods
@@ -128,6 +126,10 @@ namespace Script.Controller
             {
                 ExecuteShot();
             }
+            else
+            {
+                EventManager.BadShot();
+            }
         }
 
         private bool CanFireWeapon()
@@ -143,7 +145,7 @@ namespace Script.Controller
         {
             canShoot = false;
             
-
+            bool perfectShot = EvaluationShot();
             if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), 
                 out hit, Mathf.Infinity, layerMask))
             {
@@ -152,12 +154,19 @@ namespace Script.Controller
                 visuals.Sparks(hit.point, hit.normal);
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage();
             }
-            Debug.DrawRay(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward),Color.red,5f);
+            
+            
+            
             visuals.Shoot();
             visuals.Muzzle();
             visuals.BulletShell();
+
+            if (!perfectShot)
+            {
+                cylinder[indexInBarel] = CylinderHoleState.Empty;
+            }
             
-            cylinder[indexInBarel] = CylinderHoleState.Empty;
+            
             OnplayerShoot?.Invoke();
         }
 
@@ -166,6 +175,27 @@ namespace Script.Controller
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, bulletOrigin.position);
             lineRenderer.SetPosition(1, hit.point);
+        }
+
+        private bool EvaluationShot()
+        {
+            float timeBetween = TickManager.TimeBetweenTick;
+            float currentTime = TickManager.Timer;
+
+            float delta = Mathf.Abs(currentTime);
+
+            float perfectTime = timeBetween * 0.25f; 
+            
+            if (delta <= perfectTime)
+            {
+                EventManager.PerfectShot();
+                return true;
+            }
+            else
+            {
+                EventManager.GoodShot();
+                return false;
+            }
         }
 
         #endregion

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Script.Debug_Game
 {
-    public class DebugCylinder : MonoBehaviour
+    public class UiCylinder : MonoBehaviour
     {
         #region Fields
 
