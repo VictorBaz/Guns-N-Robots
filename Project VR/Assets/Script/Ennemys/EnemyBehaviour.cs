@@ -98,6 +98,7 @@ namespace Script.Ennemys
         private void OnEnemyDeath()
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
+            enemyManager.RemoveEnemyFromList(this);
             EventManager.EnemyKilled();
         }
 
