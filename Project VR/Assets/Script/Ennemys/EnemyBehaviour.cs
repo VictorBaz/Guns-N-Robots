@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Script.Ennemys
 {
-    public class EnnemyBehaviour : MonoBehaviour, IDamagable
+    public class EnnemyBehaviour : MonoBehaviour, IDamagable, IEnemy
     {
 
         #region Fields
@@ -77,7 +77,7 @@ namespace Script.Ennemys
 
         #region Init
 
-        private void InitPosition()
+        public void InitPosition()
         {
             moveDistance = playerPos.position - enemyTransform.position;
             moveDistance.y = 0;
@@ -89,13 +89,18 @@ namespace Script.Ennemys
 
         #region Ennemy Methods
 
-        private void ClearEnemy()
+        public void ClearEnemy()
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
             OnDeathAnimationComplete();
         }
 
-        private void OnEnemyDeath()
+        public void DestroyItSelf()
+        {
+            Destroy(transform.parent.gameObject);
+        }
+
+        public void OnEnemyDeath()
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
             enemyManager.RemoveEnemyFromList(this);
