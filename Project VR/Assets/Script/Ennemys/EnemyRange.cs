@@ -27,8 +27,9 @@ namespace Script.Ennemys
 
         [Header("Tick Timings")]
         [SerializeField] private int tickTransitionSpawnToStartAttack;
-        [SerializeField] private int tickTransitionStartAttackToAttack = 0;
-        [SerializeField] private int tickNeedToAttack;
+        [SerializeField] private int tickTransitionStartAttackToAttack = 5; 
+        [SerializeField] private int tickNeedToAttack = 3; 
+        [SerializeField] private int tickStopAttackDuration = 2; 
 
         [Header("Visuals")]
         [SerializeField] private LineRenderer laserSight;
@@ -44,17 +45,19 @@ namespace Script.Ennemys
         private EnemyRangeState enemyState = EnemyRangeState.Spawn;
         
         private int tickSinceSpawn = 0;
-        private int tickStartAttackToAttack;
+        private int tickStartAttackToAttack = 0;
         private int tickBeforeAttack = 0;
+        private int tickInStopAttack = 0;
 
-        private bool isAttacking;
+        private bool hasShot = false;
         private bool isDead;
         
         private EnemyManager enemyManager;
         private int indexInEnnemyManager;
         private Transform playerPos;
 
-        private Vector3 aimDirection; 
+        private Vector3 aimDirection;
+        private float currentLerpValue = 0f; 
 
         #endregion
 
@@ -85,14 +88,14 @@ namespace Script.Ennemys
 
         private void Update()
         {
-            if ((enemyState == EnemyRangeState.StartAttacking || enemyState == EnemyRangeState.Attacking) 
+            if (enemyState is EnemyRangeState.StartAttacking or EnemyRangeState.Attacking 
                 && laserSight != null && laserSight.enabled)
             {
-                UpdateLaserSight();
                 
-                if (enemyState == EnemyRangeState.Attacking)
+                
+                if (enemyState is EnemyRangeState.StartAttacking or EnemyRangeState.Attacking)
                 {
-                    UpdateLaserVisualDuringAttack();
+                    UpdateLaserVisualProgressive();
                 }
             }
         }
@@ -153,30 +156,26 @@ namespace Script.Ennemys
             if (enemyState == EnemyRangeState.Spawn && tickSinceSpawn >= tickTransitionSpawnToStartAttack)
             {
                 TransitionToState(EnemyRangeState.StartAttacking);
-                tickStartAttackToAttack = 0;
             }
             else if (enemyState == EnemyRangeState.StartAttacking && tickStartAttackToAttack >= tickTransitionStartAttackToAttack)
             {
                 TransitionToState(EnemyRangeState.Attacking);
-                tickBeforeAttack = 0;
             }
-            else if (enemyState == EnemyRangeState.Attacking && isAttacking)
+            else if (enemyState == EnemyRangeState.Attacking && hasShot)
             {
-                isAttacking = false;
                 TransitionToState(EnemyRangeState.StopAttacking);
             }
-            else if (enemyState == EnemyRangeState.StopAttacking)
+            else if (enemyState == EnemyRangeState.StopAttacking && tickInStopAttack >= tickStopAttackDuration)
             {
                 TransitionToState(EnemyRangeState.StartAttacking);
-                tickStartAttackToAttack = 0;
             }
         }
 
         private void TransitionToState(EnemyRangeState newState)
         {
-            if (enemyState == EnemyRangeState.StartAttacking)
+            if (enemyState is EnemyRangeState.StartAttacking or EnemyRangeState.Attacking)
             {
-                if (laserSight != null)
+                if (laserSight != null && newState != EnemyRangeState.StartAttacking && newState != EnemyRangeState.Attacking)
                 {
                     laserSight.enabled = false;
                 }
@@ -184,12 +183,34 @@ namespace Script.Ennemys
 
             enemyState = newState;
 
-            if (newState == EnemyRangeState.StartAttacking)
+            switch (newState)
             {
-                if (laserSight != null)
-                {
-                    laserSight.enabled = true;
-                }
+                case EnemyRangeState.StartAttacking:
+                    tickStartAttackToAttack = 0;
+                    currentLerpValue = 0f; 
+                    if (laserSight != null)
+                    {
+                        laserSight.enabled = true;
+                        
+                        laserSight.startColor = aimingLaserColor;
+                        laserSight.endColor = aimingLaserColor;
+                        laserSight.startWidth = aimingLaserWidth;
+                        laserSight.endWidth = aimingLaserWidth;
+                    }
+                    break;
+                    
+                case EnemyRangeState.Attacking:
+                    tickBeforeAttack = 0;
+                    hasShot = false;
+                    break;
+                    
+                case EnemyRangeState.StopAttacking:
+                    tickInStopAttack = 0;
+                    if (laserSight != null)
+                    {
+                        laserSight.enabled = false;
+                    }
+                    break;
             }
         }
 
@@ -205,23 +226,23 @@ namespace Script.Ennemys
         private void StartAttackingBehavior()
         {
             tickStartAttackToAttack++;
-            UpdateAimDirection();
+            UpdateLaserSight();
         }
 
         private void AttackingBehavior()
         {
             tickBeforeAttack++;
     
-            if (tickBeforeAttack >= tickNeedToAttack) 
+            if (tickBeforeAttack >= tickNeedToAttack && !hasShot) 
             {
                 ShootRaycast();
-                isAttacking = true;
+                hasShot = true;
             }
         }
 
         private void StopAttackingBehavior()
         {
-            //no idea for the moment
+            tickInStopAttack++;
         }
 
         #endregion
@@ -242,19 +263,41 @@ namespace Script.Ennemys
             UpdateAimDirection();
 
             Vector3 startPoint = shootPoint.position;
-            Vector3 endPoint;
-
-            if (Physics.Raycast(startPoint, aimDirection, out RaycastHit hit, laserMaxDistance, shootLayerMask))
-            {
-                endPoint = hit.point;
-            }
-            else
-            {
-                endPoint = startPoint + aimDirection * laserMaxDistance;
-            }
+            Vector3 endPoint = startPoint + aimDirection * laserMaxDistance;
 
             laserSight.SetPosition(0, startPoint);
             laserSight.SetPosition(1, endPoint);
+        }
+
+
+        private void UpdateLaserVisualProgressive()
+        {
+            if (laserSight == null) return;
+
+            int totalTicksForAiming = tickTransitionStartAttackToAttack + tickNeedToAttack;
+            int currentTick = 0;
+            
+            switch (enemyState)
+            {
+                case EnemyRangeState.StartAttacking:
+                    currentTick = tickStartAttackToAttack;
+                    break;
+                case EnemyRangeState.Attacking:
+                    currentTick = tickTransitionStartAttackToAttack + tickBeforeAttack;
+                    break;
+            }
+
+            float targetLerpValue = (float)currentTick / totalTicksForAiming;
+            
+            currentLerpValue = Mathf.Lerp(currentLerpValue, targetLerpValue, Time.deltaTime * 5f);
+
+            Color currentColor = Color.Lerp(aimingLaserColor, shootingLaserColor, currentLerpValue);
+            laserSight.startColor = currentColor;
+            laserSight.endColor = currentColor;
+
+            float currentWidth = Mathf.Lerp(aimingLaserWidth, shootingLaserWidth, currentLerpValue);
+            laserSight.startWidth = currentWidth;
+            laserSight.endWidth = currentWidth;
         }
 
         private void ShootRaycast()
@@ -263,7 +306,6 @@ namespace Script.Ennemys
 
             if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, shootLayerMask))
             {
-
                 IDamagable damagable = hit.collider.GetComponent<IDamagable>();
                 if (damagable != null)
                 {
@@ -282,7 +324,7 @@ namespace Script.Ennemys
             if (!isDead)
             {
                 isDead = true;
-                isAttacking = false;
+                hasShot = false;
                 if (laserSight != null)
                 {
                     laserSight.enabled = false;
@@ -295,10 +337,10 @@ namespace Script.Ennemys
 
         public void KillPlayer()
         {
-            if (!isDead && isAttacking)
+            if (!isDead && hasShot)
             {
                 EventManager.GameEnd();
-                Debug.Log("Player killed by enemy!");
+                Debug.Log("Player killed by sniper!");
             }
         }
 
@@ -322,36 +364,6 @@ namespace Script.Ennemys
         {
             Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);
         }
-
-        #endregion
-
-        #region Utility
-
-        private void ResetTick()
-        {
-            tickSinceSpawn = 0;
-            tickBeforeAttack = 0;
-            tickStartAttackToAttack = 0;
-        }
-        
-        private void UpdateLaserVisualDuringAttack()
-        {
-            if (laserSight == null) return;
-
-            float ratio = Mathf.Clamp01((float)tickBeforeAttack / tickNeedToAttack);
-
-            Color startColor = aimingLaserColor;
-            Color endColor = shootingLaserColor;
-
-            Color lerpedColor = Color.Lerp(startColor, endColor, ratio);
-            laserSight.startColor = lerpedColor;
-            laserSight.endColor = lerpedColor;
-
-            float lerpedWidth = Mathf.Lerp(aimingLaserWidth, shootingLaserWidth, ratio);
-            laserSight.startWidth = lerpedWidth;
-            laserSight.endWidth = lerpedWidth;
-        }
-
 
         #endregion
     }
