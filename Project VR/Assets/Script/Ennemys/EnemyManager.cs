@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Script.Enum;
+using Script.Interface;
 using Script.Manager;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,15 +13,13 @@ namespace Script.Ennemys
         #region Fields
 
         [SerializeField] private Door[] DoorList = { };
-
         [SerializeField] private GameObject enemyPrefabs;
-
         [SerializeField] private Transform playerTransform;
-
         [SerializeField] private int TickBetweenTwoEnnemy;
+        
         private int lastEnemySpawn;
-
         private List<int> availableDoor = new List<int>();
+        private List<IEnemy> activeEnemies = new List<IEnemy>();
     
         #endregion
 
@@ -29,35 +28,60 @@ namespace Script.Ennemys
         private void OnEnable()
         {
             TickManager.OnTick += TickBehaviour;
+            EventManager.OnRoundEnd += CleanupRound;
+            EventManager.OnGameEnd += CleanupAllEnemies;
         }
 
         private void OnDisable()
         {
             TickManager.OnTick -= TickBehaviour;
+            EventManager.OnRoundEnd -= CleanupRound;
+            EventManager.OnGameEnd -= CleanupAllEnemies;
         }
 
         #endregion
 
+        #region Unity Methods
+
         private void Start()
         {
+            InitializeAvailableDoors();
+        }
+
+        #endregion
+
+        #region Initialization
+
+        private void InitializeAvailableDoors()
+        {
+            availableDoor.Clear();
             for (int i = 0; i < DoorList.Length; i++)
             {
                 availableDoor.Add(i);
             }
-
-            playerTransform = GameManager.Instance.playerRef.transform;
         }
+
+        #endregion
+
+        #region Door Management
 
         public void ReleaseEnemyPlacement(int index)
         {
-            availableDoor.Add(index);
+            if (!availableDoor.Contains(index))
+            {
+                availableDoor.Add(index);
+            }
         }
+
+        #endregion
+
+        #region Tick Behavior
 
         private void TickBehaviour()
         {
             if (lastEnemySpawn >= TickBetweenTwoEnnemy)
             {
-                if (GameManager.Instance.CurrentState == GameState.MiniGameRunning && MiniGameManager.Instance.CanSpawn())
+                if (CanSpawnEnemy())
                 {
                     PickRandomDoor();
                     lastEnemySpawn = 0;   
@@ -68,28 +92,100 @@ namespace Script.Ennemys
                 lastEnemySpawn++;
             }
         }
-    
+
+        private bool CanSpawnEnemy()
+        {
+            return GameManager.Instance.CurrentState == GameState.MiniGameRunning 
+                   && MiniGameManager.Instance.CanSpawn()
+                   && availableDoor.Count > 0;
+        }
+
+        #endregion
+
+        #region Enemy Spawning
+
         private void PickRandomDoor()
         {
             if (availableDoor.Count == 0) return;
             
-            int index = Random.Range(0, availableDoor.Count);
-        
-            Door door = DoorList[availableDoor[index]];
+            int randomIndex = Random.Range(0, availableDoor.Count);
+            int doorIndex = availableDoor[randomIndex];
+            Door door = DoorList[doorIndex];
             
-            EnnemyBehaviour nmi = SpawnEnemy(door.doorReference.transform);
-            nmi.SetParametersOnSpawn(this, availableDoor[index],playerTransform);
-            availableDoor.RemoveAt(index);
+            IEnemy enemy = SpawnEnemy(door.doorReference.transform);
+            if (enemy != null)
+            {
+                enemy.SetParametersOnSpawn(this, doorIndex, GetPlayerTransform());
+                availableDoor.RemoveAt(randomIndex);
+                activeEnemies.Add(enemy);
+            }
         }
 
-        private EnnemyBehaviour SpawnEnemy(Transform doorTransform)
+        private IEnemy SpawnEnemy(Transform doorTransform)
         {
-            GameObject nmi = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
+            GameObject enemyObj = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
             EventManager.EnemySpawn();
-            // spawn
-            return nmi.GetComponentInChildren<EnnemyBehaviour>();
+            
+            IEnemy enemy = enemyObj.GetComponent<IEnemy>();
+            
+            if (enemy == null)
+            {
+                enemy = enemyObj.GetComponentInChildren<IEnemy>();
+            }
+
+            if (enemy == null)
+            {
+                Debug.LogError($"EnnemyBehaviour component not found on spawned enemy prefab!");
+                Destroy(enemyObj);
+            }
+
+            return enemy;
         }
-    
+
+        #endregion
+
+        #region Utility
+
+        private Transform GetPlayerTransform()
+        {
+            if (playerTransform == null && GameManager.Instance?.playerRef != null)
+            {
+                playerTransform = GameManager.Instance.playerRef.transform;
+            }
+            return playerTransform;
+        }
+
+        #endregion
+
+        #region Cleanup
+
+        private void CleanupRound()
+        {
+            //jsp
+        }
+
+        private void CleanupAllEnemies()
+        {
+            foreach (var enemy in activeEnemies)
+            {
+                if (enemy != null)
+                {
+                    enemy.DestroyItSelf();
+                }
+            }
+            activeEnemies.Clear();
+            
+            InitializeAvailableDoors();
+            lastEnemySpawn = 0;
+        }
+
+        public void RemoveEnemyFromList(IEnemy enemy)
+        {
+            activeEnemies.Remove(enemy);
+        }
+
+        #endregion
+
     }
 
     [Serializable]

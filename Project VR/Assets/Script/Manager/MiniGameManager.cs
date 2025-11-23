@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Script.Controller;
 using Script.Enum;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
@@ -26,8 +27,14 @@ namespace Script.Manager
         private int objectifEnemy;
             
         [SerializeField] private int defaultEnemyNumberToKill;
+
+        [SerializeField] private int minEnemySpawn;
         
+        [SerializeField] private int maxEnemySpawn;
         
+        [SerializeField] private int maxEnemyPallier;
+
+
         #endregion
 
         #region Unity Methods
@@ -71,7 +78,7 @@ namespace Script.Manager
         
         public void StartInGame()
         {
-            if (GameManager.Instance.CurrentState == GameState.InGame) 
+            if (GameManager.Instance.CurrentState == GameState.InGame || GameManager.Instance.CurrentState == GameState.GameFinished) 
             {
                 GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
                 EventManager.StartGame();
@@ -106,8 +113,7 @@ namespace Script.Manager
         private void InitFirstRound()
         {
             round = 0;
-            objectifEnemy = defaultEnemyNumberToKill;
-            toSpawnEnemy = defaultEnemyNumberToKill;
+            SetEnemyCountForRound();
         }
 
         private void TransitionRound()
@@ -120,13 +126,24 @@ namespace Script.Manager
             round++;
             yield return new WaitForSeconds(5);
             
-            toSpawnEnemy = defaultEnemyNumberToKill;
-            objectifEnemy = defaultEnemyNumberToKill;
+            SetEnemyCountForRound();
             EventManager.RoundStart();
         } 
+        
+        private void SetEnemyCountForRound()
+        {
+            float progression = round * 0.5f;
+            int baseEnemies = UnityEngine.Random.Range(minEnemySpawn, maxEnemySpawn + 1);
+            int enemiesThisRound = Mathf.RoundToInt(baseEnemies + progression);
+            enemiesThisRound = Mathf.Min(enemiesThisRound, maxEnemyPallier);
+            objectifEnemy = enemiesThisRound;
+            toSpawnEnemy = enemiesThisRound;
+        }
+
+        public int GetCurrentRound() => round;
 
         #endregion
-        
-        
+
+
     }
 }

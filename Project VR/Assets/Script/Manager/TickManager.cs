@@ -9,28 +9,40 @@ namespace Script.Manager
     {
         #region Fields
 
-        [Header("Action")] 
+        [Header("Actions")] 
         public static Action OnTick;
         public static Action OnTickChange;
-        public static Action OnTickSetup;
 
-        [SerializeField] private float timeBetweenTick;
+        [SerializeField] private float timeBetweenTick = 0.666f; 
         
         public static float TimeBetweenTick;
+        public static float Timer;
 
         private float timer;
-        
-        [SerializeField] private float speedIncreaseAmount = 0.1f; 
-        [SerializeField] private float minTimeBetweenTick = 0.2f;
-        [SerializeField] private float defaultValueTimer = 1f; 
+
+        [SerializeField] private float defaultValueTimer = 0.666f; 
+
+        [Header("Music Sync")]
+        [SerializeField] private bool syncWithMusic = true;
+
+        [Header("BPM Settings")]
+        [SerializeField] private float currentBPM = 90f;        
+        [SerializeField] private float maxBPM = 180f;           
+        [SerializeField] private int maxRoundForMaxBPM = 40;    
 
         #endregion
 
         #region Unity Methods
 
+        private void Start()
+        {
+            InitializeTickFromMusic();
+        }
+
         private void Update()
         {
-            TimeBetweenTick = timeBetweenTick; 
+            TimeBetweenTick = timeBetweenTick;
+            Timer = timer;
             UpdateTickByTime();
         }
 
@@ -38,7 +50,24 @@ namespace Script.Manager
 
         #region Initialise
 
-        //tempo
+        private void InitializeTickFromMusic()
+        {
+            if (syncWithMusic && SoundManager.Instance != null)
+            {
+                float beatInterval = SoundManager.Instance.GetBeatInterval();
+                currentBPM = 60f / beatInterval;      
+
+                timeBetweenTick = beatInterval;
+                defaultValueTimer = timeBetweenTick;
+
+                SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
+            }
+            else
+            {
+                timeBetweenTick = 60f / currentBPM;
+                defaultValueTimer = timeBetweenTick;
+            }
+        }
 
         #endregion
 
@@ -46,33 +75,49 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (GameManager.Instance.CurrentState != GameState.MiniGameRunning) return;
-    
-            timer += Time.deltaTime; 
-    
-            if (timer >= timeBetweenTick) 
+            if (GameManager.Instance.CurrentState == GameState.MiniGamePaused 
+                || GameManager.Instance.CurrentState == GameState.MiniGameRunning)
             {
-                timer -= timeBetweenTick; 
-                OnTick?.Invoke();
+                timer += Time.deltaTime;
+    
+                if (timer >= timeBetweenTick)
+                {
+                    timer -= timeBetweenTick;
+                    OnTick?.Invoke();
+                }
             }
         }
         
         private void IncreaseSpeed()
         {
-            timeBetweenTick -= speedIncreaseAmount;
-        
-            if (timeBetweenTick < minTimeBetweenTick)
+            int round = MiniGameManager.Instance.GetCurrentRound();
+            float t = Mathf.Clamp01((float)round / maxRoundForMaxBPM);
+
+            currentBPM = Mathf.Lerp(90f, maxBPM, t);
+
+            timeBetweenTick = 60f / currentBPM;
+
+            if (syncWithMusic && SoundManager.Instance != null)
             {
-                timeBetweenTick = minTimeBetweenTick;
+                SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
             }
+            
             OnTickChange?.Invoke();
-        
         }
-        
-        private void TickBehaviorAfterRoundEnd()
+
+        private void ResetTimerAndMusic()
+        {
+            timeBetweenTick = defaultValueTimer;
+            
+            if (syncWithMusic && SoundManager.Instance != null)
+            {
+                SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
+            }
+        }
+
+        private void ResetTimerOnRoundStart()
         {
             timer = 0;
-            timeBetweenTick = defaultValueTimer;
         }
 
         #endregion
@@ -82,16 +127,26 @@ namespace Script.Manager
         private void OnEnable()
         {
             EventManager.OnRoundEnd += IncreaseSpeed;
-            
+            EventManager.OnGameStart += InitializeTickFromMusic;
+            EventManager.OnGameEnd += EndGame;
         }
 
         private void OnDisable()
         {
             EventManager.OnRoundEnd -= IncreaseSpeed;
-            
+            EventManager.OnGameStart -= InitializeTickFromMusic;
+            EventManager.OnGameEnd -= EndGame;
         }
 
         #endregion
-        
+
+        #region State
+
+        private void EndGame()
+        {
+            ResetTimerOnRoundStart();
+        }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Script.Enum;
 
 namespace Script.Manager
 {
@@ -12,7 +13,11 @@ namespace Script.Manager
         public static Action OnEnemyKilled;
         public static Action OnEnemySpawn;
 
-        public static void  StartGame()
+        public static Action<ShotDone> OnBadShoot;
+        public static Action<ShotDone> OnGoodShot;
+        public static Action<ShotDone> OnPerfectShot;
+
+        public static void StartGame()
         {
             OnGameStart?.Invoke();
         }
@@ -40,6 +45,21 @@ namespace Script.Manager
         public static void EnemySpawn()
         {
             OnEnemySpawn?.Invoke();
+        }
+
+        public static void BadShot()
+        {
+            OnBadShoot?.Invoke(ShotDone.Bad);
+        }
+
+        public static void GoodShot()
+        {
+            OnGoodShot?.Invoke(ShotDone.Good);
+        }
+
+        public static void PerfectShot()
+        {
+            OnPerfectShot?.Invoke(ShotDone.Perfect);
         }
         
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Script.Ennemys
 {
-    public class EnnemyBehaviour : MonoBehaviour, IDamagable
+    public class EnnemyBehaviour : MonoBehaviour, IDamagable, IEnemy
     {
 
         #region Fields
@@ -45,11 +45,13 @@ namespace Script.Ennemys
         private void OnEnable()
         {
             TickManager.OnTick += EnnemyAction;
+            EventManager.OnGameEnd += ClearEnemy;
         }
 
         private void OnDisable()
         {
             TickManager.OnTick -= EnnemyAction;
+            EventManager.OnGameEnd -= ClearEnemy;
         }
 
         #endregion
@@ -75,7 +77,7 @@ namespace Script.Ennemys
 
         #region Init
 
-        private void InitPosition()
+        public void InitPosition()
         {
             moveDistance = playerPos.position - enemyTransform.position;
             moveDistance.y = 0;
@@ -87,9 +89,21 @@ namespace Script.Ennemys
 
         #region Ennemy Methods
 
-        private void OnEnemyDeath()
+        public void ClearEnemy()
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
+            OnDeathAnimationComplete();
+        }
+
+        public void DestroyItSelf()
+        {
+            Destroy(transform.parent.gameObject);
+        }
+
+        public void OnEnemyDeath()
+        {
+            enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
+            enemyManager.RemoveEnemyFromList(this);
             EventManager.EnemyKilled();
         }
 
@@ -152,21 +166,20 @@ namespace Script.Ennemys
 
         #endregion
 
-        #region Animation Events (Called from Animation Clips)
+        #region Animation Events
 
         public void KillPlayer()
         {
             if (!isDead && isAttacking)
             {
-                // TODO: Implémenter la mort du joueur
-                // EventManager.PlayerKilled();
+                EventManager.GameEnd();
                 Debug.Log("Player killed by enemy!");
             }
         }
 
         public void OnDeathAnimationComplete()
         {
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
 
         #endregion
@@ -194,5 +207,6 @@ namespace Script.Ennemys
         }
 
         #endregion
+
     }
 }

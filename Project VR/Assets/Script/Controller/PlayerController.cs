@@ -13,7 +13,7 @@ namespace Script.Controller
 {
     public class PlayerController : MonoBehaviour
     {
-        #region Serialized Fields
+        #region Fields
 
         [SerializeField] private VisualsController visuals;
         [SerializeField] private LineRenderer lineRenderer;
@@ -23,11 +23,7 @@ namespace Script.Controller
         [SerializeField] private XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
-
-        #endregion
-
-        #region Public Properties
-
+        
         public CylinderHoleState currentCylinderHole { get; private set; }
 
         #endregion
@@ -48,16 +44,17 @@ namespace Script.Controller
         private float startTimeReload;
         private float endTimeReload;
         private Coroutine currentCoroutineReloading;
-        private bool dead;
+        
 
         #endregion
 
         #region Events
 
         public static Action OnplayerShoot;
-        public static Action OnPlayerMissedShot;
+        public static Action OnReloadStart;
         public static Action OnPlayerReload;
-
+        public static Action OnReloadEnd;
+        
         #endregion
 
         #region Unity Methods
@@ -78,6 +75,7 @@ namespace Script.Controller
         {
             HandleTriggerInput();
             PlayerFire();
+            
         }
 
         private void OnEnable()
@@ -128,6 +126,10 @@ namespace Script.Controller
             {
                 ExecuteShot();
             }
+            else
+            {
+                EventManager.BadShot();
+            }
         }
 
         private bool CanFireWeapon()
@@ -143,19 +145,28 @@ namespace Script.Controller
         {
             canShoot = false;
             
-            visuals.Shoot();
-            visuals.Muzzle();
-            visuals.BulletShell();
-
+            bool perfectShot = EvaluationShot();
             if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), 
                 out hit, Mathf.Infinity, layerMask))
             {
+                
                 DisplayBulletTracer();
                 visuals.Sparks(hit.point, hit.normal);
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage();
             }
+            
+            
+            
+            visuals.Shoot();
+            visuals.Muzzle();
+            visuals.BulletShell();
 
-            cylinder[indexInBarel] = CylinderHoleState.Empty;
+            if (!perfectShot)
+            {
+                cylinder[indexInBarel] = CylinderHoleState.Empty;
+            }
+            
+            
             OnplayerShoot?.Invoke();
         }
 
@@ -166,12 +177,35 @@ namespace Script.Controller
             lineRenderer.SetPosition(1, hit.point);
         }
 
+        private bool EvaluationShot()
+        {
+            float timeBetween = TickManager.TimeBetweenTick;
+            float currentTime = TickManager.Timer;
+
+            float delta = Mathf.Abs(currentTime);
+
+            float perfectTime = timeBetween * 0.35f; 
+            
+            if (delta <= perfectTime)
+            {
+                EventManager.PerfectShot();
+                return true;
+            }
+            else
+            {
+                EventManager.GoodShot();
+                return false;
+            }
+        }
+
         #endregion
 
         #region Barrel Management
 
         private void GetCurrentBarrelHoleByTick()
         {
+            if (reloading) return;
+            
             indexInBarel = cylinderManager.IncrementBarrelByTick(cylinder, indexInBarel);
             currentCylinderHole = cylinder[indexInBarel];
             hasShot = false;
@@ -223,10 +257,7 @@ namespace Script.Controller
         {
             endReloadPosition = bulletOrigin.transform.position;
             endTimeReload = Time.time;
-
             float reloadSpeed = CalculateReloadSpeed();
-            Debug.Log($"speed of gun : {reloadSpeed}, distance : {Vector3.Distance(startReloadPosition, endReloadPosition)}, time : {endTimeReload - startTimeReload}");
-
             if (reloadSpeed > minSpeedToReload)
             {
                 ExecuteReload();
@@ -245,7 +276,8 @@ namespace Script.Controller
             float timeReload = visuals.Reload();
             currentCoroutineReloading = StartCoroutine(ToggleReloadState(timeReload));
             cylinderManager.Reload(cylinder);
-            OnPlayerReload?.Invoke();
+            
+            OnReloadStart?.Invoke();
         }
 
         private IEnumerator ToggleReloadState(float time)
@@ -253,6 +285,10 @@ namespace Script.Controller
             reloading = true;
             yield return new WaitForSeconds(time);
             reloading = false;
+            indexInBarel = 0;
+            currentCylinderHole = cylinder[indexInBarel];
+            OnReloadEnd?.Invoke();
+            OnPlayerReload?.Invoke();
         }
 
         #endregion
