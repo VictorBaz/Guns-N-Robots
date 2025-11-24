@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4491928121255076248}
   - component: {fileID: 7868363967480918387}
-  - component: {fileID: 5008699082592996791}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -49,25 +48,3 @@ MonoBehaviour:
   menuSceneName: PLH MENU
   gameSceneName: VRTest
   playerRef: {fileID: 0}
---- !u!114 &5008699082592996791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2706649199543632649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33090b723b668de4d87cfc07c5886a02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnnemyManager
-  DoorList:
-  - doorReference: {fileID: 0}
-    isAvalaible: 0
-  - doorReference: {fileID: 0}
-    isAvalaible: 0
-  - doorReference: {fileID: 0}
-    isAvalaible: 0
-  enemyPrefabs: {fileID: 7539472597967327169, guid: 409d81614ad93094189bbb8cb3959df6, type: 3}
-  playerTransform: {fileID: 0}
-  TickBetweenTwoEnnemy: 3
