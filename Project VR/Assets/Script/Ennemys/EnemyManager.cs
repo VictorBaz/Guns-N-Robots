@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Script.Enum;
+using Script.Interface;
 using Script.Manager;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,7 +19,7 @@ namespace Script.Ennemys
         
         private int lastEnemySpawn;
         private List<int> availableDoor = new List<int>();
-        private List<EnnemyBehaviour> activeEnemies = new List<EnnemyBehaviour>();
+        private List<IEnemy> activeEnemies = new List<IEnemy>();
     
         #endregion
 
@@ -111,7 +112,7 @@ namespace Script.Ennemys
             int doorIndex = availableDoor[randomIndex];
             Door door = DoorList[doorIndex];
             
-            EnnemyBehaviour enemy = SpawnEnemy(door.doorReference.transform);
+            IEnemy enemy = SpawnEnemy(door.doorReference.transform);
             if (enemy != null)
             {
                 enemy.SetParametersOnSpawn(this, doorIndex, GetPlayerTransform());
@@ -120,16 +121,16 @@ namespace Script.Ennemys
             }
         }
 
-        private EnnemyBehaviour SpawnEnemy(Transform doorTransform)
+        private IEnemy SpawnEnemy(Transform doorTransform)
         {
             GameObject enemyObj = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
             EventManager.EnemySpawn();
             
-            // Chercher le component sur le root d'abord, puis dans les enfants
-            EnnemyBehaviour enemy = enemyObj.GetComponent<EnnemyBehaviour>();
+            IEnemy enemy = enemyObj.GetComponent<IEnemy>();
+            
             if (enemy == null)
             {
-                enemy = enemyObj.GetComponentInChildren<EnnemyBehaviour>();
+                enemy = enemyObj.GetComponentInChildren<IEnemy>();
             }
 
             if (enemy == null)
@@ -169,7 +170,7 @@ namespace Script.Ennemys
             {
                 if (enemy != null)
                 {
-                    Destroy(enemy.gameObject);
+                    enemy.DestroyItSelf();
                 }
             }
             activeEnemies.Clear();
@@ -178,7 +179,7 @@ namespace Script.Ennemys
             lastEnemySpawn = 0;
         }
 
-        public void RemoveEnemyFromList(EnnemyBehaviour enemy)
+        public void RemoveEnemyFromList(IEnemy enemy)
         {
             activeEnemies.Remove(enemy);
         }
