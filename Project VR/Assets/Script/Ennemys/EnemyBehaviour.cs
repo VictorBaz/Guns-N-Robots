@@ -97,7 +97,7 @@ namespace Script.Ennemys
 
         public void DestroyItSelf()
         {
-            Destroy(transform.parent.gameObject);
+            Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);
         }
 
         public void OnEnemyDeath()
@@ -179,7 +179,7 @@ namespace Script.Ennemys
 
         public void OnDeathAnimationComplete()
         {
-            Destroy(transform.parent.gameObject);
+            DestroyItSelf();
         }
 
         #endregion

@@ -7,9 +7,10 @@ namespace Script.Ennemys
 {
     public class EnemyRange : MonoBehaviour, IDamagable, IEnemy
     {
+
         #region Enums
 
-        enum EnemyRangeState
+        public enum EnemyRangeState
         {
             Spawn,
             StartAttacking,
@@ -26,7 +27,6 @@ namespace Script.Ennemys
         [SerializeField] private Transform shootPoint; 
 
         [Header("Tick Timings")]
-        [SerializeField] private int tickTransitionSpawnToStartAttack;
         [SerializeField] private int tickTransitionStartAttackToAttack = 5; 
         [SerializeField] private int tickNeedToAttack = 3; 
         [SerializeField] private int tickStopAttackDuration = 2; 
@@ -42,9 +42,12 @@ namespace Script.Ennemys
         [SerializeField] private Color aimingLaserColor = Color.red;  
         [SerializeField] private Color shootingLaserColor = Color.yellow;
         
+        [Header("Animation")]
+        [SerializeField] private Animator robotRangeAnimator;
+        
         private EnemyRangeState enemyState = EnemyRangeState.Spawn;
         
-        private int tickSinceSpawn = 0;
+        
         private int tickStartAttackToAttack = 0;
         private int tickBeforeAttack = 0;
         private int tickInStopAttack = 0;
@@ -57,11 +60,15 @@ namespace Script.Ennemys
         private Transform playerPos;
 
         private Vector3 aimDirection;
-        private float currentLerpValue = 0f; 
+        private float currentLerpValue = 0f;
+        
+        
+        private static readonly int Shoot = Animator.StringToHash("Shoot");
+        private static readonly int Death = Animator.StringToHash("Death");
+
 
         #endregion
-
-
+        
         #region Unity Methods
 
         private void OnEnable()
@@ -84,6 +91,7 @@ namespace Script.Ennemys
             {
                 laserSight.enabled = false;
             }
+            PlaySpawnAnimation();
         }
 
         private void Update()
@@ -107,6 +115,7 @@ namespace Script.Ennemys
         public void InitPosition()
         {
             enemyTransform.LookAt(enemyTransform.position - (playerPos.position - enemyTransform.position));
+            enemyTransform.localEulerAngles = new Vector3(0, enemyTransform.localEulerAngles.y, 0);
         }
 
         public void SetParametersOnSpawn(EnemyManager enemyManager, int index, Transform playerPosition)
@@ -152,12 +161,8 @@ namespace Script.Ennemys
         private void CheckTransitionState()
         {
             if (isDead) return;
-    
-            if (enemyState == EnemyRangeState.Spawn && tickSinceSpawn >= tickTransitionSpawnToStartAttack)
-            {
-                TransitionToState(EnemyRangeState.StartAttacking);
-            }
-            else if (enemyState == EnemyRangeState.StartAttacking && tickStartAttackToAttack >= tickTransitionStartAttackToAttack)
+            
+            if (enemyState == EnemyRangeState.StartAttacking && tickStartAttackToAttack >= tickTransitionStartAttackToAttack)
             {
                 TransitionToState(EnemyRangeState.Attacking);
             }
@@ -171,7 +176,7 @@ namespace Script.Ennemys
             }
         }
 
-        private void TransitionToState(EnemyRangeState newState)
+        public void TransitionToState(EnemyRangeState newState)
         {
             if (enemyState is EnemyRangeState.StartAttacking or EnemyRangeState.Attacking)
             {
@@ -220,7 +225,7 @@ namespace Script.Ennemys
 
         private void SpawnBehavior()
         {
-            tickSinceSpawn++;
+            //do nothing
         }
 
         private void StartAttackingBehavior()
@@ -235,7 +240,7 @@ namespace Script.Ennemys
     
             if (tickBeforeAttack >= tickNeedToAttack && !hasShot) 
             {
-                ShootRaycast();
+                PlayAttackAnimation();
                 hasShot = true;
             }
         }
@@ -300,7 +305,7 @@ namespace Script.Ennemys
             laserSight.endWidth = currentWidth;
         }
 
-        private void ShootRaycast()
+        public void ShootRaycast()
         {
             if (shootPoint == null) return;
 
@@ -330,8 +335,8 @@ namespace Script.Ennemys
                     laserSight.enabled = false;
                 }
                 
+                PlayDieAnimation();
                 OnEnemyDeath();
-                DestroyItSelf();
             }
         }
 
@@ -363,6 +368,34 @@ namespace Script.Ennemys
         public void DestroyItSelf()
         {
             Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);
+        }
+
+        #endregion
+
+        #region  Anim & Animator Handle
+        
+        private void PlayAttackAnimation()
+        {
+            if (robotRangeAnimator != null)
+            {
+                robotRangeAnimator.SetTrigger(Shoot);
+            }
+        }
+
+        private void PlayDieAnimation()
+        {
+            if (robotRangeAnimator != null)
+            {
+                robotRangeAnimator.SetTrigger(Death);
+            }
+        }
+
+        private void PlaySpawnAnimation()
+        {
+            if (robotRangeAnimator != null)
+            {
+                robotRangeAnimator.Play("spawnRange");
+            }
         }
 
         #endregion

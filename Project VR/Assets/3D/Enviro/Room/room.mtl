@@ -1,2 +1,6 @@
 # Made in Blockbench 5.0.4
+newmtl m_06534b3e-4d92-05bf-b5a8-e9597d99aae8
+map_Kd roomTexture.png
+newmtl m_1136c81d-d818-3460-222d-48367fe373be
+map_Kd textureTopRoomground.png
 newmtl none
