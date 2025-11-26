@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Script.Ennemys
 {
+    [RequireComponent(typeof(AudioSource))]
     public class EnnemyBehaviour : MonoBehaviour, IDamagable, IEnemy
     {
 
@@ -37,6 +38,8 @@ namespace Script.Ennemys
         private static readonly int DieHash = Animator.StringToHash("Die");
 
         [SerializeField] private MaterialUpdater materialUpdater;
+
+        [SerializeField] private AudioSource _audioSourceEnemyMelee;
 
         #endregion
 
@@ -128,6 +131,7 @@ namespace Script.Ennemys
         {
             nextPosition += moveDistance / (ticksBeforeAttack + ticksForAttack);
             ticksSinceSpawn++;
+            PlayStepSound();
         }
 
         private void StartAttack()
@@ -204,6 +208,21 @@ namespace Script.Ennemys
                 OnEnemyDeath();
                 materialUpdater.UpdateMaterials();
             }
+        }
+
+        #endregion
+
+        #region Sound and Effect
+
+        private bool stepSound = false;
+        private void PlayStepSound()
+        {
+            if (SoundManager.Instance == null) return;
+            
+            _audioSourceEnemyMelee.PlayOneShot(stepSound
+                ? SoundManager.Instance.RobotWalkSound1()
+                : SoundManager.Instance.RobotWalkSound2());
+            stepSound = !stepSound;
         }
 
         #endregion

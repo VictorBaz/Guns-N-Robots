@@ -23,6 +23,7 @@ namespace Script.Controller
         [SerializeField] private XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
+        [SerializeField] private Transform transformHead;
         
         
         public CylinderHoleState currentCylinderHole { get; private set; }
@@ -301,6 +302,13 @@ namespace Script.Controller
             indexInBarel = 0;
             hasShot = false;
         }
+
+        #endregion
+
+        #region Getter Setter
+
+        
+        public Transform GetHeadTransform() => transformHead;
 
         #endregion
     }

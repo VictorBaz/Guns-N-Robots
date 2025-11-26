@@ -2,6 +2,7 @@ using System;
 using Script.Controller;
 using Script.Enum;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Script.Manager
 {
@@ -38,6 +39,9 @@ namespace Script.Manager
         [SerializeField] private AudioClip doorSound;
 
         [SerializeField] private AudioClip roundSound;
+
+        [Header("Audio Mixer Group")]
+        [SerializeField] private AudioMixerGroup _audioMixerGroupMainMusic;
 
         #endregion
 
@@ -102,6 +106,7 @@ namespace Script.Manager
             musicAudioSource.loop = true;
             musicAudioSource.playOnAwake = false;
             musicAudioSource.volume = masterVolume;
+            musicAudioSource.outputAudioMixerGroup = _audioMixerGroupMainMusic;
         }
 
         public void StartGameMusic()

@@ -1155,6 +1155,7 @@ MonoBehaviour:
     m_ManualValue: 0
   minSpeedToReload: 2
   cylinder: 000000000000000000000000000000000000000000000000
+  transformHead: {fileID: 8253290981150718059}
 --- !u!4 &360293112
 Transform:
   m_ObjectHideFlags: 0
@@ -1440,7 +1441,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0.005783081
-        value: 0.002
+        value: 0.004
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1895,7 +1896,7 @@ AudioSource:
   m_GameObject: {fileID: 682788138}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6478571416442141071, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -2254,7 +2255,7 @@ AudioSource:
   m_GameObject: {fileID: 186448535}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6478571416442141071, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -2823,6 +2824,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3736527279738071526, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 2179735544574370912, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
     - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: reload
       value: 
@@ -2844,9 +2849,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: e3978030688f7404e942f8912ce1d52c, type: 3}
     - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: robotWalk1
+      value: 
+      objectReference: {fileID: 8300000, guid: 41b03c7ff96eb0f418ea7316be47cffb, type: 3}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: robotWalk2
+      value: 
+      objectReference: {fileID: 8300000, guid: ae33173768025774b93bf7f9635cff0b, type: 3}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: perfectShoot
       value: 
       objectReference: {fileID: 8300000, guid: a22c8b3b96d932a44be96f4176094bc4, type: 3}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: _audioMixerGroupMainMusic
+      value: 
+      objectReference: {fileID: 8210589041482500567, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
     - target: {fileID: 9002346417276297212, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -3258,7 +3275,7 @@ AudioSource:
   m_GameObject: {fileID: 543892983}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6478571416442141071, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -3860,7 +3877,7 @@ AudioSource:
   m_GameObject: {fileID: 1338444658}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6478571416442141071, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -4160,7 +4177,7 @@ AudioSource:
   m_GameObject: {fileID: 1831384649}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6478571416442141071, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -5028,6 +5045,11 @@ MonoBehaviour:
       m_Action: Rotation
       m_Flags: 0
     m_Flags: 0
+--- !u!4 &8253290981150718059 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3778175862948525595, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
+  m_PrefabInstance: {fileID: 8253290981150718056}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8322730490085045119
 PrefabInstance:
   m_ObjectHideFlags: 0

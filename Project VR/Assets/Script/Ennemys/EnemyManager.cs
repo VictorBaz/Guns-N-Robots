@@ -113,13 +113,22 @@ namespace Script.Ennemys
             Door door = DoorList[doorIndex];
             
             IEnemy enemy = SpawnEnemy(door.doorReference.transform);
-            if (enemy != null)
+            
+            switch (enemy)
             {
-                enemy.SetParametersOnSpawn(this, doorIndex, GetPlayerTransform());
-                availableDoor.RemoveAt(randomIndex);
-                activeEnemies.Add(enemy);
-                door.TriggerDoorOpen();
+                case null:
+                    return;
+                case EnemyRange enemyRange:
+                    enemy.SetParametersOnSpawn(this, doorIndex, GetPlayerHead());
+                    break;
+                default:
+                    enemy.SetParametersOnSpawn(this, doorIndex, GetPlayerTransform());
+                    break;
             }
+
+            availableDoor.RemoveAt(randomIndex);
+            activeEnemies.Add(enemy);
+            door.TriggerDoorOpen();
         }
 
         private IEnemy SpawnEnemy(Transform doorTransform)
@@ -147,6 +156,8 @@ namespace Script.Ennemys
 
         #region Utility
 
+        private Transform GetPlayerHead() => GameManager.Instance.playerRef.GetHeadTransform();
+        
         private Transform GetPlayerTransform()
         {
             if (playerTransform == null && GameManager.Instance?.playerRef != null)
