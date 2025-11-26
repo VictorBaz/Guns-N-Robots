@@ -617,10 +617,10 @@ MonoBehaviour:
   shootLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  aimingLaserWidth: 0.1
+  aimingLaserWidth: 0.07
   shootingLaserWidth: 0.02
-  aimingLaserColor: {r: 1, g: 0, b: 0, a: 1}
-  shootingLaserColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  aimingLaserColor: {r: 1, g: 0.9654912, b: 0, a: 1}
+  shootingLaserColor: {r: 1, g: 0.044018812, b: 0.015686274, a: 1}
   robotRangeAnimator: {fileID: 7449658538303665201}
 --- !u!120 &6051067428566356639
 LineRenderer:
