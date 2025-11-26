@@ -1,5 +1,6 @@
 using System;
 using Script.Controller;
+using Script.Enum;
 using UnityEngine;
 
 namespace Script.Manager
@@ -216,6 +217,11 @@ namespace Script.Manager
             EventManager.OnGameEnd += StopGameMusic;
             //EventManager.OnRoundEnd += PauseGameMusic;
             //EventManager.OnRoundStart += ResumeGameMusic;
+            EventManager.OnBadShoot += PlayShootSound;
+            EventManager.OnGoodShot += PlayShootSound;
+            EventManager.OnPerfectShot += PlayShootSound;
+
+            PlayerController.OnReloadStart += PlayReloadSound;
         }
 
         private void OnDisable()
@@ -224,11 +230,16 @@ namespace Script.Manager
             EventManager.OnGameEnd -= StopGameMusic;
             //EventManager.OnRoundEnd -= PauseGameMusic;
             //EventManager.OnRoundStart -= ResumeGameMusic;
+            EventManager.OnBadShoot -= PlayShootSound;
+            EventManager.OnGoodShot -= PlayShootSound;
+            EventManager.OnPerfectShot -= PlayShootSound;
+            
+            PlayerController.OnReloadStart -= PlayReloadSound;
         }
 
         #endregion
 
-        #region Utility
+        #region Utility Sound
         
         public AudioClip BadShootSound()        => badShoot;
         public AudioClip GoodShootSound()       => goodShoot;
@@ -246,6 +257,33 @@ namespace Script.Manager
         public AudioClip DoorSound()            => doorSound;
 
         public AudioClip RoundSound()           => roundSound;
+
+        #endregion
+
+        #region Utility Method
+
+        private void PlayShootSound(ShotDone shotState)
+        {
+            switch (shotState)
+            {
+                case ShotDone.Bad:
+                    PlayMusicOneShot(BadShootSound());
+                    break;
+                case ShotDone.Good:
+                    PlayMusicOneShot(GoodShootSound());
+                    break;
+                case ShotDone.Perfect:
+                    PlayMusicOneShot(PerfectShootSound());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(shotState), shotState, null);
+            }
+        }
+
+        private void PlayReloadSound()
+        {
+            PlayMusicOneShot(ReloadSound());
+        }
 
         #endregion
     }

@@ -24,6 +24,7 @@ namespace Script.Controller
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
         
+        
         public CylinderHoleState currentCylinderHole { get; private set; }
 
         #endregion
