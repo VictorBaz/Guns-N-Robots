@@ -16,7 +16,6 @@ namespace Script.Controller
         #region Fields
 
         [SerializeField] private VisualsController visuals;
-        [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private Grabing grabing;
         [SerializeField] private Transform bulletOrigin;
         [SerializeField] private XRIDefaultInputActions inputActions;
@@ -24,14 +23,12 @@ namespace Script.Controller
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
         [SerializeField] private Transform transformHead;
+        [SerializeField] private TrailRenderer trailShoot;
+        [SerializeField] private float bulletSpeed = 300;
         
         
         public CylinderHoleState currentCylinderHole { get; private set; }
-
-        #endregion
-
-        #region Private Fields
-
+        
         private CylinderManager cylinderManager = new CylinderManager();
         private LayerMask layerMask;
         private RaycastHit hit;
@@ -46,8 +43,7 @@ namespace Script.Controller
         private float startTimeReload;
         private float endTimeReload;
         private Coroutine currentCoroutineReloading;
-        
-
+        private Coroutine coroutineShootTrail;
         #endregion
 
         #region Events
@@ -146,19 +142,15 @@ namespace Script.Controller
         private void ExecuteShot()
         {
             canShoot = false;
-            
+
             bool perfectShot = EvaluationShot();
             if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), 
-                out hit, Mathf.Infinity, layerMask))
+                    out hit, Mathf.Infinity, layerMask))
             {
-                
-                DisplayBulletTracer();
                 visuals.Sparks(hit.point, hit.normal);
                 hit.transform.GetComponent<IDamagable>()?.TakeDamage();
             }
-            
-            
-            
+
             visuals.Shoot();
             visuals.Muzzle();
             visuals.BulletShell();
@@ -167,17 +159,41 @@ namespace Script.Controller
             {
                 cylinder[indexInBarel] = CylinderHoleState.Empty;
             }
-            
-            
+
+            if (coroutineShootTrail != null) StopCoroutine(coroutineShootTrail);
+
+            trailShoot.transform.position = bulletOrigin.position;
+            trailShoot.Clear();
+            trailShoot.gameObject.SetActive(true);
+
+            coroutineShootTrail = StartCoroutine(SpawnTrail(trailShoot, hit));
+
             OnplayerShoot?.Invoke();
         }
 
-        private void DisplayBulletTracer()
+        IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
         {
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, bulletOrigin.position);
-            lineRenderer.SetPosition(1, hit.point);
+            Vector3 startPosition = bulletOrigin.position;
+            Vector3 endPosition = hit.point;
+    
+            float distance = Vector3.Distance(startPosition, endPosition);
+            float duration = distance / bulletSpeed;
+    
+            float time = 0f;
+
+            while (time < duration)
+            {
+                trail.transform.position = Vector3.Lerp(startPosition, endPosition, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            trail.transform.position = endPosition;
+
+            yield return new WaitForSeconds(trail.time);
+            trail.gameObject.SetActive(false);
         }
+
 
         private bool EvaluationShot()
         {
