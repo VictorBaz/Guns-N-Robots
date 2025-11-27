@@ -45,6 +45,8 @@ namespace Script.Ennemys
         [Header("Animation")]
         [SerializeField] private Animator robotRangeAnimator;
         
+        [SerializeField] private MaterialUpdater materialUpdater;
+        
         private EnemyRangeState enemyState = EnemyRangeState.Spawn;
         
         
@@ -334,7 +336,7 @@ namespace Script.Ennemys
                 {
                     laserSight.enabled = false;
                 }
-                
+                materialUpdater.UpdateMaterials();
                 PlayDieAnimation();
                 OnEnemyDeath();
             }
