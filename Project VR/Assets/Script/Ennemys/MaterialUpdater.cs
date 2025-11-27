@@ -21,10 +21,10 @@ namespace Script.Ennemys
             while (_progression < 1)
             {
                 MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-                foreach (var renderer in _renderers)
+                foreach (var _mat in _renderers)
                 {
                     mpb.SetFloat("_Progression", _progression);
-                    renderer.SetPropertyBlock(mpb);
+                    _mat.SetPropertyBlock(mpb);
                 }
             
                 _progression += Time.deltaTime / _duration;

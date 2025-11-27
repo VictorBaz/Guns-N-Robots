@@ -431,6 +431,43 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3092186781398213454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 355896660081560077}
+  m_Layer: 0
+  m_Name: Bullet Shel Drop Array
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &355896660081560077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3092186781398213454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.19197193, y: 0.6805489, z: 0.19197193, w: 0.6805489}
+  m_LocalPosition: {x: -0.05487786, y: 0.008000025, z: 0.049999982}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8345432001675208112}
+  - {fileID: 5148331291288611564}
+  - {fileID: 4036683534789221069}
+  - {fileID: 1697609362252557051}
+  - {fileID: 904206266273047156}
+  - {fileID: 7858604699810608524}
+  m_Father: {fileID: 7934825935080027026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3610568450933735015
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +841,7 @@ Transform:
   - {fileID: 9092138607851429781}
   - {fileID: 3068501387412070066}
   - {fileID: 3001012540807249218}
-  - {fileID: 8345432001675208112}
+  - {fileID: 355896660081560077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7817298457550420799
@@ -1041,6 +1078,68 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &1248392826036497105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 355896660081560077}
+    m_Modifications:
+    - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_Name
+      value: Bullet Shel Drop Effect (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+--- !u!4 &5148331291288611564 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+  m_PrefabInstance: {fileID: 1248392826036497105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1699942958339591108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1133,7 +1232,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7934825935080027026}
+    m_TransformParent: {fileID: 355896660081560077}
     m_Modifications:
     - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_Name
@@ -1141,31 +1240,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05487786
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.008
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6805489
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.19197193
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6805489
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.19197193
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1266,6 +1365,130 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22d0472d1c9b82e419d323dcb8ca6dee, type: 3}
   m_PrefabInstance: {fileID: 3305515791393067171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4264625134618883505
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 355896660081560077}
+    m_Modifications:
+    - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_Name
+      value: Bullet Shel Drop Effect (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+--- !u!4 &7858604699810608524 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+  m_PrefabInstance: {fileID: 4264625134618883505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4732927074228300486
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 355896660081560077}
+    m_Modifications:
+    - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_Name
+      value: Bullet Shel Drop Effect (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+--- !u!4 &1697609362252557051 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+  m_PrefabInstance: {fileID: 4732927074228300486}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6525901895489842903
 PrefabInstance:
@@ -1386,6 +1609,130 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8531589009234751657, guid: dee094948b1c0c840b8a8a038a81ac3d, type: 3}
   m_PrefabInstance: {fileID: 6525901895489842903}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6534090219701346889
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 355896660081560077}
+    m_Modifications:
+    - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_Name
+      value: Bullet Shel Drop Effect (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+--- !u!4 &904206266273047156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+  m_PrefabInstance: {fileID: 6534090219701346889}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7936623374925798128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 355896660081560077}
+    m_Modifications:
+    - target: {fileID: 4226905173078673514, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_Name
+      value: Bullet Shel Drop Effect (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.506
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+--- !u!4 &4036683534789221069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6206420575800524861, guid: bb56da5c3b366d342a3556d03e3d92c6, type: 3}
+  m_PrefabInstance: {fileID: 7936623374925798128}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9135908725087218842
 PrefabInstance:

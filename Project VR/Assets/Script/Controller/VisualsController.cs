@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Script.Controller
 
         [SerializeField] private List<ParticleSystem> muzzle;
 
-        [SerializeField] private ParticleSystem bulletShell;
+        [SerializeField] private List<ParticleSystem> bulletShell;
 
         [SerializeField] private List<AnimationClip> allAnimation;
 
@@ -39,7 +40,19 @@ namespace Script.Controller
             sparks.Play();
         }
 
-        public void BulletShell() => TriggerParticleSystem(bulletShell);
+        //public void BulletShell() => TriggerParticleSystem(bulletShell);
+
+        public void BulletShellEffect(float time) => StartCoroutine(BulletShellEffectIE(time));
+        
+        IEnumerator BulletShellEffectIE(float time)
+        {
+            float _time = time / 6;
+            foreach (var shell in bulletShell)
+            {
+                shell.Play();
+                yield return new WaitForSeconds(time);
+            }
+        } 
 
         private void TriggerParticleSystem(ParticleSystem particleSystem)
         {

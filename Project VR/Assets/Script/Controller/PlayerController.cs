@@ -153,7 +153,7 @@ namespace Script.Controller
 
             visuals.Shoot();
             visuals.Muzzle();
-            visuals.BulletShell();
+            //visuals.BulletShell();
 
             if (!perfectShot)
             {
@@ -294,7 +294,7 @@ namespace Script.Controller
             float timeReload = visuals.Reload();
             currentCoroutineReloading = StartCoroutine(ToggleReloadState(timeReload));
             cylinderManager.Reload(cylinder);
-            
+            visuals.BulletShellEffect(0.1f);
             OnReloadStart?.Invoke();
         }
 

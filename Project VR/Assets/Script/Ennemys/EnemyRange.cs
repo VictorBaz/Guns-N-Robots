@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Script.Interface;
 using Script.Manager;
 using UnityEngine;
@@ -46,6 +47,11 @@ namespace Script.Ennemys
         [SerializeField] private Animator robotRangeAnimator;
         
         [SerializeField] private MaterialUpdater materialUpdater;
+        
+        [Header("SFX")]
+        [SerializeField] private List<ParticleSystem> muzzle;
+
+        [Header("Audio")] [SerializeField] private AudioSource _audioSourceEnemyRange;
         
         private EnemyRangeState enemyState = EnemyRangeState.Spawn;
         
@@ -243,6 +249,8 @@ namespace Script.Ennemys
             if (tickBeforeAttack >= tickNeedToAttack && !hasShot) 
             {
                 PlayAttackAnimation();
+                PlayMuzzleRange();
+                PlayShotEnemyRangeSound();
                 hasShot = true;
             }
         }
@@ -398,6 +406,25 @@ namespace Script.Ennemys
             {
                 robotRangeAnimator.Play("spawnRange");
             }
+        }
+
+        #endregion
+
+        #region SFX
+
+        private void PlayMuzzleRange()
+        {
+            foreach (var particle in muzzle) particle.Play();
+        }
+
+        #endregion
+
+        #region Audio Enemy
+
+        private void PlayShotEnemyRangeSound()
+        {
+            if (SoundManager.Instance == null) return;
+            _audioSourceEnemyRange.PlayOneShot(SoundManager.Instance.RobotAttackRangeSound());
         }
 
         #endregion
