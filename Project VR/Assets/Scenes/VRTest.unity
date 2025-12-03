@@ -4990,6 +4990,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5080778414308981719, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
+      propertyPath: m_TagString
+      value: Head
+      objectReference: {fileID: 0}
     - target: {fileID: 6073082217108075914, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
       propertyPath: m_Enabled
       value: 1
