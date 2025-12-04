@@ -137,6 +137,7 @@ namespace Script.Ennemys
         private void StartAttack()
         {
             isAttacking = true;
+            PlayChargeAttackSound();
             PlayAttackAnimation();
         }
 
@@ -215,6 +216,19 @@ namespace Script.Ennemys
         #region Sound and Effect
 
         private bool stepSound = false;
+
+        private void PlayChargeAttackSound()
+        {
+            if (SoundManager.Instance == null) return;
+            _audioSourceEnemyMelee.PlayOneShot(SoundManager.Instance.RobotAttackMeleeSoundCharge());
+        }
+
+        public void PlayAttackSoundMelee()
+        {
+            //use soundManager because object destroyed and audiosource linked to it
+            if (SoundManager.Instance == null) return;
+            SoundManager.Instance.PlayMusicOneShot(SoundManager.Instance.RobotAttackMeleeSound());
+        }
         private void PlayStepSound()
         {
             if (SoundManager.Instance == null) return;

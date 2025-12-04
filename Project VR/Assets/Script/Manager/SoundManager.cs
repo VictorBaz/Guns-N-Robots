@@ -34,6 +34,7 @@ namespace Script.Manager
         [SerializeField] private AudioClip robotWalk2;
         [SerializeField] private AudioClip robotAttackRange;
         [SerializeField] private AudioClip robotAttackMelee;
+        [SerializeField] private AudioClip robotAttackMeleeCharge;
         [SerializeField] private AudioClip robotDeath;
 
         [SerializeField] private AudioClip doorSound;
@@ -257,6 +258,7 @@ namespace Script.Manager
         public AudioClip RobotWalkSound2()       => robotWalk2;
         public AudioClip RobotAttackRangeSound()=> robotAttackRange;
         public AudioClip RobotAttackMeleeSound()=> robotAttackMelee;
+        public AudioClip RobotAttackMeleeSoundCharge()=> robotAttackMeleeCharge;
         public AudioClip RobotDeathSound()      => robotDeath;
 
         public AudioClip DoorSound()            => doorSound;

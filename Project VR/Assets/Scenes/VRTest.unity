@@ -1957,8 +1957,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 17.5
-  MaxDistance: 34.9
+  MinDistance: 14.82
+  MaxDistance: 27
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -2316,8 +2316,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 17.5
-  MaxDistance: 34.9
+  MinDistance: 14.82
+  MaxDistance: 27
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -2910,9 +2910,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: a22c8b3b96d932a44be96f4176094bc4, type: 3}
     - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: robotAttackMelee
+      value: 
+      objectReference: {fileID: 8300000, guid: 360cae531a4985f428a1cdd93f4e6c5b, type: 3}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: robotAttackRange
       value: 
       objectReference: {fileID: 8300000, guid: 1503378a7f1203b4bba5c4b2a67309ea, type: 3}
+    - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
+      propertyPath: robotAttackMeleeCharge
+      value: 
+      objectReference: {fileID: 8300000, guid: 60120110baa58e04f980beaffed8795b, type: 3}
     - target: {fileID: 5947547561703483180, guid: 6f87cdcf1d27ddc4ebef170991b78c36, type: 3}
       propertyPath: _audioMixerGroupMainMusic
       value: 
@@ -3345,8 +3353,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 17.5
-  MaxDistance: 34.9
+  MinDistance: 14.82
+  MaxDistance: 27
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -3947,8 +3955,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 17.5
-  MaxDistance: 34.9
+  MinDistance: 14.82
+  MaxDistance: 27
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -4247,8 +4255,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 17.5
-  MaxDistance: 34.9
+  MinDistance: 14.82
+  MaxDistance: 27
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
