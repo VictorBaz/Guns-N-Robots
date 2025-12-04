@@ -35,7 +35,7 @@ namespace Script.Ennemys
         [Header("Visuals")]
         [SerializeField] private LineRenderer laserSight;
         [SerializeField] private float laserMaxDistance = 100f;
-        [SerializeField] private LayerMask shootLayerMask;
+        [SerializeField] private LayerMask shooterLayerMask;
         
         [Header("Laser Visual Settings")]
         [SerializeField] private float aimingLaserWidth = 0.1f;      
@@ -319,19 +319,20 @@ namespace Script.Ennemys
         {
             if (shootPoint == null) return;
 
-            if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, shootLayerMask))
+            if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, ~shooterLayerMask,QueryTriggerInteraction.Collide))
             {
-                IDamagable damagable = hit.collider.GetComponent<IDamagable>();
-                if (damagable != null)
+
+                if (hit.transform.gameObject.CompareTag("Head"))
                 {
-                    damagable.TakeDamage();
-                    Debug.Log("Player hit by sniper!");
+                    Debug.Log("Sniper shot well!");
+                    EventManager.GameEnd();
+                }
+                else
+                {
+                    Debug.Log("Sniper shot missed!");
                 }
             }
-            else
-            {
-                Debug.Log("Sniper shot missed!");
-            }
+            
         }
 
         public void TakeDamage()
