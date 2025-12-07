@@ -33,7 +33,8 @@ namespace Script.Manager
         
         [SerializeField] private int maxEnemyPallier;
 
-
+        private int enemyKilled = 0;
+        
         #endregion
 
         #region Unity Methods
@@ -61,14 +62,16 @@ namespace Script.Manager
             EventManager.OnEnemyKilled += UpdateEnemyCount;
             EventManager.OnRoundEnd += TransitionRound;
             EventManager.OnEnemySpawn += SpawnEnemy;
+            EventManager.OnGameStart += ResetStats;
         }
-        
+
         private void OnDisable()
         {
             EventManager.OnGameStart -= InitFirstRound;
             EventManager.OnEnemyKilled -= UpdateEnemyCount;
             EventManager.OnRoundEnd -= TransitionRound;
             EventManager.OnEnemySpawn -= SpawnEnemy;
+            EventManager.OnGameStart -= ResetStats;
         }
 
         #endregion
@@ -89,6 +92,9 @@ namespace Script.Manager
         }
 
         public bool CanSpawn() => toSpawnEnemy > 0;
+
+        public int ScorePlayer() => enemyKilled;
+        
         
         #endregion
 
@@ -102,7 +108,8 @@ namespace Script.Manager
         private void UpdateEnemyCount()
         {
             objectifEnemy--;
-
+            enemyKilled++;
+            
             if (objectifEnemy == 0 && toSpawnEnemy == 0)
             {
                 EventManager.EndRound();
@@ -140,6 +147,11 @@ namespace Script.Manager
         }
 
         public int GetCurrentRound() => round;
+        
+        private void ResetStats()
+        {
+            enemyKilled = 0;
+        }
 
         #endregion
 

@@ -1,7 +1,9 @@
 using System;
 using Script.Manager;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Script.UI
 {
@@ -10,6 +12,7 @@ namespace Script.UI
         #region Fields
 
         [SerializeField] private GameObject startGamePanel;
+        [SerializeField] private Text scorePlayer;
 
         #endregion
 
@@ -29,11 +32,25 @@ namespace Script.UI
 
         #endregion
 
+        #region Unity Methods
+
+        private void Awake()
+        {
+            scorePlayer.text = "";
+        }
+
+        #endregion
+
         #region State Manager
 
         private void InGame()
         {
             startGamePanel.SetActive(true);
+            
+            if (MiniGameManager.Instance != null)
+            {
+                scorePlayer.text = $"You killed {MiniGameManager.Instance.ScorePlayer().ToString()} bad guys";
+            }
         }
 
         private void OnGameStart()
