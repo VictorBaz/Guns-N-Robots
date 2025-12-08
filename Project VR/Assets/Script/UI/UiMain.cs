@@ -12,6 +12,7 @@ namespace Script.UI
         #region Fields
 
         [SerializeField] private GameObject startGamePanel;
+        [SerializeField] private GameObject parametersPanel;
         [SerializeField] private Text scorePlayer;
 
         #endregion
@@ -46,6 +47,7 @@ namespace Script.UI
         private void InGame()
         {
             startGamePanel.SetActive(true);
+            parametersPanel.SetActive(true);
             
             if (MiniGameManager.Instance != null)
             {
@@ -56,6 +58,7 @@ namespace Script.UI
         private void OnGameStart()
         {
             startGamePanel.SetActive(false);
+            parametersPanel.SetActive(false);
         }
 
         #endregion
