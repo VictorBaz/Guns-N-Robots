@@ -16,6 +16,7 @@ namespace Script.Manager
         public static Action<ShotDone> OnBadShoot;
         public static Action<ShotDone> OnGoodShot;
         public static Action<ShotDone> OnPerfectShot;
+        public static Action<ShotDone> OnMissShot;
 
         public static void StartGame()
         {
@@ -61,6 +62,10 @@ namespace Script.Manager
         {
             OnPerfectShot?.Invoke(ShotDone.Perfect);
         }
-        
+
+        public static void MissShot()
+        {
+            OnMissShot?.Invoke(ShotDone.Miss);
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Script.UI
         [SerializeField] private ParticleSystem goodShotParticle;
         [SerializeField] private ParticleSystem perfectShotParticle;
         [SerializeField] private ParticleSystem perfectBonusParticle;
+        [SerializeField] private ParticleSystem missedShotParticle;
 
         private List<ParticleSystem> allEffect = new List<ParticleSystem>();
 
@@ -21,6 +22,7 @@ namespace Script.UI
             EventManager.OnBadShoot += DisplayFeedBack;
             EventManager.OnGoodShot += DisplayFeedBack;
             EventManager.OnPerfectShot += DisplayFeedBack;
+            EventManager.OnMissShot += DisplayFeedBack;
         }
         
         private void OnDisable()
@@ -28,6 +30,7 @@ namespace Script.UI
             EventManager.OnBadShoot -= DisplayFeedBack;
             EventManager.OnGoodShot -= DisplayFeedBack;
             EventManager.OnPerfectShot -= DisplayFeedBack;
+            EventManager.OnMissShot -= DisplayFeedBack;
         }
 
         private void Awake()
@@ -36,6 +39,7 @@ namespace Script.UI
             allEffect.Add(goodShotParticle);
             allEffect.Add(perfectShotParticle);
             allEffect.Add(perfectBonusParticle);
+            allEffect.Add(missedShotParticle);
         }
 
         private void DisplayFeedBack(ShotDone shotState)
@@ -57,9 +61,11 @@ namespace Script.UI
                     
                 case ShotDone.Perfect:
                     PlayParticle(perfectShotParticle);
-                  //  PlayParticle(perfectBonusParticle);
                     break;
-                    
+
+                case ShotDone.Miss:
+                    PlayParticle(missedShotParticle);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shotState), shotState, null);
             }

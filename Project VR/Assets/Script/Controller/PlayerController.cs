@@ -30,7 +30,6 @@ namespace Script.Controller
         public CylinderHoleState currentCylinderHole { get; private set; }
         
         private CylinderManager cylinderManager = new CylinderManager();
-        private LayerMask layerMask;
         private RaycastHit hit;
         
         private int indexInBarel = 0;
@@ -60,7 +59,6 @@ namespace Script.Controller
         private void Awake()
         {
             cylinderManager.SetupBarrel(cylinder);
-            layerMask = LayerMask.GetMask("Head", "Wall");
             inputActions = new XRIDefaultInputActions();
         }
 
@@ -142,18 +140,31 @@ namespace Script.Controller
         private void ExecuteShot()
         {
             canShoot = false;
+            bool missShot = false;
+            
+            bool hitSomething = Physics.Raycast(bulletOrigin.position,
+                bulletOrigin.forward,
+                out hit,
+                Mathf.Infinity);
 
-            bool perfectShot = EvaluationShot();
-            if (Physics.Raycast(bulletOrigin.position, bulletOrigin.TransformDirection(Vector3.forward), 
-                    out hit, Mathf.Infinity, layerMask))
+            if (!hitSomething)
             {
-                visuals.Sparks(hit.point, hit.normal);
-                hit.transform.GetComponent<IDamagable>()?.TakeDamage();
+                missShot = true;
+            }
+            else
+            {
+                IDamagable damagable = hit.transform.GetComponent<IDamagable>();
+    
+                if (damagable != null)
+                    damagable.TakeDamage();
+                else
+                    missShot = true;
             }
 
+            bool perfectShot = EvaluationShot(missShot);
+            
             visuals.Shoot();
             visuals.Muzzle();
-            //visuals.BulletShell();
 
             if (!perfectShot)
             {
@@ -195,8 +206,14 @@ namespace Script.Controller
         }
 
 
-        private bool EvaluationShot()
+        private bool EvaluationShot(bool missShot)
         {
+            if (missShot)
+            {
+                EventManager.MissShot();
+                return false;
+            }
+            
             float timeBetween = TickManager.TimeBetweenTick;
             float currentTime = TickManager.Timer;
 
