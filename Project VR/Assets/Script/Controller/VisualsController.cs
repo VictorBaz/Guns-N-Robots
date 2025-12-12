@@ -6,10 +6,10 @@ namespace Script.Controller
 {
     public class VisualsController : MonoBehaviour
     {
+        #region Fields
+        
         private static readonly int ReloadAnim = Animator.StringToHash("Reload");
         private static readonly int ShootAnim = Animator.StringToHash("Shoot");
-
-        #region Fields
         
         [Header("Animator")] [Space(2)]
         [SerializeField] private Animator animatorGun;
@@ -40,25 +40,20 @@ namespace Script.Controller
             sparks.Play();
         }
 
-        //public void BulletShell() => TriggerParticleSystem(bulletShell);
-
         public void BulletShellEffect(float time) => StartCoroutine(BulletShellEffectIE(time));
         
         IEnumerator BulletShellEffectIE(float time)
         {
             float _time = time / 6;
+            
             foreach (var shell in bulletShell)
             {
                 shell.Play();
-                yield return new WaitForSeconds(time);
+                yield return new WaitForSeconds(_time);
             }
         } 
 
-        private void TriggerParticleSystem(ParticleSystem particleSystem)
-        {
-            particleSystem.Play();
-            
-        }
+        private void TriggerParticleSystem(ParticleSystem particleSystem) => particleSystem.Play();
 
         #endregion
 

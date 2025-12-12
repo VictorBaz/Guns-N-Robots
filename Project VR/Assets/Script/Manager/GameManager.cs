@@ -10,6 +10,9 @@ namespace Script.Manager
 {
     public class GameManager : MonoBehaviour
     {
+        /// <summary>
+        /// PAS DU TOUT EXPLOITER VRAIMENT INUTILE PRESQUE
+        /// </summary>
         #region Singleton
 
         private static GameManager _instance;
@@ -83,27 +86,6 @@ namespace Script.Manager
             
             OnGameStateChanged?.Invoke(newState);
         }
-        /*
-        public void StartGame()
-        {
-            LoadGameScene();
-        }
-
-        public void GameOver()
-        {
-            ChangeGameState(GameState.GameFinished);
-        }
-
-        public void RestartGame()
-        {
-            ChangeGameState(GameState.InGame);
-        }
-
-        public void ReturnToMenu()
-        {
-            LoadMenuScene();
-        }*/
-
         
         
         #endregion

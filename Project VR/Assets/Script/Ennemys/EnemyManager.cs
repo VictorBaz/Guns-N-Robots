@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Script.Enum;
+using Script.Interact;
 using Script.Interface;
 using Script.Manager;
 using UnityEngine;
@@ -173,7 +174,7 @@ namespace Script.Ennemys
 
         private void CleanupRound()
         {
-            //jsp
+            //jsp mais azy peut être utile dans le futur ?
         }
 
         private void CleanupAllEnemies()
@@ -199,38 +200,4 @@ namespace Script.Ennemys
         #endregion
 
     }
-
-    [Serializable]
-    public class Door
-    {
-        private static readonly int OpenDoor = Animator.StringToHash("OpenDoor");
-
-        public GameObject doorReference;
-        [HideInInspector] public bool isAvalaible;
-
-        [SerializeField] private bool isPhysicsDoor;
-        
-        [SerializeField] private Animator doorAnimator;
-
-        [SerializeField] private AudioSource audioSource;
-
-        public void TriggerDoorOpen()
-        {
-            if (!isPhysicsDoor) return;
-
-            doorAnimator.SetTrigger(OpenDoor);
-            OpenDoorSound();
-        }
-
-        public void OpenDoorSound()
-        {
-            if (SoundManager.Instance != null)
-            {
-                audioSource.PlayOneShot(SoundManager.Instance.DoorSound());
-            }
-        }
-    }
-    
-
-
 }

@@ -39,7 +39,7 @@ namespace Script.Ennemys
 
         [SerializeField] private MaterialUpdater materialUpdater;
 
-        [SerializeField] private AudioSource _audioSourceEnemyMelee;
+        [SerializeField] private AudioSource audioSourceEnemyMelee;
 
         #endregion
 
@@ -189,7 +189,7 @@ namespace Script.Ennemys
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods Interface
 
         public void SetParametersOnSpawn(EnemyManager enemyManager, int index, Transform playerPosition)
         {
@@ -220,7 +220,7 @@ namespace Script.Ennemys
         private void PlayChargeAttackSound()
         {
             if (SoundManager.Instance == null) return;
-            _audioSourceEnemyMelee.PlayOneShot(SoundManager.Instance.RobotAttackMeleeSoundCharge());
+            audioSourceEnemyMelee.PlayOneShot(SoundManager.Instance.RobotAttackMeleeSoundCharge());
         }
 
         public void PlayAttackSoundMelee()
@@ -233,7 +233,7 @@ namespace Script.Ennemys
         {
             if (SoundManager.Instance == null) return;
             
-            _audioSourceEnemyMelee.PlayOneShot(stepSound
+            audioSourceEnemyMelee.PlayOneShot(stepSound
                 ? SoundManager.Instance.RobotWalkSound1()
                 : SoundManager.Instance.RobotWalkSound2());
             stepSound = !stepSound;

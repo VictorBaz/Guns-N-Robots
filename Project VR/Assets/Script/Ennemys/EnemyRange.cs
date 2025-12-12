@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Script.Enum;
 using Script.Interface;
 using Script.Manager;
 using UnityEngine;
@@ -8,18 +9,6 @@ namespace Script.Ennemys
 {
     public class EnemyRange : MonoBehaviour, IDamagable, IEnemy
     {
-
-        #region Enums
-
-        public enum EnemyRangeState
-        {
-            Spawn,
-            StartAttacking,
-            Attacking,
-            StopAttacking,
-        }
-
-        #endregion
 
         #region  Fields
 
@@ -51,7 +40,7 @@ namespace Script.Ennemys
         [Header("SFX")]
         [SerializeField] private List<ParticleSystem> muzzle;
 
-        [Header("Audio")] [SerializeField] private AudioSource _audioSourceEnemyRange;
+        [Header("Audio")] [SerializeField] private AudioSource audioSourceEnemyRange;
         
         private EnemyRangeState enemyState = EnemyRangeState.Spawn;
         
@@ -79,18 +68,6 @@ namespace Script.Ennemys
         
         #region Unity Methods
 
-        private void OnEnable()
-        {
-            TickManager.OnTick += BehaviorByTick;
-            EventManager.OnGameEnd += ClearEnemy;
-        }
-
-        private void OnDisable()
-        {
-            TickManager.OnTick -= BehaviorByTick;
-            EventManager.OnGameEnd -= ClearEnemy;
-        }
-
         private void Start()
         {
             InitPosition();
@@ -114,6 +91,22 @@ namespace Script.Ennemys
                     UpdateLaserVisualProgressive();
                 }
             }
+        }
+
+        #endregion
+
+        #region Observer
+
+        private void OnEnable()
+        {
+            TickManager.OnTick += BehaviorByTick;
+            EventManager.OnGameEnd += ClearEnemy;
+        }
+
+        private void OnDisable()
+        {
+            TickManager.OnTick -= BehaviorByTick;
+            EventManager.OnGameEnd -= ClearEnemy;
         }
 
         #endregion
@@ -233,7 +226,7 @@ namespace Script.Ennemys
 
         private void SpawnBehavior()
         {
-            //do nothing
+            //do nothing for the moment
         }
 
         private void StartAttackingBehavior()
@@ -304,7 +297,7 @@ namespace Script.Ennemys
 
             float targetLerpValue = (float)currentTick / totalTicksForAiming;
             
-            currentLerpValue = Mathf.Lerp(currentLerpValue, targetLerpValue, Time.deltaTime * 5f);
+            currentLerpValue = Mathf.Lerp(currentLerpValue, targetLerpValue, Time.deltaTime * 5f); 
 
             Color currentColor = Color.Lerp(aimingLaserColor, shootingLaserColor, currentLerpValue);
             laserSight.startColor = currentColor;
@@ -319,18 +312,10 @@ namespace Script.Ennemys
         {
             if (shootPoint == null) return;
 
-            if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, ~shooterLayerMask,QueryTriggerInteraction.Collide))
+            if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, ~shooterLayerMask,QueryTriggerInteraction.Collide) 
+                && hit.transform.gameObject.CompareTag("Head")) //La condition c'est un Lundi
             {
-
-                if (hit.transform.gameObject.CompareTag("Head"))
-                {
-                    Debug.Log("Sniper shot well!");
-                    EventManager.GameEnd();
-                }
-                else
-                {
-                    Debug.Log("Sniper shot missed!");
-                }
+                EventManager.GameEnd();
             }
             
         }
@@ -356,7 +341,6 @@ namespace Script.Ennemys
             if (!isDead && hasShot)
             {
                 EventManager.GameEnd();
-                Debug.Log("Player killed by sniper!");
             }
         }
 
@@ -425,7 +409,7 @@ namespace Script.Ennemys
         private void PlayShotEnemyRangeSound()
         {
             if (SoundManager.Instance == null) return;
-            _audioSourceEnemyRange.PlayOneShot(SoundManager.Instance.RobotAttackRangeSound());
+            audioSourceEnemyRange.PlayOneShot(SoundManager.Instance.RobotAttackRangeSound());
         }
 
         #endregion

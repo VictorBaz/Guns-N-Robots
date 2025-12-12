@@ -22,9 +22,6 @@ namespace Script.Manager
 
         [SerializeField] private float defaultValueTimer = 0.666f; 
 
-        [Header("Music Sync")]
-        [SerializeField] private bool syncWithMusic = true;
-
         [Header("BPM Settings")]
         [SerializeField] private float currentBPM = 90f;        
         [SerializeField] private float maxBPM = 180f;           
@@ -52,7 +49,7 @@ namespace Script.Manager
 
         private void InitializeTickFromMusic()
         {
-            if (syncWithMusic && SoundManager.Instance != null)
+            if (SoundManager.Instance != null)
             {
                 float beatInterval = SoundManager.Instance.GetBeatInterval();
                 currentBPM = 60f / beatInterval;      
@@ -97,7 +94,7 @@ namespace Script.Manager
 
             timeBetweenTick = 60f / currentBPM;
 
-            if (syncWithMusic && SoundManager.Instance != null)
+            if (SoundManager.Instance != null)
             {
                 SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
             }
@@ -109,7 +106,7 @@ namespace Script.Manager
         {
             timeBetweenTick = defaultValueTimer;
             
-            if (syncWithMusic && SoundManager.Instance != null)
+            if (SoundManager.Instance != null)
             {
                 SoundManager.Instance.UpdateMusicSpeed(timeBetweenTick, defaultValueTimer);
             }

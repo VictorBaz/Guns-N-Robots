@@ -8,6 +8,8 @@ namespace Script.UI
 {
     public class ParticleSystemFeedbackShot : MonoBehaviour
     {
+        #region Fields
+
         [Header("Particle Systems")]
         [SerializeField] private ParticleSystem badShotParticle;
         [SerializeField] private ParticleSystem goodShotParticle;
@@ -17,21 +19,9 @@ namespace Script.UI
 
         private List<ParticleSystem> allEffect = new List<ParticleSystem>();
 
-        private void OnEnable()
-        {
-            EventManager.OnBadShoot += DisplayFeedBack;
-            EventManager.OnGoodShot += DisplayFeedBack;
-            EventManager.OnPerfectShot += DisplayFeedBack;
-            EventManager.OnMissShot += DisplayFeedBack;
-        }
-        
-        private void OnDisable()
-        {
-            EventManager.OnBadShoot -= DisplayFeedBack;
-            EventManager.OnGoodShot -= DisplayFeedBack;
-            EventManager.OnPerfectShot -= DisplayFeedBack;
-            EventManager.OnMissShot -= DisplayFeedBack;
-        }
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -41,6 +31,24 @@ namespace Script.UI
             allEffect.Add(perfectBonusParticle);
             allEffect.Add(missedShotParticle);
         }
+
+        #endregion
+
+        #region Observer
+
+        private void OnEnable()
+        {
+            EventManager.OnShootState += DisplayFeedBack;
+        }
+        
+        private void OnDisable()
+        {
+            EventManager.OnShootState -= DisplayFeedBack;
+        }
+
+        #endregion
+
+        #region FeedBack
 
         private void DisplayFeedBack(ShotDone shotState)
         {
@@ -71,11 +79,20 @@ namespace Script.UI
             }
         }
 
+
+        #endregion
+
+        #region Utility
+
         private void PlayParticle(ParticleSystem particle)
         {
             foreach (var ps in allEffect) ps.Stop();
             
             if (particle != null) particle.Play();
         }
+
+        #endregion
+        
+        
     }
 }

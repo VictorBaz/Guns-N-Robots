@@ -32,19 +32,19 @@ namespace Script.Debug_Game
         private void OnEnable()
         {
             TickManager.OnTick += IncrementBarrelRotation;
-            PlayerController.OnplayerShoot += RefreshVisualsAfterShot;
-            PlayerController.OnPlayerReload += ResetVisualsOnReload;
-            PlayerController.OnReloadStart += LockRotation;   
-            PlayerController.OnReloadEnd += UnlockRotation;
+            EventManager.OnplayerShoot += RefreshVisualsAfterShot;
+            EventManager.OnPlayerReload += ResetVisualsOnReload;
+            EventManager.OnReloadStart += LockRotation;   
+            EventManager.OnReloadEnd += UnlockRotation;
         }
         
         private void OnDisable()
         {
             TickManager.OnTick -= IncrementBarrelRotation;
-            PlayerController.OnplayerShoot -= RefreshVisualsAfterShot;
-            PlayerController.OnPlayerReload -= ResetVisualsOnReload;
-            PlayerController.OnReloadStart -= LockRotation;   
-            PlayerController.OnReloadEnd -= UnlockRotation;
+            EventManager.OnplayerShoot -= RefreshVisualsAfterShot;
+            EventManager.OnPlayerReload -= ResetVisualsOnReload;
+            EventManager.OnReloadStart -= LockRotation;   
+            EventManager.OnReloadEnd -= UnlockRotation;
         }
 
         #endregion
@@ -58,6 +58,7 @@ namespace Script.Debug_Game
 
         #endregion
 
+        //TODO fix color or change because ugly visuals ?
         #region Debug Cylinder
 
         private void IncrementBarrelRotation()

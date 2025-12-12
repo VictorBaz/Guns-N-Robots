@@ -6,6 +6,8 @@ namespace Script.Controller
 {
     public class LaserController : MonoBehaviour
     {
+        #region Fields
+
         [SerializeField] private float maxLength = 25f;
 
         [Header("Laser Origin & End")]
@@ -19,6 +21,24 @@ namespace Script.Controller
 
         private bool activeLaser;
 
+        #endregion
+
+        #region Unity Methods
+
+        private void Awake()
+        {
+            effect = GetComponent<LineRenderer>();
+            OnGameEnd();
+        }
+
+        private void Update()
+        {
+            UpdateLaser();
+        }
+
+        #endregion
+
+        #region Observer
 
         private void OnEnable()
         {
@@ -32,6 +52,9 @@ namespace Script.Controller
             EventManager.OnGameEnd -= OnGameEnd;
         }
 
+        #endregion
+
+        #region State Handle
 
         private void OnGameStart()
         {
@@ -44,17 +67,10 @@ namespace Script.Controller
             activeLaser = false;
             effect.enabled = false;
         }
-        
-        private void Awake()
-        {
-            effect = GetComponent<LineRenderer>();
-            OnGameEnd();
-        }
 
-        private void Update()
-        {
-            UpdateLaser();
-        }
+        #endregion
+
+        #region Draw Laser
 
         private void UpdateLaser()
         {
@@ -75,5 +91,9 @@ namespace Script.Controller
             effect.SetPosition(0, startPos.position);
             effect.SetPosition(1, endPos);
         }
+
+        #endregion
+
+       
     }
 }

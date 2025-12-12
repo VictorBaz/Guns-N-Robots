@@ -16,7 +16,7 @@ namespace Script.Controller
         #region Fields
 
         [SerializeField] private VisualsController visuals;
-        [SerializeField] private Grabing grabing;
+        [SerializeField] private Grabbing grabbing;
         [SerializeField] private Transform bulletOrigin;
         [SerializeField] private XRIDefaultInputActions inputActions;
         [SerializeField] private XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
@@ -44,16 +44,7 @@ namespace Script.Controller
         private Coroutine currentCoroutineReloading;
         private Coroutine coroutineShootTrail;
         #endregion
-
-        #region Events
-
-        public static Action OnplayerShoot;
-        public static Action OnReloadStart;
-        public static Action OnPlayerReload;
-        public static Action OnReloadEnd;
         
-        #endregion
-
         #region Unity Methods
 
         private void Awake()
@@ -101,7 +92,7 @@ namespace Script.Controller
 
             var triggerVal = m_TriggerInput.ReadValue();
             
-            if (triggerVal < 0.0001f && grabing.isGunInHand)
+            if (triggerVal < 0.0001f && grabbing.isGunInHand)
             {
                 canShoot = true;
             }
@@ -124,7 +115,7 @@ namespace Script.Controller
             }
             else
             {
-                EventManager.BadShot();
+                EventManager.ShootState(ShotDone.Bad);
             }
         }
 
@@ -178,8 +169,8 @@ namespace Script.Controller
             trailShoot.gameObject.SetActive(true);
 
             coroutineShootTrail = StartCoroutine(SpawnTrail(trailShoot, hit));
-
-            OnplayerShoot?.Invoke();
+            
+            EventManager.PlayerShoot();
         }
 
         IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
@@ -210,7 +201,7 @@ namespace Script.Controller
         {
             if (missShot)
             {
-                EventManager.MissShot();
+                EventManager.ShootState(ShotDone.Miss);
                 return false;
             }
             
@@ -223,14 +214,12 @@ namespace Script.Controller
             
             if (delta <= perfectTime)
             {
-                EventManager.PerfectShot();
+                EventManager.ShootState(ShotDone.Perfect);
                 return true;
             }
-            else
-            {
-                EventManager.GoodShot();
-                return false;
-            }
+
+            EventManager.ShootState(ShotDone.Good);
+            return false;
         }
 
         #endregion
@@ -265,7 +254,8 @@ namespace Script.Controller
         }
 
         #endregion
-
+        
+        //TODO Change Reload system for better game feel like instant or micro movement
         #region Reload System
 
         private void ReloadHandleStart(InputAction.CallbackContext ctx)
@@ -303,7 +293,7 @@ namespace Script.Controller
         {
             float distance = Vector3.Distance(startReloadPosition, endReloadPosition);
             float time = endTimeReload - startTimeReload;
-            return distance / time; // V = D/T
+            return distance / time; 
         }
 
         private void ExecuteReload()
@@ -312,7 +302,7 @@ namespace Script.Controller
             currentCoroutineReloading = StartCoroutine(ToggleReloadState(timeReload));
             cylinderManager.Reload(cylinder);
             visuals.BulletShellEffect(0.1f);
-            OnReloadStart?.Invoke();
+            EventManager.ReloadStart();
         }
 
         private IEnumerator ToggleReloadState(float time)
@@ -322,8 +312,8 @@ namespace Script.Controller
             reloading = false;
             indexInBarel = 0;
             currentCylinderHole = cylinder[indexInBarel];
-            OnReloadEnd?.Invoke();
-            OnPlayerReload?.Invoke();
+            EventManager.ReloadEnd();
+            EventManager.PlayerReload();
         }
 
         #endregion

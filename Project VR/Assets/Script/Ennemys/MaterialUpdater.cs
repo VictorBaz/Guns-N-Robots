@@ -6,10 +6,17 @@ namespace Script.Ennemys
 {
     public class MaterialUpdater : MonoBehaviour
     {
+        #region Fields
+
         [SerializeField] private List<MeshRenderer> _renderers;
         [SerializeField] private float _duration = 2f;
 
         private float _progression;
+
+        #endregion
+        
+        //MERCI ANTONIN LE GOAT 
+        #region Update Materials Methods
 
         public void UpdateMaterials()
         {
@@ -32,5 +39,8 @@ namespace Script.Ennemys
                 yield return new WaitForSeconds(0.05f);
             }
         }
+
+        #endregion
+        
     }
 }

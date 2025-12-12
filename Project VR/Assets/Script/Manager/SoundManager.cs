@@ -8,6 +8,10 @@ namespace Script.Manager
 {
     public class SoundManager : MonoBehaviour
     {
+        /// <summary>
+        /// IN THE FUTURE WILL USE A SCRIPTABLE OBJECT AS BANK DATA FOR SOUND
+        /// </summary>
+        
         #region Fields
 
         public AudioSource audioSource;
@@ -221,26 +225,16 @@ namespace Script.Manager
         {
             EventManager.OnGameStart += StartGameMusic;
             EventManager.OnGameEnd += StopGameMusic;
-            //EventManager.OnRoundEnd += PauseGameMusic;
-            //EventManager.OnRoundStart += ResumeGameMusic;
-            EventManager.OnBadShoot += PlayShootSound;
-            EventManager.OnGoodShot += PlayShootSound;
-            EventManager.OnPerfectShot += PlayShootSound;
-
-            PlayerController.OnReloadStart += PlayReloadSound;
+            EventManager.OnShootState += PlayShootSound;
+            EventManager.OnReloadStart += PlayReloadSound;
         }
 
         private void OnDisable()
         {
             EventManager.OnGameStart -= StartGameMusic;
             EventManager.OnGameEnd -= StopGameMusic;
-            //EventManager.OnRoundEnd -= PauseGameMusic;
-            //EventManager.OnRoundStart -= ResumeGameMusic;
-            EventManager.OnBadShoot -= PlayShootSound;
-            EventManager.OnGoodShot -= PlayShootSound;
-            EventManager.OnPerfectShot -= PlayShootSound;
-            
-            PlayerController.OnReloadStart -= PlayReloadSound;
+            EventManager.OnShootState -= PlayShootSound;
+            EventManager.OnReloadStart -= PlayReloadSound;
         }
 
         #endregion

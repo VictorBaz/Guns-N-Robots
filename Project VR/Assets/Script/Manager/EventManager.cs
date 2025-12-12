@@ -5,19 +5,13 @@ namespace Script.Manager
 {
     public static class EventManager
     {
+        #region Round and Game Event
+
         public static Action OnRoundEnd;
         public static Action OnRoundStart;
         public static Action OnGameStart;
         public static Action OnGameEnd;
-
-        public static Action OnEnemyKilled;
-        public static Action OnEnemySpawn;
-
-        public static Action<ShotDone> OnBadShoot;
-        public static Action<ShotDone> OnGoodShot;
-        public static Action<ShotDone> OnPerfectShot;
-        public static Action<ShotDone> OnMissShot;
-
+        
         public static void StartGame()
         {
             OnGameStart?.Invoke();
@@ -38,6 +32,13 @@ namespace Script.Manager
             OnGameEnd?.Invoke();
         }
 
+        #endregion
+        
+        #region Enemy Event
+
+        public static Action OnEnemyKilled;
+        public static Action OnEnemySpawn;
+        
         public static void EnemyKilled()
         {
             OnEnemyKilled?.Invoke();
@@ -48,24 +49,47 @@ namespace Script.Manager
             OnEnemySpawn?.Invoke();
         }
 
-        public static void BadShot()
+        #endregion
+
+        #region Shoot Event
+        
+        public static Action<ShotDone> OnShootState;
+        
+        public static void ShootState(ShotDone stateShot)
         {
-            OnBadShoot?.Invoke(ShotDone.Bad);
+            OnShootState?.Invoke(stateShot);
         }
 
-        public static void GoodShot()
+        #endregion
+
+        #region Player Event
+
+        public static Action OnplayerShoot;
+        public static Action OnReloadStart;
+        public static Action OnPlayerReload;
+        public static Action OnReloadEnd;
+        
+        public static void PlayerShoot()
         {
-            OnGoodShot?.Invoke(ShotDone.Good);
+            OnplayerShoot?.Invoke();
+        }
+        
+        public static void ReloadStart()
+        {
+            OnReloadStart?.Invoke();
+        }
+        
+        public static void PlayerReload()
+        {
+            OnPlayerReload?.Invoke();
+        }
+        
+        public static void ReloadEnd()
+        {
+            OnReloadEnd?.Invoke();
         }
 
-        public static void PerfectShot()
-        {
-            OnPerfectShot?.Invoke(ShotDone.Perfect);
-        }
-
-        public static void MissShot()
-        {
-            OnMissShot?.Invoke(ShotDone.Miss);
-        }
+        #endregion
+        
     }
 }
