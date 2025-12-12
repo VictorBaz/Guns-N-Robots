@@ -53,7 +53,7 @@ namespace Script.Controller
             }
         } 
 
-        private void TriggerParticleSystem(ParticleSystem particleSystem) => particleSystem.Play();
+        private void TriggerParticleSystem(ParticleSystem _particleSystem) => _particleSystem.Play();
 
         #endregion
 

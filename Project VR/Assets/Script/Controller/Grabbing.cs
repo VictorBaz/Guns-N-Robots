@@ -13,17 +13,16 @@ namespace Script.Controller
         [SerializeField] private GameObject gunObj;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private PlayerController playerController;
+        
         private bool canTakeGun = false;
-        public bool isGunInHand = false;
-        [SerializeField]
-        XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
-        [SerializeField]
-        XRInputValueReader<float> m_GripInput = new XRInputValueReader<float>("Grip");
+        private bool isGunInHand = false;
         private RaycastHit hit;
-
         private Collider currentGun;
-        LayerMask layerMask;
-
+        private LayerMask layerMask;
+        
+        [SerializeField] XRInputValueReader<float> mTriggerInput = new XRInputValueReader<float>("Trigger");
+        [SerializeField] XRInputValueReader<float> mGripInput = new XRInputValueReader<float>("Grip");
+        
         #endregion
 
         #region Unity Methods
@@ -36,9 +35,9 @@ namespace Script.Controller
         private void Update()
         {
         
-            if (m_GripInput != null)
+            if (mGripInput != null)
             {
-                var gripVal = m_GripInput.ReadValue();
+                var gripVal = mGripInput.ReadValue();
                 if (gripVal > 0 && canTakeGun)
                 {
                     canTakeGun = false;
@@ -97,7 +96,9 @@ namespace Script.Controller
             gunObj.transform.parent = null;
         }
 
+        public bool IsGunInHand() => isGunInHand;
+
         #endregion
-    
+
     }
 }

@@ -18,16 +18,18 @@ namespace Script.Controller
         [SerializeField] private VisualsController visuals;
         [SerializeField] private Grabbing grabbing;
         [SerializeField] private Transform bulletOrigin;
+        
         [SerializeField] private XRIDefaultInputActions inputActions;
-        [SerializeField] private XRInputValueReader<float> m_TriggerInput = new XRInputValueReader<float>("Trigger");
+        [SerializeField] private XRInputValueReader<float> mTriggerInput = new XRInputValueReader<float>("Trigger");
+        
         [SerializeField] private float minSpeedToReload;
         [SerializeField, ReadOnly] private List<CylinderHoleState> cylinder = new List<CylinderHoleState>();
         [SerializeField] private Transform transformHead;
         [SerializeField] private TrailRenderer trailShoot;
         [SerializeField] private float bulletSpeed = 300;
-        
-        
-        public CylinderHoleState currentCylinderHole { get; private set; }
+
+
+        private CylinderHoleState currentCylinderHole { get; set; }
         
         private CylinderManager cylinderManager = new CylinderManager();
         private RaycastHit hit;
@@ -88,11 +90,11 @@ namespace Script.Controller
 
         private void HandleTriggerInput()
         {
-            if (m_TriggerInput == null) return;
+            if (mTriggerInput == null) return;
 
-            var triggerVal = m_TriggerInput.ReadValue();
+            var triggerVal = mTriggerInput.ReadValue();
             
-            if (triggerVal < 0.0001f && grabbing.isGunInHand)
+            if (triggerVal < 0.0001f && grabbing.IsGunInHand())
             {
                 canShoot = true;
             }
@@ -121,7 +123,7 @@ namespace Script.Controller
 
         private bool CanFireWeapon()
         {
-            var triggerVal = m_TriggerInput.ReadValue();
+            var triggerVal = mTriggerInput.ReadValue();
             return triggerVal > 0 &&
                    GameManager.Instance.CurrentState == GameState.MiniGameRunning &&
                    !hasShot &&
