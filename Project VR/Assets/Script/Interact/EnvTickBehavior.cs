@@ -7,7 +7,7 @@ namespace Script.Interact
     public class EnvTickBehavior : MonoBehaviour
     {
         /// <summary>
-        /// ATTENTION FAUT QUE L'ANIM DE BASE EST UNE LONGUER DE 0.666s VU QUE ON EST A 90 BPM 
+        /// ATTENTION FAUT QUE L'ANIM DE BASE EST UNE LONGUER DE 1s
         /// </summary>
         
         #region Fields
