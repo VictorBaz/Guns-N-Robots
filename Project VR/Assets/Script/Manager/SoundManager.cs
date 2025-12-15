@@ -60,6 +60,10 @@ namespace Script.Manager
             {
                 if (instance == null)
                 {
+                    // wayo zeubi tu pouvais pas le linker au awake? si il existe pas,
+                    // tu fais le new, et tu le links, et tu checks si il est pas null dans son link ?
+                    // là le findfirst, il va passer dans TOUUUUUs les components de ta scene, essayer de caster en type sound manager
+                    // et si y'a rien, te créer un soundManager, alors que tu peux juste stocker, si pas linké tu crées, basta
                     instance = FindFirstObjectByType<SoundManager>();
                     
                     if (instance == null)
@@ -196,6 +200,7 @@ namespace Script.Manager
             }
         }
 
+        // rien compris au nom de ta fonction
         public GameObject InitialisationAudioObjectDestroyAtEnd(AudioClip audioClipTarget, bool looping, 
             bool playingAwake, float volumeSound, string _name)
         {
@@ -241,6 +246,7 @@ namespace Script.Manager
 
         #region Utility Sound
         
+        // touuut plein de methodes que t'aurais pu simplifier avec un get/set
         public AudioClip BadShootSound()        => badShoot;
         public AudioClip GoodShootSound()       => goodShoot;
         public AudioClip PerfectShootSound()    => perfectShoot;

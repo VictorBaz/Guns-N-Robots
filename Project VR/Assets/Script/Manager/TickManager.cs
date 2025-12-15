@@ -90,8 +90,9 @@ namespace Script.Manager
             int round = MiniGameManager.Instance.GetCurrentRound();
             float t = Mathf.Clamp01((float)round / maxRoundForMaxBPM);
 
+            // 90 f ?
             currentBPM = Mathf.Lerp(90f, maxBPM, t);
-
+ // 60f ?
             timeBetweenTick = 60f / currentBPM;
 
             if (SoundManager.Instance != null)

@@ -65,6 +65,7 @@ namespace Script.Debug_Game
         {
             if (locked) return;
             
+            // pareil pas ouf le 60, faudrait faire un ratio par le nombre de balles ( 360 / bulletsCounts )
             wishedRotation += 60;
             barelImage.transform.DOKill();
             
@@ -83,6 +84,7 @@ namespace Script.Debug_Game
 
             for (int i = 0; i < barel.Count; i++)
             {
+                // ca pourrait être pas mal de mettre de serializefield ces couleurs
                 allImages[i].color = barel[i] == CylinderHoleState.Empty ? Color.red : Color.green;
             }
         }

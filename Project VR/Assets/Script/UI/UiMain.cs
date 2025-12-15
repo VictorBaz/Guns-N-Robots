@@ -44,6 +44,7 @@ namespace Script.UI
 
         #region State Manager
 
+        // pas fan du naming, maybe un truc du genre "SetInGameDisplay" ?
         private void InGame()
         {
             startGamePanel.SetActive(true);

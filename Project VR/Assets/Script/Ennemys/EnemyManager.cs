@@ -137,6 +137,7 @@ namespace Script.Ennemys
             GameObject enemyObj = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
             EventManager.EnemySpawn();
             
+            // c'est quoi cette horreur de perf, tu peux pas t'assurer que le prefab a tout ce qu'il faut à la racine?
             IEnemy enemy = enemyObj.GetComponent<IEnemy>();
             
             if (enemy == null)
@@ -174,9 +175,11 @@ namespace Script.Ennemys
 
         private void CleanupRound()
         {
+            // jsp mais surement ??
             //jsp mais azy peut être utile dans le futur ?
         }
 
+        // on pourrait pas les réutiliser les ennemis?
         private void CleanupAllEnemies()
         {
             foreach (var enemy in activeEnemies)

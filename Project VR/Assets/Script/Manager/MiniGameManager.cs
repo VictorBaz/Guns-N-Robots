@@ -22,6 +22,7 @@ namespace Script.Manager
         
         private int round;
 
+        // enemyToSpawn u meant?
         private int toSpawnEnemy;
         private int objectifEnemy;
             
@@ -138,6 +139,7 @@ namespace Script.Manager
         
         private void SetEnemyCountForRound()
         {
+            // j'suis pas sur de comprendre la formule avec 0.5, un petit commentaire pour expliquer serait appréciable 
             float progression = round * 0.5f;
             int baseEnemies = UnityEngine.Random.Range(minEnemySpawn, maxEnemySpawn + 1);
             int enemiesThisRound = Mathf.RoundToInt(baseEnemies + progression);
@@ -146,6 +148,7 @@ namespace Script.Manager
             toSpawnEnemy = enemiesThisRound;
         }
 
+        // private set, public get ?
         public int GetCurrentRound() => round;
         
         private void ResetStats()

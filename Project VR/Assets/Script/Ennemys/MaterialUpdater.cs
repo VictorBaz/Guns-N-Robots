@@ -27,6 +27,9 @@ namespace Script.Ennemys
         {
             while (_progression < 1)
             {
+                // c'est vraiment du code fait main? ca m'surprend que vous sachiez déja
+                // utiliser des property blocks et trifouillez pas direct le shader/ le material
+                // mais si jamais, c'est cool
                 MaterialPropertyBlock mpb = new MaterialPropertyBlock();
                 foreach (var _mat in _renderers)
                 {

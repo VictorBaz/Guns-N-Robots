@@ -79,6 +79,7 @@ namespace Script.Ennemys
             PlaySpawnAnimation();
         }
 
+        // pas claire ce que ca fait, hésite pas à faire des fonctions
         private void Update()
         {
             if (enemyState is EnemyRangeState.StartAttacking or EnemyRangeState.Attacking 
@@ -128,6 +129,7 @@ namespace Script.Ennemys
 
         #endregion
 
+        // pas fan du nom de ta région, j'serais plus parti sur un truc genre "behavior"
         #region State Machine
 
         private void BehaviorByTick()
@@ -313,7 +315,7 @@ namespace Script.Ennemys
             if (shootPoint == null) return;
 
             if (Physics.Raycast(shootPoint.position, aimDirection, out RaycastHit hit, laserMaxDistance, ~shooterLayerMask,QueryTriggerInteraction.Collide) 
-                && hit.transform.gameObject.CompareTag("Head")) //La condition c'est un Lundi
+                && hit.transform.gameObject.CompareTag("Head")) //La condition c'est un Lundi // AH BAH SUPER
             {
                 EventManager.GameEnd();
             }
@@ -360,6 +362,7 @@ namespace Script.Ennemys
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
         }
 
+        // comme l'autre ennemi, on pourrait poulet
         public void DestroyItSelf()
         {
             Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);

@@ -17,6 +17,7 @@ namespace Script.Controller
         private Ray ray;
         private RaycastHit hitInfo;
 
+        // pas super fan du naming, on comprend pas directement que c'est un linerenderer
         private LineRenderer effect;
 
         private bool activeLaser;

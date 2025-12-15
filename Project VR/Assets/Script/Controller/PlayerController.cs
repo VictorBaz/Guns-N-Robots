@@ -43,6 +43,7 @@ namespace Script.Controller
         private Vector3 endReloadPosition;
         private float startTimeReload;
         private float endTimeReload;
+        // sert à rien tes deux coroutines stockées nan?
         private Coroutine currentCoroutineReloading;
         private Coroutine coroutineShootTrail;
         #endregion
@@ -93,7 +94,7 @@ namespace Script.Controller
             if (mTriggerInput == null) return;
 
             var triggerVal = mTriggerInput.ReadValue();
-            
+            // le petit magic number pour la dead zone c'est ca?
             if (triggerVal < 0.0001f && grabbing.IsGunInHand())
             {
                 canShoot = true;
@@ -250,6 +251,8 @@ namespace Script.Controller
             SoundManager.Instance.PlayMusicOneShot(soundToPlay);
         }
 
+        // ca serait ptet faisable de le passer en get/set avec un getter public
+        // d'ailleurs, là ca revient à la mettre en public, si tu lui renvois la reference de ta liste
         public List<CylinderHoleState> GetBarrel()
         {
             return cylinder;
@@ -333,6 +336,7 @@ namespace Script.Controller
         #region Getter Setter
 
         
+        // autant mettre en public, t'as rien sécurisé là
         public Transform GetHeadTransform() => transformHead;
 
         #endregion

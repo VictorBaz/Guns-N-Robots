@@ -13,7 +13,8 @@ namespace Script.Manager
         public void SetupBarrel(List<CylinderHoleState> barel)
         {
             barel.Clear();
-            const int numberOfHoles = 6;
+            const int numberOfHoles = 6; // franchement, j'pense ca devrait être totalement retiré le 6 en dur et mis
+                                         // dans uns criptable ou un script de constantes utilisé un peu partout
             for (int i = 0; i < numberOfHoles; i++) barel.Add(CylinderHoleState.Full);    
         }
 

@@ -11,6 +11,7 @@ namespace Script.Manager
     public class GameManager : MonoBehaviour
     {
         /// <summary>
+        /// BAH SUPER
         /// PAS DU TOUT EXPLOITER VRAIMENT INUTILE PRESQUE
         /// </summary>
         #region Singleton
@@ -41,7 +42,7 @@ namespace Script.Manager
 
         private void Awake()
         {
-            if (_instance != null && _instance != this)
+            if (_instance != null && _instance != this) // j'ai du mal à voir quand tu repasserais par là si instance == this
             {
                 Destroy(gameObject);
                 return;

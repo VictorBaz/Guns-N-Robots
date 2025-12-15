@@ -44,6 +44,7 @@ namespace Script.Controller
         
         IEnumerator BulletShellEffectIE(float time)
         {
+            // pas ouf le 6 en dur, faudrait rendre ca plus générique, si jamais un jour y'a plus de balles
             float _time = time / 6;
             
             foreach (var shell in bulletShell)
@@ -65,6 +66,7 @@ namespace Script.Controller
             return allAnimation[index].length;
         }
 
+        // 1 et 2 ?
         public float Reload() => AnimTrigger(ReloadAnim,1);
 
         public void Shoot() => AnimTrigger(ShootAnim,2);

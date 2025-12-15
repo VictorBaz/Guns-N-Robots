@@ -7,9 +7,13 @@ namespace Script.Controller
     {
         #region Fields
 
+        // et ici handMeshRenderer
         [SerializeField] private MeshRenderer handVisu;
         [SerializeField] private Rigidbody rbParent;
+        // ici j'aurais surement nommé ca "handTransform"
         [SerializeField] private Transform objPosInHand;
+        // attention au naming obj, ca peut laisser penser que c'est une ref vers un fichier .obj, ou un type object, 
+        // dans ton cas, j'aurais surement utilisé juste "gun" ou gunGo"
         [SerializeField] private GameObject gunObj;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private PlayerController playerController;
@@ -20,6 +24,7 @@ namespace Script.Controller
         private Collider currentGun;
         private LayerMask layerMask;
         
+        // des fois tu mets mVariable, des fois variable, fais attention à ta nomenclature
         [SerializeField] XRInputValueReader<float> mTriggerInput = new XRInputValueReader<float>("Trigger");
         [SerializeField] XRInputValueReader<float> mGripInput = new XRInputValueReader<float>("Grip");
         
@@ -32,6 +37,8 @@ namespace Script.Controller
             layerMask = LayerMask.GetMask( "Head", "Wall");
         }
 
+        // on évite au maximum le code dans l'update, c'est pas claire ce que ca
+        // fait, tu devrais n'avoir que des appels de fonction
         private void Update()
         {
         
@@ -90,12 +97,16 @@ namespace Script.Controller
         private void ThrowGun(Collider other)
         {
             rbParent.isKinematic = false;
+            // -> pas claire ce que ce commentaire apporte
             //need to get velocity
             isGunInHand = false;
             handVisu.enabled = true;
             gunObj.transform.parent = null;
         }
 
+        // tu peux éviter la méthode en faisant un get set comme ca:
+       // public bool isGunInHand { public get; private set }
+        
         public bool IsGunInHand() => isGunInHand;
 
         #endregion
