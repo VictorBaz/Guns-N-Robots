@@ -20,11 +20,6 @@ namespace Script.Manager
         public static void EndRound()
         {
             OnRoundEnd?.Invoke();
-
-            if (DataManager.Instance != null)
-            {
-                DataManager.Instance.IncrementCell("B51");
-            }
         }
 
         public static void RoundStart()
@@ -63,6 +58,26 @@ namespace Script.Manager
         public static void ShootState(ShotDone stateShot)
         {
             OnShootState?.Invoke(stateShot);
+
+            if (DataManager.Instance == null) return;
+            
+            switch (stateShot)
+            {
+                case ShotDone.Miss:
+                    DataManager.Instance.IncrementCell("B5");
+                    break;
+                case ShotDone.Bad:
+                    DataManager.Instance.IncrementCell("B4");
+                    break;
+                case ShotDone.Good:
+                    DataManager.Instance.IncrementCell("B3");
+                    break;
+                case ShotDone.Perfect:
+                    DataManager.Instance.IncrementCell("B2");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(stateShot), stateShot, null);
+            }
         }
 
         #endregion
