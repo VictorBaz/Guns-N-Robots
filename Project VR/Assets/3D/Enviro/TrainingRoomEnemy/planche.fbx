@@ -12,10 +12,10 @@ FBXHeaderExtension:  {
 		Year: 2025
 		Month: 12
 		Day: 15
-		Hour: 10
-		Minute: 42
-		Second: 29
-		Millisecond: 981
+		Hour: 11
+		Minute: 14
+		Second: 27
+		Millisecond: 238
 	}
 	Creator: "Blockbench 5.0.4"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -49,7 +49,7 @@ FBXHeaderExtension:  {
 	}
 }
 FileId: "iVFoobar"
-CreationTime: "2025-12-15 09:42:29:981"
+CreationTime: "2025-12-15 10:14:27:238"
 Creator: "Made with Blockbench"
 GlobalSettings:  {
 	Version: 1000
@@ -78,7 +78,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1149296751 {
+	Document: 1639655998 {
 		Scene: "Scene"
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
@@ -98,7 +98,7 @@ References:
 
 Definitions:  {
 	Version: 100
-	Count: 3
+	Count: 9
 	ObjectType: "GlobalSettings" {
 		Count: 1
 	}
@@ -193,13 +193,82 @@ Definitions:  {
 			}
 		}
 	}
+	ObjectType: "Material" {
+		Count: 2
+		PropertyTemplate: "FbxSurfaceLambert" {
+			Properties70:  {
+				P: "ShadingModel", "KString", "", "", "Lambert"
+				P: "MultiLayer", "bool", "", "",0
+				P: "EmissiveColor", "Color", "", "A",0,0,0
+				P: "EmissiveFactor", "Number", "", "A",1
+				P: "AmbientColor", "Color", "", "A",0.2,0.2,0.2
+				P: "AmbientFactor", "Number", "", "A",1
+				P: "DiffuseColor", "Color", "", "A",0.8,0.8,0.8
+				P: "DiffuseFactor", "Number", "", "A",1
+				P: "Bump", "Vector3D", "Vector", "",0,0,0
+				P: "NormalMap", "Vector3D", "Vector", "",0,0,0
+				P: "BumpFactor", "double", "Number", "",1
+				P: "TransparentColor", "Color", "", "A",0,0,0
+				P: "TransparencyFactor", "Number", "", "A",0
+				P: "DisplacementColor", "ColorRGB", "Color", "",0,0,0
+				P: "DisplacementFactor", "double", "Number", "",1
+				P: "VectorDisplacementColor", "ColorRGB", "Color", "",0,0,0
+				P: "VectorDisplacementFactor", "double", "Number", "",1
+			}
+		}
+	}
+	ObjectType: "Texture" {
+		Count: 2
+		PropertyTemplate: "FbxFileTexture" {
+			Properties70:  {
+				P: "TextureTypeUse", "enum", "", "",0
+				P: "Texture alpha", "Number", "", "A",1
+				P: "CurrentMappingType", "enum", "", "",0
+				P: "WrapModeU", "enum", "", "",0
+				P: "WrapModeV", "enum", "", "",0
+				P: "UVSwap", "bool", "", "",0
+				P: "PremultiplyAlpha", "bool", "", "",1
+				P: "Translation", "Vector", "", "A",0,0,0
+				P: "Rotation", "Vector", "", "A",0,0,0
+				P: "Scaling", "Vector", "", "A",1,1,1
+				P: "TextureRotationPivot", "Vector3D", "Vector", "",0,0,0
+				P: "TextureScalingPivot", "Vector3D", "Vector", "",0,0,0
+				P: "CurrentTextureBlendMode", "enum", "", "",1
+				P: "UVSet", "KString", "", "", "default"
+				P: "UseMaterial", "bool", "", "",0
+				P: "UseMipMap", "bool", "", "",0
+			}
+		}
+	}
+	ObjectType: "Video" {
+		Count: 2
+		PropertyTemplate: "FbxVideo" {
+			Properties70:  {
+				P: "ImageSequence", "bool", "", "",0
+				P: "ImageSequenceOffset", "int", "Integer", "",0
+				P: "FrameRate", "double", "Number", "",0
+				P: "LastFrame", "int", "Integer", "",0
+				P: "Width", "int", "Integer", "",0
+				P: "Height", "int", "Integer", "",0
+				P: "Path", "KString", "XRefUrl", "", ""
+				P: "StartFrame", "int", "Integer", "",0
+				P: "StopFrame", "int", "Integer", "",0
+				P: "PlaySpeed", "double", "Number", "",0
+				P: "Offset", "KTime", "Time", "",0
+				P: "InterlaceMode", "enum", "", "",0
+				P: "FreeRunning", "bool", "", "",0
+				P: "Loop", "bool", "", "",0
+				P: "AccessMode", "enum", "", "",0
+			}
+		}
+	}
 }
 
 ; Object properties
 ;------------------------------------------------------------------
 
 Objects:  {
-	Model: 71585338, "Model::cuboid", "Mesh" {
+	Model: 76971483, "Model::cuboid", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -214,7 +283,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Geometry: 76769890, "Geometry::cuboid", "Mesh" {
+	Geometry: 70201416, "Geometry::cuboid", "Mesh" {
 		Vertices: *24 {
 			a: 6.25,137.5,31.25,6.25,137.5,-31.25,6.25,0,31.25,6.25,0,-31.25,-6.25,137.5,31.25,-6.25,137.5,-31.25,-6.25,0,31.25,-6.25,0,-31.25
 		}
@@ -237,7 +306,7 @@ Objects:  {
 			MappingInformationType: "ByPolygonVertex"
 			ReferenceInformationType: "Direct"
 			UV: *48 {
-				a: 1,1,0,1,0,0.5,1,0.5,1,0.5,1,1,0,1,0,0.5,0,0,1,0,1,1,0,1,1,0,1,1,0,1,0,0,1,0.5,1,1,0,1,0,0.5,1,1,0,1,0,0.5,1,0.5
+				a: 0.42105263157894735,1,0,1,0,0,0.42105263157894735,0,1,0,1,1,0.5,1,0.5,0,0.039473684210526314,0.16883116883116878,0.17105263157894737,0.16883116883116878,0.17105263157894737,0.7012987012987013,0.039473684210526314,0.7012987012987013,0.13157894736842105,0.24675324675324672,0.13157894736842105,0.7012987012987013,0.07894736842105263,0.7012987012987013,0.07894736842105263,0.24675324675324672,0.40789473684210525,0.35064935064935077,0.40789473684210525,1,0.2894736842105263,1,0.2894736842105263,0.35064935064935077,0.07894736842105263,0.7012987012987013,0,0.7012987012987013,0,0.23376623376623373,0.07894736842105263,0.23376623376623373
 			}
 		}
 		LayerElementMaterial: 0 {
@@ -265,6 +334,70 @@ Objects:  {
 			}
 		}
 	}
+	Material: 75714376, "Material::texture.png", "" {
+		Version: 102
+		ShadingModel: "lambert"
+		MultiLayer: 0
+		Properties70:  {
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
+			P: "Diffuse", "Vector3D", "Vector", "",0.8,0.8,0.8
+			P: "Opacity", "double", "Number", "",1
+		}
+	}
+	Texture: 79069970, "Texture::texture.png", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::texture.png"
+		Media: "Video::texture.png"
+		FileName: "C:\Users\n.levy\Desktop\Cours\VR\VR-Game\Project VR\Assets\3D\Enviro\TrainingRoomEnemy\texture.png"
+		RelativeFilename: "texture.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
+	Video: 74119258, "Video::texture.png", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\n.levy\Desktop\Cours\VR\VR-Game\Project VR\Assets\3D\Enviro\TrainingRoomEnemy\texture.png"
+		}
+		UseMipMap: 0
+		Filename: "C:\Users\n.levy\Desktop\Cours\VR\VR-Game\Project VR\Assets\3D\Enviro\TrainingRoomEnemy\texture.png"
+		RelativeFilename: "texture.png"
+	}
+	Material: 70058197, "Material::Sprite-0001.png", "" {
+		Version: 102
+		ShadingModel: "lambert"
+		MultiLayer: 0
+		Properties70:  {
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.2,0.2,0.2
+			P: "Diffuse", "Vector3D", "Vector", "",0.8,0.8,0.8
+			P: "Opacity", "double", "Number", "",1
+		}
+	}
+	Texture: 79057717, "Texture::Sprite-0001.png", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::Sprite-0001.png"
+		Media: "Video::Sprite-0001.png"
+		FileName: "C:\Users\n.levy\Downloads\Sprite-0001.png"
+		RelativeFilename: "Sprite-0001.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
+	}
+	Video: 70991542, "Video::Sprite-0001.png", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\n.levy\Downloads\Sprite-0001.png"
+		}
+		UseMipMap: 0
+		Filename: "C:\Users\n.levy\Downloads\Sprite-0001.png"
+		RelativeFilename: "Sprite-0001.png"
+	}
 }
 
 ; Object connections
@@ -273,10 +406,25 @@ Objects:  {
 Connections:  {
 
 	;Model::cuboid, Model::RootNode
-	C: "OO",71585338,0
+	C: "OO",76971483,0
 
 	;Geometry::cuboid, Model::cuboid
-	C: "OO",76769890,71585338
+	C: "OO",70201416,76971483
+
+	;Material::Sprite-0001.png, Model::cuboid
+	C: "OO",70058197,76971483
+
+	;Texture::texture.png, Material::texture.png
+	C: "OP",79069970,75714376, "DiffuseColor"
+
+	;Video::texture.png, Texture::texture.png
+	C: "OO",74119258,79069970
+
+	;Texture::Sprite-0001.png, Material::Sprite-0001.png
+	C: "OP",79057717,70058197, "DiffuseColor"
+
+	;Video::Sprite-0001.png, Texture::Sprite-0001.png
+	C: "OO",70991542,79057717
 }
 
 ; Takes section
