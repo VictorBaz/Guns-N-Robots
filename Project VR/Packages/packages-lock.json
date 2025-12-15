@@ -290,12 +290,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.victor.utilities": {
-      "version": "file:C:/Work/Project 2025 2026/PackageCustom_GoogleSheetInUnityKPI/PackageKpiSheet/Assets/com.Victor.Utilities",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
