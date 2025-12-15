@@ -16,7 +16,7 @@ namespace Script.Controller
         #region Fields
 
         [SerializeField] private VisualsController visuals;
-        [SerializeField] private Grabbing grabbing;
+        /*[SerializeField] private Grabbing grabbing;*/
         [SerializeField] private Transform bulletOrigin;
         
         [SerializeField] private XRIDefaultInputActions inputActions;
@@ -94,7 +94,7 @@ namespace Script.Controller
 
             var triggerVal = mTriggerInput.ReadValue();
             
-            if (triggerVal < 0.0001f && grabbing.IsGunInHand())
+            if (triggerVal < 0.0001f /*&& grabbing.IsGunInHand()*/)
             {
                 canShoot = true;
             }
@@ -294,8 +294,9 @@ namespace Script.Controller
         private float CalculateReloadSpeed()
         {
             float distance = Vector3.Distance(startReloadPosition, endReloadPosition);
-            float time = endTimeReload - startTimeReload;
-            return distance / time; 
+            /*float time = endTimeReload - startTimeReload;
+            return distance / time; */
+            return distance;
         }
 
         private void ExecuteReload()
