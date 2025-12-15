@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Script.Enum;
 using Script.Interface;
 using Script.Manager;
+using Script.Utility;
 using UnityEngine;
 
 namespace Script.Ennemys
 {
-    public class EnemyRange : MonoBehaviour, IDamagable, IEnemy
+    public class EnemyRange : AbstractEnemy, IDamagable, IEnemy
     {
 
         #region  Fields
@@ -68,16 +69,7 @@ namespace Script.Ennemys
         
         #region Unity Methods
 
-        private void Start()
-        {
-            InitPosition();
-            
-            if (laserSight != null)
-            {
-                laserSight.enabled = false;
-            }
-            PlaySpawnAnimation();
-        }
+        
 
         private void Update()
         {
@@ -359,10 +351,42 @@ namespace Script.Ennemys
         {
             enemyManager.ReleaseEnemyPlacement(indexInEnnemyManager);
         }
+        
+        public void OnDeathAnimationComplete()
+        {
+            materialUpdater.ResetMaterial();
+            DestroyItSelf();
+        }
 
         public void DestroyItSelf()
         {
-            Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);
+            ObjectPooler.EnqueueObject(this, "EnemyRange");
+        }
+
+        public GameObject GetReferenceGo()
+        {
+            return transform.parent.gameObject;
+        }
+
+        public void ResetEnemy()
+        {
+            enemyState = EnemyRangeState.Spawn;
+            tickStartAttackToAttack = 0;
+            tickBeforeAttack = 0;
+            tickInStopAttack = 0;
+            hasShot = false;
+            isDead = false;
+            currentLerpValue = 0f;
+            laserSight.enabled = false;
+            materialUpdater.ResetMaterial();
+            
+            InitPosition();
+            
+            if (laserSight != null)
+            {
+                laserSight.enabled = false;
+            }
+            PlaySpawnAnimation();
         }
 
         #endregion

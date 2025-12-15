@@ -10,6 +10,7 @@ namespace Script.Interface
         /// DANS COMPORTEMENTS DE ENEMY RANGE ET ENEMY MELEE
         /// </summary>
         void OnEnemyDeath();
+        void OnDeathAnimationComplete();
         
         void SetParametersOnSpawn(EnemyManager enemyManager, int index, Transform playerPosition);
 
@@ -20,5 +21,9 @@ namespace Script.Interface
         void ClearEnemy();
 
         void DestroyItSelf();
+
+        GameObject GetReferenceGo();
+
+        void ResetEnemy();
     }
 }

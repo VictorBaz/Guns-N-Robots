@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3436301036330149010}
+  - component: {fileID: 8176874908639228111}
+  - component: {fileID: 7000979330485620024}
   m_Layer: 6
   m_Name: ParentRobotRange
   m_TagString: Untagged
@@ -32,6 +34,137 @@ Transform:
   - {fileID: 1354615372782094123}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8176874908639228111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788183859978414565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fda849c43c6c21448ad8bc364a1c355a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.Ennemys.EnemyRange
+  enemyTransform: {fileID: 3436301036330149010}
+  shootPoint: {fileID: 5228474474774274979}
+  tickTransitionStartAttackToAttack: 1
+  tickNeedToAttack: 5
+  tickStopAttackDuration: 2
+  laserSight: {fileID: 6051067428566356639}
+  laserMaxDistance: 200
+  shooterLayerMask:
+    serializedVersion: 2
+    m_Bits: 119
+  aimingLaserWidth: 0.07
+  shootingLaserWidth: 0.02
+  aimingLaserColor: {r: 1, g: 0.9654912, b: 0, a: 1}
+  shootingLaserColor: {r: 1, g: 0.044018812, b: 0.015686274, a: 1}
+  robotRangeAnimator: {fileID: 7449658538303665201}
+  materialUpdater: {fileID: 146003177804082121}
+  muzzle:
+  - {fileID: 602194273996591873}
+  - {fileID: 3753058482965249231}
+  - {fileID: 7259237623216877380}
+  - {fileID: 7331840401078347617}
+  audioSourceEnemyRange: {fileID: 7000979330485620024}
+--- !u!82 &7000979330485620024
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788183859978414565}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -7520359786454648717, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6400090356312409711
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,9 +689,6 @@ PrefabInstance:
       addedObject: {fileID: 7449658538303665201}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6663398308814984543}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6051067428566356639}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}
       insertIndex: -1
@@ -568,7 +698,7 @@ PrefabInstance:
       addedObject: {fileID: 146003177804082121}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3500529900471980100}
+      addedObject: {fileID: 8712031298781596232}
   m_SourcePrefab: {fileID: 100100000, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}
 --- !u!23 &556029912819583718 stripped
 MeshRenderer:
@@ -617,40 +747,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6663398308814984543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1839543622891314577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fda849c43c6c21448ad8bc364a1c355a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Script.Ennemys.EnemyRange
-  enemyTransform: {fileID: 3436301036330149010}
-  shootPoint: {fileID: 5228474474774274979}
-  tickTransitionStartAttackToAttack: 1
-  tickNeedToAttack: 5
-  tickStopAttackDuration: 2
-  laserSight: {fileID: 6051067428566356639}
-  laserMaxDistance: 200
-  shooterLayerMask:
-    serializedVersion: 2
-    m_Bits: 119
-  aimingLaserWidth: 0.07
-  shootingLaserWidth: 0.02
-  aimingLaserColor: {r: 1, g: 0.9654912, b: 0, a: 1}
-  shootingLaserColor: {r: 1, g: 0.044018812, b: 0.015686274, a: 1}
-  robotRangeAnimator: {fileID: 7449658538303665201}
-  materialUpdater: {fileID: 146003177804082121}
-  muzzle:
-  - {fileID: 602194273996591873}
-  - {fileID: 3753058482965249231}
-  - {fileID: 7259237623216877380}
-  - {fileID: 7331840401078347617}
-  audioSourceEnemyRange: {fileID: 3500529900471980100}
 --- !u!120 &6051067428566356639
 LineRenderer:
   serializedVersion: 2
@@ -819,103 +915,18 @@ MonoBehaviour:
   - {fileID: 7415206692040547414}
   - {fileID: 2272450979171261630}
   _duration: 0.5
---- !u!82 &3500529900471980100
-AudioSource:
+--- !u!114 &8712031298781596232
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839543622891314577}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -7520359786454648717, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 21.33
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c2b59cc60280c4da086d6ceaf32333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Script.Utility.EnemyAnimationEvents
 --- !u!23 &2165370983415403755 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 813682119185364011, guid: 1de702d7f4242914faf7f892a6cfc278, type: 3}

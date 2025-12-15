@@ -1712,9 +1712,10 @@ MonoBehaviour:
     isPhysicsDoor: 1
     doorAnimator: {fileID: 867684098}
     audioSource: {fileID: 867684099}
-  enemyPrefabs: {fileID: 5965015606148215061, guid: 530acb738c6c364478d08a8556946d6b, type: 3}
+  enemyPrefab: {fileID: 9159063765180165646, guid: 530acb738c6c364478d08a8556946d6b, type: 3}
   playerTransform: {fileID: 939864605}
   TickBetweenTwoEnnemy: 3
+  numberElementToPool: 10
 --- !u!4 &573441055
 Transform:
   m_ObjectHideFlags: 0
@@ -1768,9 +1769,10 @@ MonoBehaviour:
     isPhysicsDoor: 0
     doorAnimator: {fileID: 0}
     audioSource: {fileID: 0}
-  enemyPrefabs: {fileID: 788183859978414565, guid: 5dd8a70d6bf104849b608d109951a45b, type: 3}
+  enemyPrefab: {fileID: 8176874908639228111, guid: 5dd8a70d6bf104849b608d109951a45b, type: 3}
   playerTransform: {fileID: 939864605}
   TickBetweenTwoEnnemy: 4
+  numberElementToPool: 10
 --- !u!1 &604964417
 GameObject:
   m_ObjectHideFlags: 0

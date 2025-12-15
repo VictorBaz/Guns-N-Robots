@@ -4,7 +4,9 @@ using Script.Enum;
 using Script.Interact;
 using Script.Interface;
 using Script.Manager;
+using Script.Utility;
 using UnityEngine;
+using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
 namespace Script.Ennemys
@@ -14,13 +16,17 @@ namespace Script.Ennemys
         #region Fields
 
         [SerializeField] private Door[] DoorList = { };
-        [SerializeField] private GameObject enemyPrefabs;
+        [SerializeField] private AbstractEnemy enemyPrefab;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private int TickBetweenTwoEnnemy;
+
+        [SerializeField] private int numberElementToPool;
         
         private int lastEnemySpawn;
         private List<int> availableDoor = new List<int>();
         private List<IEnemy> activeEnemies = new List<IEnemy>();
+        private string enemyPoolKey;
+        
     
         #endregion
 
@@ -47,6 +53,7 @@ namespace Script.Ennemys
         private void Start()
         {
             InitializeAvailableDoors();
+            SetupPoolEnemy();
         }
 
         #endregion
@@ -113,7 +120,10 @@ namespace Script.Ennemys
             int doorIndex = availableDoor[randomIndex];
             Door door = DoorList[doorIndex];
             
-            IEnemy enemy = SpawnEnemy(door.doorReference.transform);
+            AbstractEnemy enemyAbstract = SpawnEnemy(door.doorReference.transform);
+            
+            IEnemy enemy = enemyAbstract.GetComponent<IEnemy>() 
+                           ?? enemyAbstract.GetComponentInChildren<IEnemy>();
             
             switch (enemy)
             {
@@ -127,29 +137,19 @@ namespace Script.Ennemys
                     break;
             }
 
+            enemy.ResetEnemy();
             availableDoor.RemoveAt(randomIndex);
             activeEnemies.Add(enemy);
             door.TriggerDoorOpen();
         }
 
-        private IEnemy SpawnEnemy(Transform doorTransform)
+        
+        private AbstractEnemy SpawnEnemy(Transform doorTransform)
         {
-            GameObject enemyObj = Instantiate(enemyPrefabs, doorTransform.position, Quaternion.identity);
             EventManager.EnemySpawn();
-            
-            IEnemy enemy = enemyObj.GetComponent<IEnemy>();
-            
-            if (enemy == null)
-            {
-                enemy = enemyObj.GetComponentInChildren<IEnemy>();
-            }
-
-            if (enemy == null)
-            {
-                Debug.LogError($"EnnemyBehaviour component not found on spawned enemy prefab!");
-                Destroy(enemyObj);
-            }
-
+            AbstractEnemy enemy = ObjectPooler.DequeueObject<AbstractEnemy>(enemyPoolKey); 
+            enemy.gameObject.SetActive(true);
+            enemy.gameObject.transform.position = doorTransform.position;
             return enemy;
         }
 
@@ -199,5 +199,14 @@ namespace Script.Ennemys
 
         #endregion
 
+        #region Pooling System
+
+        private void SetupPoolEnemy()
+        {
+            enemyPoolKey = enemyPrefab is EnemyRange ? "EnemyRange" : "EnemyMelee";
+            ObjectPooler.SetupPool(enemyPrefab, numberElementToPool, enemyPoolKey);
+        }
+
+        #endregion
     }
 }

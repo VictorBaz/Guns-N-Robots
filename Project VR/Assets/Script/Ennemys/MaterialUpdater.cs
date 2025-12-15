@@ -40,6 +40,21 @@ namespace Script.Ennemys
             }
         }
 
+        public void ResetMaterial()
+        {
+            StopAllCoroutines();
+            _progression = 0f;
+
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
+            mpb.SetFloat("_Progression", _progression);
+
+            foreach (var renderer in _renderers)
+            {
+                renderer.SetPropertyBlock(mpb);
+            }
+        }
+
+
         #endregion
         
     }

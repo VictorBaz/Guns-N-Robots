@@ -1,11 +1,12 @@
 using Script.Interface;
 using Script.Manager;
+using Script.Utility;
 using UnityEngine;
 
 namespace Script.Ennemys
 {
     [RequireComponent(typeof(AudioSource))]
-    public class EnnemyBehaviour : MonoBehaviour, IDamagable, IEnemy
+    public class EnnemyBehaviour : AbstractEnemy, IDamagable, IEnemy
     {
 
         #region Fields
@@ -61,17 +62,14 @@ namespace Script.Ennemys
 
         #region Unity Methods
 
-        private void Start()
-        {
-            InitPosition();
-            PlayWalkAnimation();
-        }
+        
 
         private void FixedUpdate()
         {
             if (nextPosition != null && !isDead && !isAttacking)
             {
-                enemyTransform.position = Vector3.Lerp(enemyTransform.position, (Vector3)nextPosition, TickManager.TimeBetweenTick * lerpAmount);   
+                enemyTransform.position = Vector3.Lerp(enemyTransform.position, (Vector3)nextPosition,
+                    TickManager.TimeBetweenTick * lerpAmount);   
             }
         }
         
@@ -100,7 +98,7 @@ namespace Script.Ennemys
 
         public void DestroyItSelf()
         {
-            Destroy(transform.parent != null ? transform.parent.gameObject : gameObject);
+            ObjectPooler.EnqueueObject(this, "EnemyMelee");
         }
 
         public void OnEnemyDeath()
@@ -184,6 +182,7 @@ namespace Script.Ennemys
 
         public void OnDeathAnimationComplete()
         {
+            materialUpdater.ResetMaterial();
             DestroyItSelf();
         }
 
@@ -209,6 +208,23 @@ namespace Script.Ennemys
                 OnEnemyDeath();
                 materialUpdater.UpdateMaterials();
             }
+        }
+        
+        public GameObject GetReferenceGo()
+        {
+            return transform.parent.gameObject;
+        }
+
+        public void ResetEnemy()
+        {
+            ticksSinceSpawn = 0;
+            isDead = false;
+            isAttacking = false;
+            nextPosition = enemyTransform.position;
+            stepSound = false;
+            materialUpdater.ResetMaterial();
+            InitPosition();
+            PlayWalkAnimation();
         }
 
         #endregion
