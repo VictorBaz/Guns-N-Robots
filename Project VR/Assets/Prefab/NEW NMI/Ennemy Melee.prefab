@@ -529,7 +529,7 @@ MonoBehaviour:
   lerpAmount: 0.3
   animator: {fileID: 5981590720572469029}
   materialUpdater: {fileID: 7328191432705587777}
-  _audioSourceEnemyMelee: {fileID: 9082229442379621279}
+  audioSourceEnemyMelee: {fileID: 9082229442379621279}
 --- !u!114 &7328191432705587777
 MonoBehaviour:
   m_ObjectHideFlags: 0

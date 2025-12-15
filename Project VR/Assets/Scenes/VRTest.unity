@@ -1375,12 +1375,12 @@ MonoBehaviour:
       m_Name: Trigger
       m_Type: 0
       m_ExpectedControlType: Axis
-      m_Id: 86937bf9-287e-43e1-ade3-dfcd6ec32b65
+      m_Id: 2a44d9a6-f734-40a6-93f5-22cca1e8d017
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_InputActionReference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
   minSpeedToReload: 2
@@ -5341,6 +5341,14 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 360293111}
+    - target: {fileID: 8850781939928767102, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
+      propertyPath: mGripInput.m_InputActionReference
+      value: 
+      objectReference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 8850781939928767102, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
+      propertyPath: mTriggerInput.m_InputActionReference
+      value: 
+      objectReference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

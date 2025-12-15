@@ -650,7 +650,7 @@ MonoBehaviour:
   - {fileID: 3753058482965249231}
   - {fileID: 7259237623216877380}
   - {fileID: 7331840401078347617}
-  _audioSourceEnemyRange: {fileID: 3500529900471980100}
+  audioSourceEnemyRange: {fileID: 3500529900471980100}
 --- !u!120 &6051067428566356639
 LineRenderer:
   serializedVersion: 2

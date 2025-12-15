@@ -276,6 +276,9 @@ namespace Script.Manager
                 case ShotDone.Perfect:
                     PlayMusicOneShot(PerfectShootSound());
                     break;
+                case ShotDone.Miss:
+                    PlayMusicOneShot(BadShootSound());
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shotState), shotState, null);
             }

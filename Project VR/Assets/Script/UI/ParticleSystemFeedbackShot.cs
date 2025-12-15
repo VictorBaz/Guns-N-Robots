@@ -52,7 +52,7 @@ namespace Script.UI
 
         private void DisplayFeedBack(ShotDone shotState)
         {
-            if (GameManager.Instance == null || GameManager.Instance.CurrentState != GameState.MiniGameRunning)
+            if (GameManager.Instance == null)
             {
                 return;
             }
