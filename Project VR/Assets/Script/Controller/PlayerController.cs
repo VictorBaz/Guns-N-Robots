@@ -146,7 +146,7 @@ namespace Script.Controller
             }
             else
             {
-                IDamagable damagable = hit.transform.GetComponent<IDamagable>();
+                IDamagable damagable = hit.transform.GetComponentInParent<IDamagable>();
     
                 if (damagable != null)
                     damagable.TakeDamage();
