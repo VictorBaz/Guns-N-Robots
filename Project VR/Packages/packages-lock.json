@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.jcavaillac.data": {
+      "version": "https://github.com/Tuozi-10/DataRecorder.git?path=/Data/Assets/com.jcavaillac.data/Package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1045eac29448b33e15321a693d0ed8a5ee6163ac"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -282,6 +289,12 @@
         "com.unity.xr.legacyinputhelpers": "2.1.2"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.victor.utilities": {
+      "version": "file:C:/Work/Project 2025 2026/PackageCustom_GoogleSheetInUnityKPI/PackageKpiSheet/Assets/com.Victor.Utilities",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

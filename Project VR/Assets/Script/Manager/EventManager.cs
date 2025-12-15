@@ -20,6 +20,11 @@ namespace Script.Manager
         public static void EndRound()
         {
             OnRoundEnd?.Invoke();
+
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.IncrementCell("B51");
+            }
         }
 
         public static void RoundStart()

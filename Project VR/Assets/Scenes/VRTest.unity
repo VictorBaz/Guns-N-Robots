@@ -3874,8 +3874,30 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2706649199543632649, guid: 36f8280bf0b14174396fc25852fed385, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1634951839}
   m_SourcePrefab: {fileID: 100100000, guid: 36f8280bf0b14174396fc25852fed385, type: 3}
+--- !u!1 &1634951838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2706649199543632649, guid: 36f8280bf0b14174396fc25852fed385, type: 3}
+  m_PrefabInstance: {fileID: 1634951837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1634951839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634951838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46a0a8a935d1384dba036b25fbe9b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DataAssembly::DataManager
+  spreadsheetId: 13o3Vubum3_Yoon_pE_zBL24O2gekMTyzA7wlwD9q1wo
+  sheetName: BACKLOG_VR
 --- !u!1 &1648815710
 GameObject:
   m_ObjectHideFlags: 0

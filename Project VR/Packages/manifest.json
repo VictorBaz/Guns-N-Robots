@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.jcavaillac.data": "https://github.com/Tuozi-10/DataRecorder.git?path=/Data/Assets/com.jcavaillac.data/Package",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.collab-proxy": "2.9.3",
@@ -16,6 +17,7 @@
     "com.unity.xr.interaction.toolkit": "3.2.1",
     "com.unity.xr.management": "4.5.2",
     "com.unity.xr.openxr": "1.15.1",
+    "com.victor.utilities": "file:C:/Work/Project 2025 2026/PackageCustom_GoogleSheetInUnityKPI/PackageKpiSheet/Assets/com.Victor.Utilities",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
