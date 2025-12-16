@@ -19,7 +19,10 @@ namespace Script.Ennemys
         private int ticksSinceSpawn = 0;
 
         [Header("Player Ref")]
-        [SerializeField] private Transform playerPos;
+        private Transform playerPos;
+
+        [SerializeField] private Transform enemyGo;
+        
         private Vector3 moveDistance;
         private bool isDead;
         private bool isAttacking;
@@ -224,7 +227,10 @@ namespace Script.Ennemys
             stepSound = false;
             materialUpdater.ResetMaterial();
             InitPosition();
+            enemyGo.position = Vector3.zero;
+            enemyGo.localEulerAngles = Vector3.zero;
             PlayWalkAnimation();
+            
         }
 
         #endregion

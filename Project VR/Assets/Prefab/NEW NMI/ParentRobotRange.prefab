@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Script.Ennemys.EnemyRange
   enemyTransform: {fileID: 3436301036330149010}
   shootPoint: {fileID: 5228474474774274979}
+  enemyGo: {fileID: 1354615372782094123}
   tickTransitionStartAttackToAttack: 1
   tickNeedToAttack: 5
   tickStopAttackDuration: 2

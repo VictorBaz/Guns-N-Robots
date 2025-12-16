@@ -20,7 +20,7 @@ namespace Script.Interact
 
         private void Start()
         {
-            SetAnimator();
+            _animator.speed = 0;
         }
 
         #endregion
@@ -32,6 +32,16 @@ namespace Script.Interact
             _animator.speed = TickManager.TimeBetweenTick;
         }
 
+        private void ResetAndStartAnimation()
+        {
+            _animator.Rebind();
+            _animator.Update(0f);
+            
+            SetAnimator();
+            
+            _animator.enabled = true;
+        }
+
         #endregion
 
         #region Observer
@@ -39,13 +49,13 @@ namespace Script.Interact
         private void OnEnable()
         {
             TickManager.OnTickChange += SetAnimator;
-            EventManager.OnGameStart += SetAnimator;
+            EventManager.OnGameStart += ResetAndStartAnimation;
         }
 
         private void OnDisable()
         {
             TickManager.OnTickChange -= SetAnimator;
-            EventManager.OnGameStart -= SetAnimator;
+            EventManager.OnGameStart -= ResetAndStartAnimation;
         }
 
         #endregion

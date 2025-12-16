@@ -16,6 +16,7 @@ namespace Script.Ennemys
         [Header("Transform")]
         [SerializeField] private Transform enemyTransform;
         [SerializeField] private Transform shootPoint; 
+        [SerializeField] private Transform enemyGo;
 
         [Header("Tick Timings")]
         [SerializeField] private int tickTransitionStartAttackToAttack = 5; 
@@ -381,12 +382,15 @@ namespace Script.Ennemys
             materialUpdater.ResetMaterial();
             
             InitPosition();
+            enemyGo.position = Vector3.zero;
+            enemyGo.localEulerAngles = Vector3.zero;
             
             if (laserSight != null)
             {
                 laserSight.enabled = false;
             }
             PlaySpawnAnimation();
+            
         }
 
         #endregion
