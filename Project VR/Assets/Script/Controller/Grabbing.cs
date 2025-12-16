@@ -27,6 +27,8 @@ namespace Script.Controller
 
         #region Unity Methods
 
+        
+        
         void Awake()
         {
             layerMask = LayerMask.GetMask( "Head", "Wall");
@@ -34,7 +36,6 @@ namespace Script.Controller
 
         private void Update()
         {
-        
             if (mGripInput != null)
             {
                 var gripVal = mGripInput.ReadValue();
@@ -50,6 +51,7 @@ namespace Script.Controller
                     ThrowGun(currentGun);
                 }
             }
+            
         }
 
         #endregion
