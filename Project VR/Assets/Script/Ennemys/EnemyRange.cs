@@ -382,8 +382,7 @@ namespace Script.Ennemys
             materialUpdater.ResetMaterial();
             
             InitPosition();
-            enemyGo.position = Vector3.zero;
-            enemyGo.localEulerAngles = Vector3.zero;
+            
             
             if (laserSight != null)
             {
@@ -391,6 +390,12 @@ namespace Script.Ennemys
             }
             PlaySpawnAnimation();
             
+        }
+        
+        public override void ResetT()
+        {
+            enemyGo.position = Vector3.zero;
+            enemyGo.localEulerAngles = Vector3.zero;
         }
 
         #endregion
@@ -441,5 +446,7 @@ namespace Script.Ennemys
         }
 
         #endregion
+
+        
     }
 }

@@ -227,10 +227,14 @@ namespace Script.Ennemys
             stepSound = false;
             materialUpdater.ResetMaterial();
             InitPosition();
+            
+            PlayWalkAnimation();
+        }
+        
+        public override void ResetT()
+        {
             enemyGo.position = Vector3.zero;
             enemyGo.localEulerAngles = Vector3.zero;
-            PlayWalkAnimation();
-            
         }
 
         #endregion
@@ -263,5 +267,6 @@ namespace Script.Ennemys
 
         #endregion
 
+        
     }
 }

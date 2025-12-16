@@ -1447,7 +1447,7 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
-  minSpeedToReload: 1
+  minSpeedToReload: 0
   cylinder: 000000000000000000000000000000000000000000000000
   transformHead: {fileID: 8253290981150718059}
   trailShoot: {fileID: 378810202}
@@ -5847,6 +5847,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2218774169056411777, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2925448509697084212, guid: 39fcccf5b12eda54e935a2ed71ba4f3a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -6050,6 +6054,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 360293111}
+    - target: {fileID: 3348421932104040232, guid: 65fcdffdf5fd8a246a25f9896ab3f84d, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348421932104040232, guid: 65fcdffdf5fd8a246a25f9896ab3f84d, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6970878167725999248, guid: 65fcdffdf5fd8a246a25f9896ab3f84d, type: 3}
       propertyPath: m_Name
       value: "pitol\xE9"
