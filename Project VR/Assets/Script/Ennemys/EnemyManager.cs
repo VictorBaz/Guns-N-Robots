@@ -148,6 +148,9 @@ namespace Script.Ennemys
         {
             EventManager.EnemySpawn();
             AbstractEnemy enemy = ObjectPooler.DequeueObject<AbstractEnemy>(enemyPoolKey); 
+            
+            enemy.ResetT();
+            
             enemy.gameObject.SetActive(true);
             enemy.gameObject.transform.position = doorTransform.position;
             return enemy;
