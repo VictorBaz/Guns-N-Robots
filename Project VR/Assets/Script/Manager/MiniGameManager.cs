@@ -33,6 +33,8 @@ namespace Script.Manager
         
         [SerializeField] private int maxEnemyPallier;
 
+        [SerializeField] private bool isTutorial = false;
+
         private int enemyKilled = 0;
         
         #endregion
@@ -48,7 +50,11 @@ namespace Script.Manager
             }
     
             _instance = this;
-            DontDestroyOnLoad(gameObject);
+
+            if (isTutorial)
+            {
+                StartInGame();
+            }
         }
         
 
@@ -58,6 +64,8 @@ namespace Script.Manager
 
         private void OnEnable()
         {
+            if (isTutorial) return;
+            
             EventManager.OnGameStart += InitFirstRound;
             EventManager.OnEnemyKilled += UpdateEnemyCount;
             EventManager.OnRoundEnd += TransitionRound;
@@ -67,6 +75,8 @@ namespace Script.Manager
 
         private void OnDisable()
         {
+            if (isTutorial) return;
+            
             EventManager.OnGameStart -= InitFirstRound;
             EventManager.OnEnemyKilled -= UpdateEnemyCount;
             EventManager.OnRoundEnd -= TransitionRound;
@@ -91,7 +101,11 @@ namespace Script.Manager
             return GameManager.Instance.CurrentState == GameState.MiniGameRunning;
         }
 
-        public bool CanSpawn() => toSpawnEnemy > 0;
+        public bool CanSpawn()
+        {
+            if (isTutorial) return true;
+            return toSpawnEnemy > 0;
+        }
 
         public int ScorePlayer() => enemyKilled;
         

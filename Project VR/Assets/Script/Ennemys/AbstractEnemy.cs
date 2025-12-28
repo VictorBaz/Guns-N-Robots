@@ -5,5 +5,7 @@ namespace Script.Ennemys
     public abstract class AbstractEnemy : MonoBehaviour
     {
         public abstract void ResetT();
+        
+        public bool CanTakeDamage { get; set; } = true;
     }
 }

@@ -47,7 +47,6 @@ namespace Script.Manager
                 return;
             }
             _instance = this;
-            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()

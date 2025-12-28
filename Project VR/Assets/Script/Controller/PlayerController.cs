@@ -147,9 +147,12 @@ namespace Script.Controller
             else
             {
                 IDamagable damagable = hit.transform.GetComponentInParent<IDamagable>();
-    
+
                 if (damagable != null)
+                {
                     damagable.TakeDamage();
+                    damagable.CanTakeDamage = false;
+                }
                 else
                     missShot = true;
             }

@@ -212,7 +212,9 @@ namespace Script.Ennemys
                 materialUpdater.UpdateMaterials();
             }
         }
+
         
+
         public GameObject GetReferenceGo()
         {
             return transform.parent.gameObject;
