@@ -31,6 +31,7 @@ namespace Script.Manager
         [SerializeField] private AudioClip badShoot;
         [SerializeField] private AudioClip goodShoot;
         [SerializeField] private AudioClip perfectShoot;
+        [SerializeField] private AudioClip missShoot;
         
         [SerializeField] private AudioClip reload;
         
@@ -40,10 +41,15 @@ namespace Script.Manager
         [SerializeField] private AudioClip robotAttackMelee;
         [SerializeField] private AudioClip robotAttackMeleeCharge;
         [SerializeField] private AudioClip robotDeath;
+        [SerializeField] private AudioClip woodHit;
 
         [SerializeField] private AudioClip doorSound;
 
         [SerializeField] private AudioClip roundSound;
+        [SerializeField] private AudioClip fireSound;
+        
+        
+        
 
         [Header("Audio Mixer Group")]
         [SerializeField] private AudioMixerGroup _audioMixerGroupMainMusic;
@@ -85,12 +91,11 @@ namespace Script.Manager
             {
                 Destroy(gameObject);
             }
-            
-            SetupMusicAudioSource();
         }
         
         private void Start()
         {
+            SetupMusicAudioSource();
             audioSource.volume = masterVolume; 
         }
 
@@ -257,6 +262,11 @@ namespace Script.Manager
         public AudioClip DoorSound()            => doorSound;
 
         public AudioClip RoundSound()           => roundSound;
+        
+        public AudioClip FireSound()           => fireSound;
+        public AudioClip MissSound()           => missShoot;
+        public AudioClip WoodHit()           => woodHit;
+        
 
         #endregion
 
@@ -276,7 +286,7 @@ namespace Script.Manager
                     PlayMusicOneShot(PerfectShootSound());
                     break;
                 case ShotDone.Miss:
-                    PlayMusicOneShot(BadShootSound());
+                    PlayMusicOneShot(MissSound());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shotState), shotState, null);

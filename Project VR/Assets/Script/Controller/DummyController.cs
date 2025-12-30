@@ -1,5 +1,6 @@
 using System;
 using Script.Interface;
+using Script.Manager;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +13,8 @@ public class DummyController : MonoBehaviour, IDamagable
 
     [SerializeField] private Animator dummyAnimator;
     public bool CanTakeDamage { get; set; } = true;
+
+    [SerializeField] private AudioSource audioSourceDummy;
 
     #endregion
 
@@ -33,9 +36,14 @@ public class DummyController : MonoBehaviour, IDamagable
     public void Reset()
     {
         CanTakeDamage = true;
-        dummyAnimator.Play("Idle");
     }
-    
 
+    private void HitSound()
+    {
+        if (SoundManager.Instance != null)
+        {
+            audioSourceDummy.PlayOneShot(SoundManager.Instance.WoodHit());
+        }
+    }
     #endregion
 }

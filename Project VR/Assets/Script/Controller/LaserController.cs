@@ -36,8 +36,14 @@ namespace Script.Controller
             UpdateLaser();
         }
 
+        private void Start()
+        {
+            OnGameStart();
+        }
+
         #endregion
 
+        /*
         #region Observer
 
         private void OnEnable()
@@ -52,7 +58,7 @@ namespace Script.Controller
             EventManager.OnGameEnd -= OnGameEnd;
         }
 
-        #endregion
+        #endregion*/
 
         #region State Handle
 
@@ -93,7 +99,6 @@ namespace Script.Controller
         }
 
         #endregion
-
-       
+        
     }
 }

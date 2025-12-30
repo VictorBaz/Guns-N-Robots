@@ -50,13 +50,15 @@ namespace Script.Manager
             }
     
             _instance = this;
+        }
 
+        private void Start()
+        {
             if (isTutorial)
             {
-                StartInGame();
+                StartCoroutine(StartInGameIe());
             }
         }
-        
 
         #endregion
 
@@ -87,6 +89,12 @@ namespace Script.Manager
         #endregion
 
         #region MiniGame
+
+        private IEnumerator StartInGameIe()
+        {
+            yield return new WaitForEndOfFrame();
+            StartInGame();
+        }
         
         public void StartInGame()
         {

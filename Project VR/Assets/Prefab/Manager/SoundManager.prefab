@@ -46,9 +46,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Manager.SoundManager
   audioSource: {fileID: 3736527279738071526}
+  musicAudioSource: {fileID: 0}
   masterVolume: 1
   emptyLoad: {fileID: 8300000, guid: 8f9d2815fe690b543ad39bc7c038ede1, type: 3}
   fullLoad: {fileID: 8300000, guid: dfd62b314d7feda4e91279d5a1866d93, type: 3}
+  gameMusic: {fileID: 8300000, guid: e150f5500e4ba9a4c9b11afc269f8c6d, type: 3}
+  musicBPM: 90
+  badShoot: {fileID: 8300000, guid: 5e7b538ecf386964cb8aebf05dcac2c0, type: 3}
+  goodShoot: {fileID: 8300000, guid: e3978030688f7404e942f8912ce1d52c, type: 3}
+  perfectShoot: {fileID: 8300000, guid: a22c8b3b96d932a44be96f4176094bc4, type: 3}
+  missShoot: {fileID: 8300000, guid: b410d120ad7d87b4c91cbc272a430df2, type: 3}
+  reload: {fileID: 8300000, guid: 32f76faf9edba6a4ebefacd9d2f82898, type: 3}
+  robotWalk1: {fileID: 8300000, guid: 41b03c7ff96eb0f418ea7316be47cffb, type: 3}
+  robotWalk2: {fileID: 8300000, guid: ae33173768025774b93bf7f9635cff0b, type: 3}
+  robotAttackRange: {fileID: 8300000, guid: 1503378a7f1203b4bba5c4b2a67309ea, type: 3}
+  robotAttackMelee: {fileID: 8300000, guid: 360cae531a4985f428a1cdd93f4e6c5b, type: 3}
+  robotAttackMeleeCharge: {fileID: 8300000, guid: 60120110baa58e04f980beaffed8795b, type: 3}
+  robotDeath: {fileID: 0}
+  woodHit: {fileID: 8300000, guid: 83ef399c52f0c0a4da05c771256034b3, type: 3}
+  doorSound: {fileID: 8300000, guid: 3fd5fa29cbd77e245a84199c5e98845e, type: 3}
+  roundSound: {fileID: 0}
+  fireSound: {fileID: 8300000, guid: c99ea8959fc4c7f439d53feac4f37353, type: 3}
+  _audioMixerGroupMainMusic: {fileID: 8210589041482500567, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
 --- !u!82 &3736527279738071526
 AudioSource:
   m_ObjectHideFlags: 0
@@ -58,7 +77,7 @@ AudioSource:
   m_GameObject: {fileID: 9002346417276297212}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2179735544574370912, guid: 7bd1fb021fb42484088f16dcfc3bd978, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
