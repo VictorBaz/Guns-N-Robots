@@ -101,7 +101,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4622262358054124224, guid: 38cf5a4bb62de4e44b8f7c52f9e7684c, type: 3}
+  - {fileID: 2100000, guid: 33c7426709b55c84e8dbfb69b170fc30, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DummyController
   dummyAnimator: {fileID: 8328532758461777762}
+  audioSourceDummy: {fileID: 0}
 --- !u!65 &4387265494262765777
 BoxCollider:
   m_ObjectHideFlags: 0

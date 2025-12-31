@@ -28,6 +28,7 @@ namespace Script.Manager
         [Header("Scene Names")]
         [SerializeField] private string menuSceneName = "Menu";
         [SerializeField] private string gameSceneName = "Game";
+        [SerializeField] private string trainingSceneName = "TrainingRoom";
         
         public static event Action<GameState> OnGameStateChanged;
         
@@ -86,7 +87,6 @@ namespace Script.Manager
             OnGameStateChanged?.Invoke(newState);
         }
         
-        
         #endregion
 
         #region Loading Scène
@@ -94,6 +94,11 @@ namespace Script.Manager
         public void LoadMenuScene()
         {
             StartCoroutine(LoadSceneAndChangeState(menuSceneName, GameState.Menu));
+        }
+
+        public void LoadTrainingRoomScene()
+        {
+            StartCoroutine(LoadSceneAndChangeState(trainingSceneName, GameState.InGame));
         }
 
         public void LoadGameScene()

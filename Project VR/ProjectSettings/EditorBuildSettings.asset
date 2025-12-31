@@ -5,18 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/PLH MENU.unity
-    guid: 9a0ee8042b2d7554d80370c1bcfe9ff2
-  - enabled: 0
-    path: Assets/Scenes/GYM VICTOR.unity
-    guid: 86595308531fc97408b0ac1ef74a7140
   - enabled: 1
     path: Assets/Scenes/Final Scene/Game.unity
     guid: 1d474406206536646b76137ba2e39f59
+  - enabled: 1
+    path: Assets/Scenes/Final Scene/TrainingRoom.unity
+    guid: 5bc6512e0f7967743a48188878b34ce8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bc62fe8925468ec4d98b368008841e7d, type: 2}
