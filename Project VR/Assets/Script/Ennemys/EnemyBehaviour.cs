@@ -179,7 +179,6 @@ namespace Script.Ennemys
             if (!isDead && isAttacking)
             {
                 EventManager.GameEnd();
-                Debug.Log("Player killed by enemy!");
             }
         }
 

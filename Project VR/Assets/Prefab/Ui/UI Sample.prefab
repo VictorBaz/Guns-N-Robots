@@ -246,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Script.UI.UiMain
   startGamePanel: {fileID: 4466949044768537046}
   parametersPanel: {fileID: 464170462678937853}
+  trainingRoomPanel: {fileID: 5123710226895190441}
   scorePlayer: {fileID: 3584910157847371529}
 --- !u!114 &3711387180875375168
 MonoBehaviour:
@@ -1344,11 +1345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 150
+      value: 165.38666
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180
+      value: -216.8
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1870,11 +1871,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1128.88
+      value: 1205.8132
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -180
+      value: -216.8
       objectReference: {fileID: 0}
     - target: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2187,5 +2188,10 @@ PrefabInstance:
 --- !u!224 &5123710226895190417 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3667051746007278424, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
+  m_PrefabInstance: {fileID: 8500807545200499401}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5123710226895190441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3667051746007278432, guid: 7bbb1960bab3e75459304488d8d1ffba, type: 3}
   m_PrefabInstance: {fileID: 8500807545200499401}
   m_PrefabAsset: {fileID: 0}

@@ -15,6 +15,7 @@ public class DummyController : MonoBehaviour, IDamagable
     public bool CanTakeDamage { get; set; } = true;
 
     [SerializeField] private AudioSource audioSourceDummy;
+    
 
     #endregion
 
@@ -22,6 +23,7 @@ public class DummyController : MonoBehaviour, IDamagable
     {
         if (!CanTakeDamage) return;
         Die();
+        HitSound();
     }
 
     
