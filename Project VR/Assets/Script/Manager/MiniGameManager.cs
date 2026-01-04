@@ -98,15 +98,15 @@ namespace Script.Manager
         
         public void StartInGame()
         {
-            if (GameManager.Instance.CurrentState == GameState.InGame || GameManager.Instance.CurrentState == GameState.GameFinished) 
+            if (GameManager.Instance.CurrentState == GameState.Menu || GameManager.Instance.CurrentState == GameState.GameFinished) 
             {
-                GameManager.Instance.ChangeGameState(GameState.MiniGameRunning);
+                GameManager.Instance.ChangeGameState(GameState.Game);
                 EventManager.StartGame();
             }
         }
         public bool IsGameRunning()
         {
-            return GameManager.Instance.CurrentState == GameState.MiniGameRunning;
+            return GameManager.Instance.CurrentState == GameState.Game;
         }
 
         public bool CanSpawn()

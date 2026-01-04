@@ -40,6 +40,8 @@ namespace Script.Utility
         
         public static void SetupPool<T>(T pooledItemPrefab, int poolSize, string dictionaryEntry) where T : Component
         {
+            ResetPool();
+            
             PoolDictionary.Add(dictionaryEntry,new Queue<Component>());
             PoolLookUp.Add(dictionaryEntry,pooledItemPrefab);
             
@@ -49,6 +51,12 @@ namespace Script.Utility
                 pooledInstance.gameObject.SetActive(false);
                 PoolDictionary[dictionaryEntry].Enqueue((T)pooledInstance);
             }
+        }
+
+        private static void ResetPool()
+        {
+            PoolDictionary.Clear();
+            PoolLookUp.Clear();
         }
     }
 }

@@ -48,6 +48,7 @@ namespace Script.Manager
                 return;
             }
             _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
@@ -68,7 +69,7 @@ namespace Script.Manager
             if (currentSceneName == menuSceneName)
                 ChangeGameState(GameState.Menu);
             else if (currentSceneName == gameSceneName)
-                ChangeGameState(GameState.InGame);
+                ChangeGameState(GameState.Menu);
         }
 
         #endregion
@@ -91,20 +92,17 @@ namespace Script.Manager
 
         #region Loading Scène
 
-        public void LoadMenuScene()
-        {
-            StartCoroutine(LoadSceneAndChangeState(menuSceneName, GameState.Menu));
-        }
+        
 
         public void LoadTrainingRoomScene()
         {
-            StartCoroutine(LoadSceneAndChangeState(trainingSceneName, GameState.InGame));
+            StartCoroutine(LoadSceneAndChangeState(trainingSceneName, GameState.Tuto));
         }
 
         public void LoadGameScene()
         {
             Time.timeScale = 1;
-            StartCoroutine(LoadSceneAndChangeState(gameSceneName, GameState.InGame));
+            StartCoroutine(LoadSceneAndChangeState(gameSceneName, GameState.Menu));
         }
 
         private IEnumerator LoadSceneAndChangeState(string sceneName, GameState newState)
@@ -139,12 +137,12 @@ namespace Script.Manager
 
         private void RoundStart()
         {
-            currentState = GameState.MiniGameRunning;
+            currentState = GameState.Game;
         }
         
         private void PauseInGame()
         {
-            currentState = GameState.MiniGamePaused;
+            currentState = GameState.GamePause;
         }
 
         private void OnEndGame()

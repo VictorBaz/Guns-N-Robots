@@ -103,7 +103,7 @@ namespace Script.Ennemys
 
         private bool CanSpawnEnemy()
         {
-            return GameManager.Instance.CurrentState == GameState.MiniGameRunning 
+            return GameManager.Instance.CurrentState == GameState.Game 
                    && MiniGameManager.Instance.CanSpawn()
                    && availableDoor.Count > 0;
         }
@@ -206,6 +206,7 @@ namespace Script.Ennemys
 
         private void SetupPoolEnemy()
         {
+            
             enemyPoolKey = enemyPrefab is EnemyRange ? "EnemyRange" : "EnemyMelee";
             ObjectPooler.SetupPool(enemyPrefab, numberElementToPool, enemyPoolKey);
         }

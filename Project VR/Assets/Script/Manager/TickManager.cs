@@ -72,8 +72,9 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (GameManager.Instance.CurrentState == GameState.MiniGamePaused 
-                || GameManager.Instance.CurrentState == GameState.MiniGameRunning)
+            if (GameManager.Instance.CurrentState == GameState.GamePause 
+                || GameManager.Instance.CurrentState == GameState.Game ||
+                GameManager.Instance.CurrentState == GameState.Tuto)
             {
                 timer += Time.deltaTime;
     
