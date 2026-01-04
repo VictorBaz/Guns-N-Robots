@@ -49,8 +49,6 @@ namespace Script.Manager
         [SerializeField] private AudioClip fireSound;
         
         
-        
-
         [Header("Audio Mixer Group")]
         [SerializeField] private AudioMixerGroup _audioMixerGroupMainMusic;
 

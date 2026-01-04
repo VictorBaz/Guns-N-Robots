@@ -98,11 +98,13 @@ namespace Script.Manager
         
         public void StartInGame()
         {
-            if (GameManager.Instance.CurrentState == GameState.Menu || GameManager.Instance.CurrentState == GameState.GameFinished) 
-            {
-                GameManager.Instance.ChangeGameState(GameState.Game);
-                EventManager.StartGame();
-            }
+            if (GameManager.Instance.CurrentState != GameState.Menu &&
+                GameManager.Instance.CurrentState != GameState.GameFinished
+                && GameManager.Instance.CurrentState != GameState.Tuto) return;
+            
+            if (!isTutorial)    GameManager.Instance.ChangeGameState(GameState.Game);
+
+            EventManager.StartGame();
         }
         public bool IsGameRunning()
         {

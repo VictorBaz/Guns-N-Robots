@@ -12,7 +12,7 @@ public class ShootingInteractUnityEvent : MonoBehaviour,IDamagable
         eventToDo?.Invoke();
     }
 
-    public void BackToMenu() => GameManager.Instance?.LoadGameScene();
+    
 
     public bool CanTakeDamage { get; set; } = true;
 }

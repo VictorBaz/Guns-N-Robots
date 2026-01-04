@@ -72,17 +72,17 @@ namespace Script.Manager
 
         private void UpdateTickByTime()
         {
-            if (GameManager.Instance.CurrentState == GameState.GamePause 
-                || GameManager.Instance.CurrentState == GameState.Game ||
-                GameManager.Instance.CurrentState == GameState.Tuto)
+            if (GameManager.Instance == null) return;
+            
+            if (GameManager.Instance.CurrentState == GameState.Menu || 
+                GameManager.Instance.CurrentState == GameState.GameFinished) return;
+
+            timer += Time.deltaTime;
+
+            if (timer >= timeBetweenTick)
             {
-                timer += Time.deltaTime;
-    
-                if (timer >= timeBetweenTick)
-                {
-                    timer -= timeBetweenTick;
-                    OnTick?.Invoke();
-                }
+                timer -= timeBetweenTick;
+                OnTick?.Invoke();
             }
         }
         

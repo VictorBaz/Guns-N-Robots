@@ -1,4 +1,5 @@
 using System;
+using Script.Manager;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,12 @@ namespace Script.Interact
         private void Start()
         {
             textField.text = text;
+        }
+
+        public void BackToMenu()
+        {
+            GameManager.Instance?.LoadGameScene();
+            gameObject.SetActive(false);
         }
     }
 }

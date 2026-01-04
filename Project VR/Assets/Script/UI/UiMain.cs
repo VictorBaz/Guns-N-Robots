@@ -15,6 +15,7 @@ namespace Script.UI
         [SerializeField] private GameObject parametersPanel;
         [SerializeField] private GameObject trainingRoomPanel;
         [SerializeField] private Text scorePlayer;
+        [SerializeField] private Button trainButton;
 
         #endregion
 
@@ -39,6 +40,11 @@ namespace Script.UI
         private void Awake()
         {
             scorePlayer.text = "";
+        }
+
+        private void Start()
+        {
+            trainButton.onClick.AddListener(GameManager.Instance.LoadTrainingRoomScene);
         }
 
         #endregion

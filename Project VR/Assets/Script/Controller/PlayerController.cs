@@ -125,7 +125,8 @@ namespace Script.Controller
         {
             var triggerVal = mTriggerInput.ReadValue();
             return triggerVal > 0 &&
-                   GameManager.Instance.CurrentState == GameState.Game &&
+                   (GameManager.Instance.CurrentState == GameState.Game ||
+                    GameManager.Instance.CurrentState == GameState.Tuto) &&
                    !hasShot &&
                    canShoot;
         }

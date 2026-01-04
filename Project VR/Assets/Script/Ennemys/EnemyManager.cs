@@ -50,6 +50,11 @@ namespace Script.Ennemys
 
         #region Unity Methods
 
+        private void Awake()
+        {
+            ObjectPooler.ResetPool();
+        }
+
         private void Start()
         {
             InitializeAvailableDoors();
