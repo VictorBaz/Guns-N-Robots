@@ -86,7 +86,11 @@ namespace Script.UI
 
         private void PlayParticle(ParticleSystem particle)
         {
-            foreach (var ps in allEffect) ps.Stop();
+            foreach (var ps in allEffect)
+            {
+                ps.Clear();
+                ps.Stop();
+            }
             
             if (particle != null) particle.Play();
         }
