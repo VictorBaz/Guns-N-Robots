@@ -14,7 +14,7 @@ namespace Script.Interact
 
         [SerializeField] private Animator _animator;
 
-        [SerializeField] private AnimationClip anim;
+        [SerializeField] private int anim;
 
         #endregion
 
@@ -31,13 +31,20 @@ namespace Script.Interact
 
         private void SetAnimator()
         {
-            _animator.speed = anim.length / TickManager.TimeBetweenTick;
+            _animator.speed = 1/TickManager.TimeBetweenTick;
         }
 
         private void ResetAndStartAnimation()
         {
-            _animator.Play(0, 0, 0f);
             SetAnimator();
+            _animator.Play(0, 0, 0f);
+            
+        }
+
+        private void SetAnimToZero()
+        {
+            _animator.speed = 0;
+            _animator.Play(0, 0, 0f);
         }
 
         #endregion
@@ -48,12 +55,14 @@ namespace Script.Interact
         {
             TickManager.OnTickChange += SetAnimator;
             EventManager.OnGameStart += ResetAndStartAnimation;
+            EventManager.OnGameEnd += SetAnimToZero;
         }
 
         private void OnDisable()
         {
             TickManager.OnTickChange -= SetAnimator;
             EventManager.OnGameStart -= ResetAndStartAnimation;
+            EventManager.OnGameEnd -= SetAnimToZero;
         }
 
         #endregion

@@ -44,6 +44,12 @@ namespace Script.Controller
         
         IEnumerator BulletShellEffectIE(float time)
         {
+            foreach (var shell in bulletShell)
+            {
+                shell.Clear();
+                shell.Stop();
+            }
+            
             float _time = time / 6;
             
             foreach (var shell in bulletShell)
@@ -51,9 +57,13 @@ namespace Script.Controller
                 shell.Play();
                 yield return new WaitForSeconds(_time);
             }
-        } 
+        }
 
-        private void TriggerParticleSystem(ParticleSystem _particleSystem) => _particleSystem.Play();
+        private void TriggerParticleSystem(ParticleSystem _particleSystem)
+        {
+            _particleSystem.Clear();
+            _particleSystem.Play();
+        }
 
         #endregion
 
