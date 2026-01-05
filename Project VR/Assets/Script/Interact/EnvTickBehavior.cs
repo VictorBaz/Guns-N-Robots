@@ -7,12 +7,14 @@ namespace Script.Interact
     public class EnvTickBehavior : MonoBehaviour
     {
         /// <summary>
-        /// ATTENTION FAUT QUE L'ANIM DE BASE EST UNE LONGEUR DE 1s
+        /// ATTENTION IL FAUT QUE L'ANIM DE BASE EST UNE LONGEUR DE 1s
         /// </summary>
         
         #region Fields
 
         [SerializeField] private Animator _animator;
+
+        [SerializeField] private AnimationClip anim;
 
         #endregion
 
@@ -29,7 +31,7 @@ namespace Script.Interact
 
         private void SetAnimator()
         {
-            _animator.speed = 1f / TickManager.TimeBetweenTick;
+            _animator.speed = anim.length / TickManager.TimeBetweenTick;
         }
 
         private void ResetAndStartAnimation()
