@@ -2588,7 +2588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dd846c04f1e51ea4491c5baa1d2cd1b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bb71358da920e684ca561fcfafc7a023, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4592,7 +4592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0f4f6a30de2f68544870f731764e6b5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bda03f17281cc446b992ca5aadcab55, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7344,6 +7344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Script.Interact.EnvTickBehavior
   _animator: {fileID: 1826441856}
+  anim: 0
 --- !u!1 &1827010962
 GameObject:
   m_ObjectHideFlags: 0
