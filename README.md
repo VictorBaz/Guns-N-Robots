@@ -1,4 +1,4 @@
-<h1 align="center">GUNS AND ROBOTS</h1>
+<h1 align="center">GUNS N' ROBOTS</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/PLATFORME-VR-blue?style=flat-square">
