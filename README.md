@@ -10,7 +10,7 @@
 ---
 
 ## CONCEPT
-**Guns N's Robots** est une expérience de tir rythmique en réalité virtuelle. Équipé d'un revolver six coups, le joueur doit éliminer des vagues de cow-boys robotiques au sein d'un système où chaque élément est asservi au tempo de la musique.
+**Guns N' Robots** est une expérience de tir rythmique en réalité virtuelle. Équipé d'un revolver six coups, le joueur doit éliminer des vagues de cow-boys robotiques au sein d'un système où chaque élément est asservi au tempo de la musique.
 
 ---
 
