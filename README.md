@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/badge/PLATFORME-VR-blue?style=flat-square">
   <img src="https://img.shields.io/badge/MOTEUR-UNITY-white?style=flat-square">
   <img src="https://img.shields.io/badge/GENRE-RYTHME-red?style=flat-square">
+  <img src="https://img.shields.io/badge/2nd Year-green?style=flat-square">
 </p>
 
 ---
